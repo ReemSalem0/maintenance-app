@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,40 +19,39 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Maintenance App',
-      home: const SignUpScreen(),
+      home: const TestScreen(),
     );
   }
 }
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class TestScreen extends StatefulWidget {
+  const TestScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<TestScreen> createState() => _TestScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String _statusMessage = '';
+class _TestScreenState extends State<TestScreen> {
+  String _statusMessage = 'No data written yet.';
 
-  Future<void> _signUp() async {
+  Future<void> _writeTestDocument() async {
     setState(() {
-      _statusMessage = 'Creating account...';
+      _statusMessage = 'Writing...';
     });
 
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+      await FirebaseFirestore.instance.collection('test_rides').add({
+        'name': 'Test Roller Coaster',
+        'status': 'Operational',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
 
       setState(() {
-        _statusMessage = 'Success! User created with UID: ${credential.user?.uid}';
+        _statusMessage = 'Write succeeded! Check the stream below.';
       });
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       setState(() {
-        _statusMessage = 'Error: ${e.message}';
+        _statusMessage = 'Error writing: $e';
       });
     }
   }
@@ -59,29 +59,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Sign Up')),
+      appBar: AppBar(title: const Text('Firestore Test')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+            ElevatedButton(
+              onPressed: _writeTestDocument,
+              child: const Text('Write Test Ride to Firestore'),
             ),
             const SizedBox(height: 12),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _signUp,
-              child: const Text('Sign Up'),
-            ),
-            const SizedBox(height: 20),
             Text(_statusMessage),
+            const Divider(height: 32),
+            const Text(
+              'Live data from Firestore:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('test_rides')
+                    .orderBy('createdAt', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+                  if (!snapshot.hasData) {
+                    return const CircularProgressIndicator();
+                  }
+                  final docs = snapshot.data!.docs;
+                  if (docs.isEmpty) {
+                    return const Text('No rides yet.');
+                  }
+                  return ListView.builder(
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      final data = docs[index].data() as Map<String, dynamic>;
+                      return ListTile(
+                        title: Text(data['name'] ?? 'Unnamed'),
+                        subtitle: Text(data['status'] ?? 'Unknown'),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
