@@ -16,7 +16,7 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<void> createCrewMemberAccount(String email, String password) async {
+  Future<String> createCrewMemberAccount(String email, String password) async {
     //step 1: create a temporary secondery Firebase app
     FirebaseApp tempApp = await Firebase.initializeApp(
       name: 'tempApp',
@@ -27,12 +27,16 @@ class AuthService {
     FirebaseAuth tempAuth = FirebaseAuth.instanceFor(app: tempApp);
 
     //step 3: create the new user using the temporary auth instance
-    await tempAuth.createUserWithEmailAndPassword(
+    final userCredential = await tempAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
 
+    final String uniqueID = userCredential.user!.uid;
+
     //step 4: clean up: delete the temporary app now that we're done with it
     await tempApp.delete();
+
+    return uniqueID;
   }
 }
