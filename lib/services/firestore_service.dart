@@ -1,6 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_app/services/auth_service.dart';
-import '../models/crew_member.dart';
+import 'package:maintenance_app/models/crew_member.dart';
+import 'dart:math';
+
+String _generateTemporaryPassword() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  final random = Random();
+  return List.generate(12, (index) => chars[random.nextInt(chars.length)]).join();
+}
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -13,11 +20,10 @@ class FirestoreService {
     AuthService auth,
     String name,
     String email,
-    String password,
     CrewRole role,
   ) async {
     // step 1: create the Auth account, get back the uid
-    final String uid = await auth.createCrewMemberAccount(email, password);
+    final String uid = await auth.createCrewMemberAccount(email, _generateTemporaryPassword());
 
     // step 2: build a CrewMember object 
     final CrewMember newCrewMember = CrewMember(uid: uid, name: name, email: email, role: role, accountActivated: false);
