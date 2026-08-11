@@ -31,4 +31,12 @@ class FirestoreService {
     // step 3: save it using saveCrewMember
     await saveCrewMember(newCrewMember);
   }
+
+  Future<CrewMember?> getCrewMember(String uid) async {
+    final doc = await _db.collection('crewMembers').doc(uid).get();
+    if (!doc.exists) {
+      return null;
+    }
+    return CrewMember.fromMap(doc.data()!);
+  }
 }
