@@ -39,4 +39,8 @@ class AuthService {
 
     return uniqueID;
   }
+
+  Future<void> sendPasswordSetupEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
 }

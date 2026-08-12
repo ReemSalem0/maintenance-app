@@ -84,6 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
+      if (!crewMember.accountActivated) {
+        firestoreService.markAccountActivated(crewMember.uid);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Welcome, you are now activated!')),
+        );
+      }
+
       if (crewMember.role == CrewRole.administrator) {
         Navigator.pushReplacement(
           context,
