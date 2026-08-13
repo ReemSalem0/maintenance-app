@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/add_crew_member_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcome Back!')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.welcomeBack)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.email),
                 validator: (value) {
                   if (value == null ||
                       !value.trim().contains('@') ||
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.password),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -50,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              ElevatedButton(onPressed: _login, child: const Text('Log in')),
+              ElevatedButton(onPressed: _login, child: Text(AppLocalizations.of(context)!.login)),
             ],
           ),
         ),

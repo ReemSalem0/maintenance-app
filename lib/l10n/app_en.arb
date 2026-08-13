@@ -1,0 +1,10 @@
+{
+    "@@locale": "en", 
+    "welcomeBack": "Welcome Back!",
+    "email": "Email",
+    "password": "Password",
+    "login": "Log in",
+    "addCrewMember": "Add Crew Member",
+    "name": "Name",
+    "selectRole": "Select Role"
+}
