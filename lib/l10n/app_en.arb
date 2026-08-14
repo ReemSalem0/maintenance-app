@@ -6,5 +6,17 @@
     "login": "Log in",
     "addCrewMember": "Add Crew Member",
     "name": "Name",
-    "selectRole": "Select Role"
+    "selectRole": "Select Role",
+    "emailValidationError": "Please enter a valid email address",
+    "passwordValidationError": "Please enter your password",
+    "nameValidationError": "Please enter a name",
+    "roleValidationError": "Please select a role",
+    "crewMemberNotFound": "Crew Member not found",
+    "welcomeActive": "Welcome, you are now activated",
+    "loginSuccessful": "Login successful!",
+    "crewMemberAddedSuccessfully": "Crew Member added successfully!",
+    "roleAdministrator": "Administrator",
+    "roleManager": "Manager",
+    "roleTechnician": "Technician",
+    "roleInspector": "Inspector"
 }

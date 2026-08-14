@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null ||
                       !value.trim().contains('@') ||
                       value.trim().isEmpty) {
-                    return 'Please enter a valid email address';
+                    return AppLocalizations.of(context)!.emailValidationError;
                   }
                   return null;
                 },
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter your password';
+                    return AppLocalizations.of(context)!.passwordValidationError;
                   }
                   return null;
                 },
@@ -81,14 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
       if (crewMember == null) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Crew Member not found')));
+        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.crewMemberNotFound)));
         return;
       }
 
       if (!crewMember.accountActivated) {
         firestoreService.markAccountActivated(crewMember.uid);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Welcome, you are now activated!')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.welcomeActive)),
         );
       }
 
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('login successful!')));
+        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.loginSuccessful)));
       }
     } catch (e) {
       if (!mounted) return;

@@ -135,6 +135,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Role'**
   String get selectRole;
+
+  /// No description provided for @emailValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get emailValidationError;
+
+  /// No description provided for @passwordValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get passwordValidationError;
+
+  /// No description provided for @nameValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a name'**
+  String get nameValidationError;
+
+  /// No description provided for @roleValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a role'**
+  String get roleValidationError;
+
+  /// No description provided for @crewMemberNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew Member not found'**
+  String get crewMemberNotFound;
+
+  /// No description provided for @welcomeActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, you are now activated'**
+  String get welcomeActive;
+
+  /// No description provided for @loginSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successful!'**
+  String get loginSuccessful;
+
+  /// No description provided for @crewMemberAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew Member added successfully!'**
+  String get crewMemberAddedSuccessfully;
+
+  /// No description provided for @roleAdministrator.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get roleAdministrator;
+
+  /// No description provided for @roleManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager'**
+  String get roleManager;
+
+  /// No description provided for @roleTechnician.
+  ///
+  /// In en, this message translates to:
+  /// **'Technician'**
+  String get roleTechnician;
+
+  /// No description provided for @roleInspector.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspector'**
+  String get roleInspector;
 }
 
 class _AppLocalizationsDelegate

@@ -28,4 +28,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectRole => 'Select Role';
+
+  @override
+  String get emailValidationError => 'Please enter a valid email address';
+
+  @override
+  String get passwordValidationError => 'Please enter your password';
+
+  @override
+  String get nameValidationError => 'Please enter a name';
+
+  @override
+  String get roleValidationError => 'Please select a role';
+
+  @override
+  String get crewMemberNotFound => 'Crew Member not found';
+
+  @override
+  String get welcomeActive => 'Welcome, you are now activated';
+
+  @override
+  String get loginSuccessful => 'Login successful!';
+
+  @override
+  String get crewMemberAddedSuccessfully => 'Crew Member added successfully!';
+
+  @override
+  String get roleAdministrator => 'Administrator';
+
+  @override
+  String get roleManager => 'Manager';
+
+  @override
+  String get roleTechnician => 'Technician';
+
+  @override
+  String get roleInspector => 'Inspector';
 }
