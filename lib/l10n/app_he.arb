@@ -1,0 +1,22 @@
+{
+    "@@locale": "he", 
+    "welcomeBack": "ברוך שובך!",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "login": "התחבר",
+    "addCrewMember": "הוסף איש צוות",
+    "name": "שם",
+    "selectRole": "בחר תפקיד",
+    "emailValidationError": "אנא הזן כתובת אימייל תקינה",
+    "passwordValidationError": "אנא הזן סיסמה",
+    "nameValidationError": "אנא הזן שם",
+    "roleValidationError": "אנא בחר תפקיד",
+    "crewMemberNotFound": "איש צוות לא נמצא",
+    "welcomeActive": "ברוך הבא, החשבון שלך פעיל",
+    "loginSuccessful": "ההתחברות בוצעה בהצלחה",
+    "crewMemberAddedSuccessfully": "איש הצוות נוסף בהצלחה",
+    "roleAdministrator": "מנהל מערכת",
+    "roleManager": "מנהל",
+    "roleTechnician": "טכנאי",
+    "roleInspector": "מפקח"
+}
