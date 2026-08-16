@@ -64,4 +64,40 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get roleInspector => 'מפקח';
+
+  @override
+  String get addRide => 'הוסף מתקן';
+
+  @override
+  String get description => 'תאור';
+
+  @override
+  String get descriptionValidationError => 'אנא הזן תאור';
+
+  @override
+  String get location => 'מיקום';
+
+  @override
+  String get notes => 'הערות';
+
+  @override
+  String get selectStatus => 'בחר מצב';
+
+  @override
+  String get statusValidationError => 'אנא בחר מצב';
+
+  @override
+  String get statusOperational => 'פעיל';
+
+  @override
+  String get statusUnderMaintenance => 'בטיפול ותחזוקה';
+
+  @override
+  String get statusOutOfService => 'מקולקל';
+
+  @override
+  String get rideAddedSuccessfully => 'מתקן נוסף בהצלחה';
+
+  @override
+  String get manageRides => 'ניהול מתקנים';
 }

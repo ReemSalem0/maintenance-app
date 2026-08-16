@@ -64,4 +64,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get roleInspector => 'Inspector';
+
+  @override
+  String get addRide => 'Add Ride';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get descriptionValidationError => 'Please write a description';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get selectStatus => 'Select Status';
+
+  @override
+  String get statusValidationError => 'Please select status';
+
+  @override
+  String get statusOperational => 'Operational';
+
+  @override
+  String get statusUnderMaintenance => 'Under Maintenance';
+
+  @override
+  String get statusOutOfService => 'Out of Service';
+
+  @override
+  String get rideAddedSuccessfully => 'Ride added successsfully';
+
+  @override
+  String get manageRides => 'Manage Rides';
 }

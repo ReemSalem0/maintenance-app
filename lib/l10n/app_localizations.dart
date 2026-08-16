@@ -211,6 +211,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Inspector'**
   String get roleInspector;
+
+  /// No description provided for @addRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Ride'**
+  String get addRide;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @descriptionValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please write a description'**
+  String get descriptionValidationError;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @selectStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Status'**
+  String get selectStatus;
+
+  /// No description provided for @statusValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select status'**
+  String get statusValidationError;
+
+  /// No description provided for @statusOperational.
+  ///
+  /// In en, this message translates to:
+  /// **'Operational'**
+  String get statusOperational;
+
+  /// No description provided for @statusUnderMaintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Maintenance'**
+  String get statusUnderMaintenance;
+
+  /// No description provided for @statusOutOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of Service'**
+  String get statusOutOfService;
+
+  /// No description provided for @rideAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Ride added successsfully'**
+  String get rideAddedSuccessfully;
+
+  /// No description provided for @manageRides.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Rides'**
+  String get manageRides;
 }
 
 class _AppLocalizationsDelegate

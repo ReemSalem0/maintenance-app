@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/screens/add_ride_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
@@ -81,6 +82,17 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
               ElevatedButton(
                 onPressed: _submit,
                 child: Text(AppLocalizations.of(context)!.addCrewMember),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddRideScreen(),
+                    ),
+                  );
+                },
+                child: Text(AppLocalizations.of(context)!.manageRides),
               ),
             ],
           ),

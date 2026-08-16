@@ -18,5 +18,17 @@
     "roleAdministrator": "מנהל מערכת",
     "roleManager": "מנהל",
     "roleTechnician": "טכנאי",
-    "roleInspector": "מפקח"
+    "roleInspector": "מפקח",
+    "addRide": "הוסף מתקן",
+    "description": "תאור",
+    "descriptionValidationError": "אנא הזן תאור",
+    "location": "מיקום",
+    "notes": "הערות",
+    "selectStatus": "בחר מצב",
+    "statusValidationError": "אנא בחר מצב",
+    "statusOperational": "פעיל",
+    "statusUnderMaintenance": "בטיפול ותחזוקה",
+    "statusOutOfService": "מקולקל",
+    "rideAddedSuccessfully": "מתקן נוסף בהצלחה",
+    "manageRides": "ניהול מתקנים"
 }

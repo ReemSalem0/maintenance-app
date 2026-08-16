@@ -18,5 +18,17 @@
     "roleAdministrator": "Administrator",
     "roleManager": "Manager",
     "roleTechnician": "Technician",
-    "roleInspector": "Inspector"
+    "roleInspector": "Inspector",
+    "addRide": "Add Ride",
+    "description": "Description",
+    "descriptionValidationError": "Please write a description",
+    "location": "Location",
+    "notes": "Notes",
+    "selectStatus": "Select Status",
+    "statusValidationError": "Please select status",
+    "statusOperational": "Operational",
+    "statusUnderMaintenance": "Under Maintenance",
+    "statusOutOfService": "Out of Service",
+    "rideAddedSuccessfully": "Ride added successsfully",
+    "manageRides": "Manage Rides"
 }
