@@ -100,4 +100,22 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get manageRides => 'ניהול מתקנים';
+
+  @override
+  String get dashboard => 'לוח בקרה ראשי';
+
+  @override
+  String get rideList => 'רשימת מתקנים';
+
+  @override
+  String get error => 'שגיאה';
+
+  @override
+  String get noRides => '.אין מתקנים';
+
+  @override
+  String get crewList => 'רשימת אנשי הצוות';
+
+  @override
+  String get noCrew => 'אין אנשי צוות.';
 }

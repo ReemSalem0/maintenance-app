@@ -66,4 +66,10 @@ class FirestoreService {
     }
     return CrewMember.fromMap(doc.data()!);
   }
+
+  Stream<List<CrewMember>> getAllCrewMembersStream() {
+    return _db.collection('crewMembers').snapshots().map((snapshot){
+      return snapshot.docs.map((doc) => CrewMember.fromMap(doc.data())).toList();
+    });
+  }
 }

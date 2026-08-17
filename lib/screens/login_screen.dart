@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
-import 'package:maintenance_app/screens/add_crew_member_screen.dart';
+import 'package:maintenance_app/screens/dashboard_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
@@ -30,7 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.email),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.email,
+                ),
                 validator: (value) {
                   if (value == null ||
                       !value.trim().contains('@') ||
@@ -42,16 +44,23 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.password),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.password,
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(context)!.passwordValidationError;
+                    return AppLocalizations.of(
+                      context,
+                    )!.passwordValidationError;
                   }
                   return null;
                 },
               ),
-              ElevatedButton(onPressed: _login, child: Text(AppLocalizations.of(context)!.login)),
+              ElevatedButton(
+                onPressed: _login,
+                child: Text(AppLocalizations.of(context)!.login),
+              ),
             ],
           ),
         ),
@@ -79,9 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (crewMember == null) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.crewMemberNotFound)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.crewMemberNotFound),
+          ),
+        );
         return;
       }
 
@@ -95,12 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
       if (crewMember.role == CrewRole.administrator) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const AddCrewMemberScreen()),
+          MaterialPageRoute(builder: (context) => const DashboardScreen()),
         );
       } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.loginSuccessful)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.loginSuccessful),
+          ),
+        );
       }
     } catch (e) {
       if (!mounted) return;

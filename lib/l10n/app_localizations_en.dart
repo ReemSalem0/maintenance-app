@@ -100,4 +100,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manageRides => 'Manage Rides';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get rideList => 'Ride List';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get noRides => 'No rides yet.';
+
+  @override
+  String get crewList => 'Crew Members List';
+
+  @override
+  String get noCrew => 'No crew Members yet.';
 }

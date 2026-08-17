@@ -30,5 +30,11 @@
     "statusUnderMaintenance": "בטיפול ותחזוקה",
     "statusOutOfService": "מקולקל",
     "rideAddedSuccessfully": "מתקן נוסף בהצלחה",
-    "manageRides": "ניהול מתקנים"
+    "manageRides": "ניהול מתקנים",
+    "dashboard": "לוח בקרה ראשי",
+    "rideList": "רשימת מתקנים",
+    "error": "שגיאה",
+    "noRides": ".אין מתקנים",
+    "crewList": "רשימת אנשי הצוות",
+    "noCrew": "אין אנשי צוות."
 }

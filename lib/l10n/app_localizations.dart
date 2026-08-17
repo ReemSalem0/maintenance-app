@@ -283,6 +283,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage Rides'**
   String get manageRides;
+
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// No description provided for @rideList.
+  ///
+  /// In en, this message translates to:
+  /// **'Ride List'**
+  String get rideList;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @noRides.
+  ///
+  /// In en, this message translates to:
+  /// **'No rides yet.'**
+  String get noRides;
+
+  /// No description provided for @crewList.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew Members List'**
+  String get crewList;
+
+  /// No description provided for @noCrew.
+  ///
+  /// In en, this message translates to:
+  /// **'No crew Members yet.'**
+  String get noCrew;
 }
 
 class _AppLocalizationsDelegate

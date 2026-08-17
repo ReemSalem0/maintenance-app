@@ -30,5 +30,11 @@
     "statusUnderMaintenance": "Under Maintenance",
     "statusOutOfService": "Out of Service",
     "rideAddedSuccessfully": "Ride added successsfully",
-    "manageRides": "Manage Rides"
+    "manageRides": "Manage Rides",
+    "dashboard": "Dashboard",
+    "rideList": "Ride List",
+    "error": "Error",
+    "noRides": "No rides yet.",
+    "crewList": "Crew Members List",
+    "noCrew": "No crew Members yet."
 }
