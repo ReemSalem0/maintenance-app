@@ -25,15 +25,15 @@ class RideListScreen extends StatelessWidget {
           }
           final rides = snapshot.data!;
           if (rides.isEmpty) {
-            return Text(AppLocalizations.of(context)!.noRides);
+            return Center(child:Text(AppLocalizations.of(context)!.noRides));
           }
           return ListView.builder(
             itemCount: rides.length,
             itemBuilder: (context, index) {
               final ride = rides[index];
               return ListTile(
-                title: Text(ride.name),
-                subtitle: Text(_statusLabel(context, ride.status)),
+                title: Text('${AppLocalizations.of(context)!.name}: ${ride.name}'),
+                subtitle: Text('${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => RideDetailScreen(ride: ride)),);
                 },

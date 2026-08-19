@@ -355,6 +355,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get typeOther;
+
+  /// No description provided for @addMaintenanceRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Maintenance Record'**
+  String get addMaintenanceRecord;
+
+  /// No description provided for @selectType.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Type of Maintenance'**
+  String get selectType;
+
+  /// No description provided for @typeValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a type of Maintenance'**
+  String get typeValidationError;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @recordAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance recorded successfully'**
+  String get recordAddedSuccessfully;
+
+  /// No description provided for @crewMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew Member'**
+  String get crewMember;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @role.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
 }
 
 class _AppLocalizationsDelegate

@@ -42,5 +42,13 @@
     "typeRepair": "Repair",
     "typeRoutineMaintenance": "Routine Maintenance",
     "typePartReplacement": "Part Replacement",
-    "typeOther": "Other"
+    "typeOther": "Other",
+    "addMaintenanceRecord": "Add Maintenance Record",
+    "selectType": "Select Type of Maintenance",
+    "typeValidationError": "Please select a type of Maintenance",
+    "save": "Save",
+    "recordAddedSuccessfully": "Maintenance recorded successfully",
+    "crewMember": "Crew Member",
+    "status": "Status",
+    "role": "Role"
 }

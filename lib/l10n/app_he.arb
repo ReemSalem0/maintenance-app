@@ -42,5 +42,13 @@
     "typeRepair": "תיקון",
     "typeRoutineMaintenance": "תחזוקה שיגרתית",
     "typePartReplacement": "החלפת חלק",
-    "typeOther": "אחר"
+    "typeOther": "אחר",
+    "addMaintenanceRecord": "הוספת תעוד תחזוקה",
+    "selectType": "בחר סוג תחזוקה",
+    "typeValidationError": "אנא בחר סוג תחזוקה",
+    "save": "שמור",
+    "recordAddedSuccessfully": "תחזוקה תועדה בהצלחה",
+    "crewMember": "איש צוות", 
+    "status": "מצב",
+    "role": "תפקיד"
 }

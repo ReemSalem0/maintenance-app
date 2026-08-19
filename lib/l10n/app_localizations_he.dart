@@ -136,4 +136,28 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get typeOther => 'אחר';
+
+  @override
+  String get addMaintenanceRecord => 'הוספת תעוד תחזוקה';
+
+  @override
+  String get selectType => 'בחר סוג תחזוקה';
+
+  @override
+  String get typeValidationError => 'אנא בחר סוג תחזוקה';
+
+  @override
+  String get save => 'שמור';
+
+  @override
+  String get recordAddedSuccessfully => 'תחזוקה תועדה בהצלחה';
+
+  @override
+  String get crewMember => 'איש צוות';
+
+  @override
+  String get status => 'מצב';
+
+  @override
+  String get role => 'תפקיד';
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
+import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 
 class RideDetailScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class RideDetailScreen extends StatelessWidget {
           }
           final records = snapshot.data!;
           if (records.isEmpty) {
-            return Text(AppLocalizations.of(context)!.noRecords);
+            return Center(child: Text(AppLocalizations.of(context)!.noRecords));
           }
           return ListView.builder(
             itemCount: records.length,
@@ -55,17 +56,27 @@ class RideDetailScreen extends StatelessWidget {
                 ),
                 children: [
                   ListTile(
-                    title: Text(record.crewMemberName),
-                    subtitle: Text(record.crewMemberUid),
+                    title: Text('${AppLocalizations.of(context)!.crewMember}: ${record.crewMemberName}'),
                   ),
-                  ListTile(title: Text(record.description)),
+                  ListTile(title: Text('${AppLocalizations.of(context)!.description}: ${record.description}')),
                   if (record.notes != null && record.notes!.isNotEmpty)
-                    ListTile(title: Text(record.notes!)),
+                    ListTile(title: Text('${AppLocalizations.of(context)!.notes}: ${record.notes}')),
                 ],
               );
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddMaintenanceRecordScreen(ride: ride),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

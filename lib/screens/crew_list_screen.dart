@@ -24,15 +24,15 @@ class CrewListScreen extends StatelessWidget {
           }
           final crewMembers = snapshot.data!;
           if (crewMembers.isEmpty) {
-            return Text(AppLocalizations.of(context)!.noCrew);
+            return Center(child:Text(AppLocalizations.of(context)!.noCrew));
           }
           return ListView.builder(
             itemCount: crewMembers.length,
             itemBuilder: (context, index) {
               final crewMember = crewMembers[index];
               return ListTile(
-                title: Text(crewMember.name),
-                subtitle: Text(_roleLabel(context, crewMember.role)),
+                title: Text('${AppLocalizations.of(context)!.name}: ${crewMember.name}'),
+                subtitle: Text('${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}'),
               );
             },
           );

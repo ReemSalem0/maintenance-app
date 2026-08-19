@@ -136,4 +136,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get typeOther => 'Other';
+
+  @override
+  String get addMaintenanceRecord => 'Add Maintenance Record';
+
+  @override
+  String get selectType => 'Select Type of Maintenance';
+
+  @override
+  String get typeValidationError => 'Please select a type of Maintenance';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get recordAddedSuccessfully => 'Maintenance recorded successfully';
+
+  @override
+  String get crewMember => 'Crew Member';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get role => 'Role';
 }
