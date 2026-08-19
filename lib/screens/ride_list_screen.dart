@@ -3,6 +3,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/add_ride_screen.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
+import 'package:maintenance_app/screens/ride_detail_screen.dart';
 
 class RideListScreen extends StatelessWidget {
   const RideListScreen({super.key});
@@ -33,6 +34,9 @@ class RideListScreen extends StatelessWidget {
               return ListTile(
                 title: Text(ride.name),
                 subtitle: Text(_statusLabel(context, ride.status)),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RideDetailScreen(ride: ride)),);
+                },
               );
             },
           );

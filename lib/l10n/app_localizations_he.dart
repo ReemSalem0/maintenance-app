@@ -118,4 +118,22 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get noCrew => 'אין אנשי צוות.';
+
+  @override
+  String get noRecords => 'אין נתונים';
+
+  @override
+  String get typeInspection => 'בדיקה';
+
+  @override
+  String get typeRepair => 'תיקון';
+
+  @override
+  String get typeRoutineMaintenance => 'תחזוקה שיגרתית';
+
+  @override
+  String get typePartReplacement => 'החלפת חלק';
+
+  @override
+  String get typeOther => 'אחר';
 }

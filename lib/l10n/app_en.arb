@@ -36,5 +36,11 @@
     "error": "Error",
     "noRides": "No rides yet.",
     "crewList": "Crew Members List",
-    "noCrew": "No crew Members yet."
+    "noCrew": "No crew Members yet.",
+    "noRecords": "No data found",
+    "typeInspection": "Inspection",
+    "typeRepair": "Repair",
+    "typeRoutineMaintenance": "Routine Maintenance",
+    "typePartReplacement": "Part Replacement",
+    "typeOther": "Other"
 }

@@ -319,6 +319,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No crew Members yet.'**
   String get noCrew;
+
+  /// No description provided for @noRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found'**
+  String get noRecords;
+
+  /// No description provided for @typeInspection.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection'**
+  String get typeInspection;
+
+  /// No description provided for @typeRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair'**
+  String get typeRepair;
+
+  /// No description provided for @typeRoutineMaintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine Maintenance'**
+  String get typeRoutineMaintenance;
+
+  /// No description provided for @typePartReplacement.
+  ///
+  /// In en, this message translates to:
+  /// **'Part Replacement'**
+  String get typePartReplacement;
+
+  /// No description provided for @typeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get typeOther;
 }
 
 class _AppLocalizationsDelegate

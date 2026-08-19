@@ -118,4 +118,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCrew => 'No crew Members yet.';
+
+  @override
+  String get noRecords => 'No data found';
+
+  @override
+  String get typeInspection => 'Inspection';
+
+  @override
+  String get typeRepair => 'Repair';
+
+  @override
+  String get typeRoutineMaintenance => 'Routine Maintenance';
+
+  @override
+  String get typePartReplacement => 'Part Replacement';
+
+  @override
+  String get typeOther => 'Other';
 }
