@@ -25,4 +25,16 @@ class RideService {
       return snapshot.docs.map((doc) => Ride.fromMap(doc.data())).toList();
     });
   }
+
+  Future<void> updateRideStatus(String rideId, RideStatus newStatus) async {
+    await _db.collection('rides').doc(rideId).update({
+      'status': newStatus.name,
+    });
+  }
+
+  Stream<Ride> getRideStream(String rideId) {
+    return _db.collection('rides').doc(rideId).snapshots().map((doc) {
+      return Ride.fromMap(doc.data()!);
+    });
+  }
 }

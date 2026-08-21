@@ -166,4 +166,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get sortByStatus => 'מיון לפי מצב';
+
+  @override
+  String get updateStatus => 'עדכון מצב';
+
+  @override
+  String get updatedSuccessfully => 'מצב עודכן בהצלחה';
 }

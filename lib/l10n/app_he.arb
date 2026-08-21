@@ -52,5 +52,7 @@
     "status": "מצב",
     "role": "תפקיד",
     "sortByName": "מיון לפי שם",
-    "sortByStatus": "מיון לפי מצב"
+    "sortByStatus": "מיון לפי מצב",
+    "updateStatus": "עדכון מצב",
+    "updatedSuccessfully": "מצב עודכן בהצלחה"
 }

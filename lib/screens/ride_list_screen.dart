@@ -104,7 +104,8 @@ class _RideListScreenState extends State<RideListScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RideDetailScreen(ride: ride),
+                            builder: (context) =>
+                                RideDetailScreen(rideId: ride.id),
                           ),
                         );
                       },

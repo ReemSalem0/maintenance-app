@@ -415,6 +415,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sort by status'**
   String get sortByStatus;
+
+  /// No description provided for @updateStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Status'**
+  String get updateStatus;
+
+  /// No description provided for @updatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Status updated successfully'**
+  String get updatedSuccessfully;
 }
 
 class _AppLocalizationsDelegate
