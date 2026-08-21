@@ -5,42 +5,107 @@ import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/ride_detail_screen.dart';
 
-class RideListScreen extends StatelessWidget {
+enum RideSortOption { name, status }
+
+class RideListScreen extends StatefulWidget {
   const RideListScreen({super.key});
+
+  @override
+  State<RideListScreen> createState() => _RideListScreenState();
+}
+
+class _RideListScreenState extends State<RideListScreen> {
+  RideSortOption _sortOption = RideSortOption.name;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.rideList)),
-      body: StreamBuilder<List<Ride>>(
-        stream: RideService().getAllRidesStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(
-              '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-            );
-          }
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          }
-          final rides = snapshot.data!;
-          if (rides.isEmpty) {
-            return Center(child:Text(AppLocalizations.of(context)!.noRides));
-          }
-          return ListView.builder(
-            itemCount: rides.length,
-            itemBuilder: (context, index) {
-              final ride = rides[index];
-              return ListTile(
-                title: Text('${AppLocalizations.of(context)!.name}: ${ride.name}'),
-                subtitle: Text('${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RideDetailScreen(ride: ride)),);
-                },
-              );
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DropdownButton<RideSortOption>(
+                  value: _sortOption,
+                  underline: const SizedBox(),
+                  items: [
+                    DropdownMenuItem(
+                      value: RideSortOption.name,
+                      child: Text(AppLocalizations.of(context)!.sortByName),
+                    ),
+                    DropdownMenuItem(
+                      value: RideSortOption.status,
+                      child: Text(AppLocalizations.of(context)!.sortByStatus),
+                    ),
+                  ],
+                  onChanged: (newOption) {
+                    setState(() {
+                      _sortOption = newOption!;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder<List<Ride>>(
+              stream: RideService().getAllRidesStream(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text(
+                    '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                }
+                final rides = snapshot.data!;
+                if (_sortOption == RideSortOption.name) {
+                  rides.sort((a, b) => a.name.compareTo(b.name));
+                } else {
+                  rides.sort(
+                    (a, b) => _statusPriority(
+                      a.status,
+                    ).compareTo(_statusPriority(b.status)),
+                  );
+                }
+                if (rides.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noRides),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: rides.length,
+                  itemBuilder: (context, index) {
+                    final ride = rides[index];
+                    return ListTile(
+                      title: Text(
+                        '${AppLocalizations.of(context)!.name}: ${ride.name}',
+                      ),
+                      subtitle: Text(
+                        '${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}',
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RideDetailScreen(ride: ride),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -62,6 +127,17 @@ class RideListScreen extends StatelessWidget {
         return AppLocalizations.of(context)!.statusUnderMaintenance;
       case RideStatus.outOfService:
         return AppLocalizations.of(context)!.statusOutOfService;
+    }
+  }
+
+  int _statusPriority(RideStatus status) {
+    switch (status) {
+      case RideStatus.outOfService:
+        return 0;
+      case RideStatus.underMaintenance:
+        return 1;
+      case RideStatus.operational:
+        return 2;
     }
   }
 }

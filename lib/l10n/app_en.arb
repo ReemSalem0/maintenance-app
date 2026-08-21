@@ -50,5 +50,7 @@
     "recordAddedSuccessfully": "Maintenance recorded successfully",
     "crewMember": "Crew Member",
     "status": "Status",
-    "role": "Role"
+    "role": "Role",
+    "sortByName": "Sort by name",
+    "sortByStatus": "Sort by status"
 }

@@ -23,6 +23,7 @@ class MaintenanceService {
     return _db
         .collection('maintenanceRecords')
         .where('rideId', isEqualTo: rideId)
+        .orderBy('dateTime', descending: true)
         .snapshots()
         .map((snapshot) {
           return snapshot.docs

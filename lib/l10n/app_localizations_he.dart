@@ -160,4 +160,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get role => 'תפקיד';
+
+  @override
+  String get sortByName => 'מיון לפי שם';
+
+  @override
+  String get sortByStatus => 'מיון לפי מצב';
 }

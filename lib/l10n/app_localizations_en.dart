@@ -160,4 +160,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get role => 'Role';
+
+  @override
+  String get sortByName => 'Sort by name';
+
+  @override
+  String get sortByStatus => 'Sort by status';
 }

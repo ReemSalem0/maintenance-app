@@ -50,5 +50,7 @@
     "recordAddedSuccessfully": "תחזוקה תועדה בהצלחה",
     "crewMember": "איש צוות", 
     "status": "מצב",
-    "role": "תפקיד"
+    "role": "תפקיד",
+    "sortByName": "מיון לפי שם",
+    "sortByStatus": "מיון לפי מצב"
 }
