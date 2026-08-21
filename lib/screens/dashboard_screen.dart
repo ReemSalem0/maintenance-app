@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/crew_list_screen.dart';
 import 'package:maintenance_app/screens/ride_list_screen.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -15,6 +16,12 @@ class DashboardScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF1E3A5F),
         foregroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/ride.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 
 class AddRideScreen extends StatefulWidget {
@@ -22,7 +23,15 @@ class _AddRideScreenState extends State<AddRideScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addRide)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.addRide),
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

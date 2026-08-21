@@ -4,6 +4,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 
 class RideDetailScreen extends StatelessWidget {
@@ -29,6 +30,12 @@ class RideDetailScreen extends StatelessWidget {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       body: StreamBuilder<List<MaintenanceRecord>>(
         stream: MaintenanceService().getMaintenanceRecordsForRide(ride.id),
@@ -56,11 +63,21 @@ class RideDetailScreen extends StatelessWidget {
                 ),
                 children: [
                   ListTile(
-                    title: Text('${AppLocalizations.of(context)!.crewMember}: ${record.crewMemberName}'),
+                    title: Text(
+                      '${AppLocalizations.of(context)!.crewMember}: ${record.crewMemberName}',
+                    ),
                   ),
-                  ListTile(title: Text('${AppLocalizations.of(context)!.description}: ${record.description}')),
+                  ListTile(
+                    title: Text(
+                      '${AppLocalizations.of(context)!.description}: ${record.description}',
+                    ),
+                  ),
                   if (record.notes != null && record.notes!.isNotEmpty)
-                    ListTile(title: Text('${AppLocalizations.of(context)!.notes}: ${record.notes}')),
+                    ListTile(
+                      title: Text(
+                        '${AppLocalizations.of(context)!.notes}: ${record.notes}',
+                      ),
+                    ),
                 ],
               );
             },

@@ -4,6 +4,7 @@ import 'package:maintenance_app/screens/add_ride_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 
 class AddCrewMemberScreen extends StatefulWidget {
   const AddCrewMemberScreen({super.key});
@@ -22,7 +23,15 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addCrewMember)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.addCrewMember),
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

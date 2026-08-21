@@ -4,6 +4,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 
 class AddMaintenanceRecordScreen extends StatefulWidget {
@@ -29,6 +30,12 @@ class _AddMaintenanceRecordScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addMaintenanceRecord),
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -87,7 +94,7 @@ class _AddMaintenanceRecordScreenState
                   labelText: AppLocalizations.of(context)!.notes,
                 ),
               ),
-              
+
               ElevatedButton(
                 onPressed: _submit,
                 child: Text(AppLocalizations.of(context)!.save),
@@ -104,7 +111,7 @@ class _AddMaintenanceRecordScreenState
       return;
     }
 
-    final firestoreService =  FirestoreService();
+    final firestoreService = FirestoreService();
     final maintenanceService = MaintenanceService();
 
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -118,27 +125,31 @@ class _AddMaintenanceRecordScreenState
     }
 
     final newRecord = MaintenanceRecord(
-      id: '', 
-      rideId: widget.ride.id, 
-      crewMemberUid: crewMember.uid, 
-      crewMemberName: crewMember.name, 
-      type: _selectedType!, 
-      description: _descriptionController.text, 
+      id: '',
+      rideId: widget.ride.id,
+      crewMemberUid: crewMember.uid,
+      crewMemberName: crewMember.name,
+      type: _selectedType!,
+      description: _descriptionController.text,
       notes: _notesController.text,
       dateTime: DateTime.now(),
-      );
+    );
 
-      try {
-        await maintenanceService.addMaintenanceRecord(newRecord);
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.recordAddedSuccessfully)),
-          );
-          Navigator.pop(context); //return the detail screen after saving
-      } catch (e) {
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-      }
+    try {
+      await maintenanceService.addMaintenanceRecord(newRecord);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.recordAddedSuccessfully),
+        ),
+      );
+      Navigator.pop(context); //return the detail screen after saving
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   String _typeLabel(BuildContext context, MaintenanceType type) {

@@ -3,6 +3,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/add_crew_member_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/services/locale_controller.dart';
 
 class CrewListScreen extends StatelessWidget {
   const CrewListScreen({super.key});
@@ -10,7 +11,15 @@ class CrewListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.crewList)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.crewList),
+        actions: [
+          IconButton(
+            onPressed: () => LocaleController.toggle(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
+      ),
       body: StreamBuilder<List<CrewMember>>(
         stream: FirestoreService().getAllCrewMembersStream(),
         builder: (context, snapshot) {
@@ -24,15 +33,19 @@ class CrewListScreen extends StatelessWidget {
           }
           final crewMembers = snapshot.data!;
           if (crewMembers.isEmpty) {
-            return Center(child:Text(AppLocalizations.of(context)!.noCrew));
+            return Center(child: Text(AppLocalizations.of(context)!.noCrew));
           }
           return ListView.builder(
             itemCount: crewMembers.length,
             itemBuilder: (context, index) {
               final crewMember = crewMembers[index];
               return ListTile(
-                title: Text('${AppLocalizations.of(context)!.name}: ${crewMember.name}'),
-                subtitle: Text('${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}'),
+                title: Text(
+                  '${AppLocalizations.of(context)!.name}: ${crewMember.name}',
+                ),
+                subtitle: Text(
+                  '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
+                ),
               );
             },
           );
