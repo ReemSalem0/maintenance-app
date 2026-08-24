@@ -171,5 +171,11 @@ class AppLocalizationsHe extends AppLocalizations {
   String get updateStatus => 'עדכון מצב';
 
   @override
-  String get updatedSuccessfully => 'מצב עודכן בהצלחה';
+  String get statusUpdatedSuccessfully => 'מצב עודכן בהצלחה';
+
+  @override
+  String get updateRole => 'עדכון תפקיד';
+
+  @override
+  String get roleUpdatedSuccessfully => 'תפקיד עודכן בהצלחה';
 }

@@ -72,4 +72,16 @@ class FirestoreService {
       return snapshot.docs.map((doc) => CrewMember.fromMap(doc.data())).toList();
     });
   }
+
+  Stream<CrewMember> getCrewMemberStream(String uid) {
+    return _db.collection('crewMembers').doc(uid).snapshots().map((doc) {
+      return CrewMember.fromMap(doc.data()!);
+    });
+  }
+
+  Future<void> updateCrewMemberRole(String uid, CrewRole newRole) async {
+    await _db.collection('crewMembers').doc(uid).update({
+      'role': newRole.name,
+    });
+  }
 }

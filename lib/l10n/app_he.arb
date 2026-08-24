@@ -54,5 +54,7 @@
     "sortByName": "מיון לפי שם",
     "sortByStatus": "מיון לפי מצב",
     "updateStatus": "עדכון מצב",
-    "updatedSuccessfully": "מצב עודכן בהצלחה"
+    "statusUpdatedSuccessfully": "מצב עודכן בהצלחה",
+    "updateRole": "עדכון תפקיד",
+    "roleUpdatedSuccessfully": "תפקיד עודכן בהצלחה"
 }

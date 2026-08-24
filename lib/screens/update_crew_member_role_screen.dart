@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
-import 'package:maintenance_app/models/ride.dart';
+import 'package:maintenance_app/models/crew_member.dart';
+import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
-import 'package:maintenance_app/services/ride_service.dart';
 
+class UpdateCrewMemberRoleScreen extends StatefulWidget {
+  final CrewMember crewMember;
 
-class UpdateRideStatusScreen extends StatefulWidget {
-  final Ride ride;
-
-  const UpdateRideStatusScreen({super.key, required this.ride});
+  const UpdateCrewMemberRoleScreen({super.key, required this.crewMember});
 
   @override
-  State<UpdateRideStatusScreen> createState() => _UpdateRideStatusScreenState();
+  State<UpdateCrewMemberRoleScreen> createState() =>
+      _UpdateCrewMemberRoleScreenState();
 }
 
-class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
-  late RideStatus _selectedStatus;
+class _UpdateCrewMemberRoleScreenState
+    extends State<UpdateCrewMemberRoleScreen> {
+  late CrewRole _selectedRole;
   final _formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _selectedStatus = widget.ride.status;
+    _selectedRole = widget.crewMember.role;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.updateStatus),
+        title: Text(AppLocalizations.of(context)!.updateRole),
         actions: [
           IconButton(
             onPressed: () => LocaleController.toggle(),
@@ -44,36 +45,36 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
-                initialValue: widget.ride.name,
+                initialValue: widget.crewMember.name,
                 enabled: false,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.name,
                 ),
               ),
-              DropdownButtonFormField<RideStatus>(
-                initialValue: _selectedStatus,
+              DropdownButtonFormField(
+                initialValue: _selectedRole,
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.selectStatus,
+                  labelText: AppLocalizations.of(context)!.selectRole,
                 ),
-                items: RideStatus.values.map((status) {
+                items: CrewRole.values.map((role) {
                   return DropdownMenuItem(
-                    value: status,
-                    child: Text(_statusLabel(context, status)),
+                    value: role,
+                    child: Text(_roleLabel(context, role)),
                   );
                 }).toList(),
-                onChanged: (newStatus) {
+                onChanged: (newRole) {
                   setState(() {
-                    _selectedStatus = newStatus!;
+                    _selectedRole = newRole!;
                   });
                 },
                 validator: (value) {
                   if (value == null) {
-                    return AppLocalizations.of(context)!.statusValidationError;
+                    return AppLocalizations.of(context)!.roleValidationError;
                   }
                   return null;
                 },
               ),
-               ElevatedButton(
+              ElevatedButton(
                 onPressed: _submit,
                 child: Text(AppLocalizations.of(context)!.save),
               ),
@@ -85,18 +86,21 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
   }
 
   Future<void> _submit() async {
-    if(!_formkey.currentState!.validate()) {
+    if (!_formkey.currentState!.validate()) {
       return;
     }
 
-    final rideService = RideService();
+    final firestoreService = FirestoreService();
 
     try {
-      await rideService.updateRideStatus(widget.ride.id, _selectedStatus);
+      await firestoreService.updateCrewMemberRole(
+        widget.crewMember.uid,
+        _selectedRole,
+      );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.statusUpdatedSuccessfully),
+          content: Text(AppLocalizations.of(context)!.roleUpdatedSuccessfully),
         ),
       );
       Navigator.pop(context);
@@ -108,15 +112,16 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
     }
   }
 
-  String _statusLabel(BuildContext context, RideStatus status) {
-    switch (status) {
-      case RideStatus.operational:
-        return AppLocalizations.of(context)!.statusOperational;
-      case RideStatus.underMaintenance:
-        return AppLocalizations.of(context)!.statusUnderMaintenance;
-      case RideStatus.outOfService:
-        return AppLocalizations.of(context)!.statusOutOfService;
+  String _roleLabel(BuildContext context, CrewRole role) {
+    switch (role) {
+      case CrewRole.administrator:
+        return AppLocalizations.of(context)!.roleAdministrator;
+      case CrewRole.manager:
+        return AppLocalizations.of(context)!.roleManager;
+      case CrewRole.technician:
+        return AppLocalizations.of(context)!.roleTechnician;
+      case CrewRole.inspector:
+        return AppLocalizations.of(context)!.roleInspector;
     }
   }
-  
 }

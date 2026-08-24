@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/add_crew_member_screen.dart';
+import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
 
@@ -46,6 +47,15 @@ class CrewListScreen extends StatelessWidget {
                 subtitle: Text(
                   '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
                 ),
+                onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                CrewMemberDetailScreen(uid: crewMember.uid),
+                          ),
+                        );
+                      },
               );
             },
           );

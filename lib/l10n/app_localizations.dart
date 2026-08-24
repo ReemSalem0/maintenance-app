@@ -422,11 +422,23 @@ abstract class AppLocalizations {
   /// **'Update Status'**
   String get updateStatus;
 
-  /// No description provided for @updatedSuccessfully.
+  /// No description provided for @statusUpdatedSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Status updated successfully'**
-  String get updatedSuccessfully;
+  /// **'updated successfully'**
+  String get statusUpdatedSuccessfully;
+
+  /// No description provided for @updateRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Role'**
+  String get updateRole;
+
+  /// No description provided for @roleUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Role updated successfully'**
+  String get roleUpdatedSuccessfully;
 }
 
 class _AppLocalizationsDelegate

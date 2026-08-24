@@ -54,5 +54,7 @@
     "sortByName": "Sort by name",
     "sortByStatus": "Sort by status",
     "updateStatus": "Update Status",
-    "updatedSuccessfully": "Status updated successfully"
+    "statusUpdatedSuccessfully": "updated successfully",
+    "updateRole": "Update Role",
+    "roleUpdatedSuccessfully": "Role updated successfully"
 }

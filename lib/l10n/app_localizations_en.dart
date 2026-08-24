@@ -171,5 +171,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateStatus => 'Update Status';
 
   @override
-  String get updatedSuccessfully => 'Status updated successfully';
+  String get statusUpdatedSuccessfully => 'updated successfully';
+
+  @override
+  String get updateRole => 'Update Role';
+
+  @override
+  String get roleUpdatedSuccessfully => 'Role updated successfully';
 }
