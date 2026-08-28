@@ -6,8 +6,15 @@ import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
 
-class CrewListScreen extends StatelessWidget {
+class CrewListScreen extends StatefulWidget {
   const CrewListScreen({super.key});
+
+  @override
+  State<CrewListScreen> createState() => _CrewListScreenState();
+}
+
+class _CrewListScreenState extends State<CrewListScreen> {
+  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,33 +28,68 @@ class CrewListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder<List<CrewMember>>(
-        stream: FirestoreService().getAllCrewMembersStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(
-              '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-            );
-          }
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          }
-          final crewMembers = snapshot.data!;
-          if (crewMembers.isEmpty) {
-            return Center(child: Text(AppLocalizations.of(context)!.noCrew));
-          }
-          return ListView.builder(
-            itemCount: crewMembers.length,
-            itemBuilder: (context, index) {
-              final crewMember = crewMembers[index];
-              return ListTile(
-                title: Text(
-                  '${AppLocalizations.of(context)!.name}: ${crewMember.name}',
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.search,
+                      prefixIcon: const Icon(Icons.search),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                  ),
                 ),
-                subtitle: Text(
-                  '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
-                ),
-                onTap: () {
+              ],
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder<List<CrewMember>>(
+              stream: FirestoreService().getAllCrewMembersStream(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text(
+                    '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                }
+
+                final crewMembers = snapshot.data!;
+                final filteredCrew = crewMembers.where((crewMember) {
+                  return crewMember.name.toLowerCase().contains(
+                    _searchText.toLowerCase(),
+                  );
+                }).toList();
+
+                if (filteredCrew.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noCrew),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: filteredCrew.length,
+                  itemBuilder: (context, index) {
+                    final crewMember = filteredCrew[index];
+                    return ListTile(
+                      title: Text(
+                        '${AppLocalizations.of(context)!.name}: ${crewMember.name}',
+                      ),
+                      subtitle: Text(
+                        '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
+                      ),
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -56,10 +98,13 @@ class CrewListScreen extends StatelessWidget {
                           ),
                         );
                       },
-              );
-            },
-          );
-        },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

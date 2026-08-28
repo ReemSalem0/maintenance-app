@@ -17,6 +17,7 @@ class RideListScreen extends StatefulWidget {
 
 class _RideListScreenState extends State<RideListScreen> {
   RideSortOption _sortOption = RideSortOption.name;
+  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +39,20 @@ class _RideListScreenState extends State<RideListScreen> {
               vertical: 8.0,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.search,
+                      prefixIcon: const Icon(Icons.search),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value;
+                      });
+                    },
+                  ),
+                ),
                 DropdownButton<RideSortOption>(
                   value: _sortOption,
                   underline: const SizedBox(),
@@ -84,15 +97,22 @@ class _RideListScreenState extends State<RideListScreen> {
                     ).compareTo(_statusPriority(b.status)),
                   );
                 }
-                if (rides.isEmpty) {
+
+                final filteredRides = rides.where((ride) {
+                  return ride.name.toLowerCase().contains(
+                    _searchText.toLowerCase(),
+                  );
+                }).toList();
+
+                if (filteredRides.isEmpty) {
                   return Center(
                     child: Text(AppLocalizations.of(context)!.noRides),
                   );
                 }
                 return ListView.builder(
-                  itemCount: rides.length,
+                  itemCount: filteredRides.length,
                   itemBuilder: (context, index) {
-                    final ride = rides[index];
+                    final ride = filteredRides[index];
                     return ListTile(
                       title: Text(
                         '${AppLocalizations.of(context)!.name}: ${ride.name}',

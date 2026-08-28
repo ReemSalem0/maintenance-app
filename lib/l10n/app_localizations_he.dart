@@ -111,13 +111,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get error => 'שגיאה';
 
   @override
-  String get noRides => '.אין מתקנים';
+  String get noRides => 'אין מתקנים';
 
   @override
   String get crewList => 'רשימת אנשי הצוות';
 
   @override
-  String get noCrew => 'אין אנשי צוות.';
+  String get noCrew => 'אין אנשי צוות';
 
   @override
   String get noRecords => 'אין נתונים';
@@ -178,4 +178,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get roleUpdatedSuccessfully => 'תפקיד עודכן בהצלחה';
+
+  @override
+  String get search => 'חיפוש';
 }

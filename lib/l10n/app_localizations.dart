@@ -305,7 +305,7 @@ abstract class AppLocalizations {
   /// No description provided for @noRides.
   ///
   /// In en, this message translates to:
-  /// **'No rides yet.'**
+  /// **'No rides found'**
   String get noRides;
 
   /// No description provided for @crewList.
@@ -317,7 +317,7 @@ abstract class AppLocalizations {
   /// No description provided for @noCrew.
   ///
   /// In en, this message translates to:
-  /// **'No crew Members yet.'**
+  /// **'No crew Members found'**
   String get noCrew;
 
   /// No description provided for @noRecords.
@@ -439,6 +439,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Role updated successfully'**
   String get roleUpdatedSuccessfully;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate

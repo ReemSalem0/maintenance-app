@@ -111,13 +111,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'Error';
 
   @override
-  String get noRides => 'No rides yet.';
+  String get noRides => 'No rides found';
 
   @override
   String get crewList => 'Crew Members List';
 
   @override
-  String get noCrew => 'No crew Members yet.';
+  String get noCrew => 'No crew Members found';
 
   @override
   String get noRecords => 'No data found';
@@ -178,4 +178,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get roleUpdatedSuccessfully => 'Role updated successfully';
+
+  @override
+  String get search => 'Search';
 }

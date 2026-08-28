@@ -34,9 +34,9 @@
     "dashboard": "לוח בקרה ראשי",
     "rideList": "רשימת מתקנים",
     "error": "שגיאה",
-    "noRides": ".אין מתקנים",
+    "noRides": "אין מתקנים",
     "crewList": "רשימת אנשי הצוות",
-    "noCrew": "אין אנשי צוות.",
+    "noCrew": "אין אנשי צוות",
     "noRecords": "אין נתונים",
     "typeInspection": "בדיקה",
     "typeRepair": "תיקון",
@@ -56,5 +56,6 @@
     "updateStatus": "עדכון מצב",
     "statusUpdatedSuccessfully": "מצב עודכן בהצלחה",
     "updateRole": "עדכון תפקיד",
-    "roleUpdatedSuccessfully": "תפקיד עודכן בהצלחה"
+    "roleUpdatedSuccessfully": "תפקיד עודכן בהצלחה",
+    "search": "חיפוש"
 }

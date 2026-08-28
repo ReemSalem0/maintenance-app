@@ -34,9 +34,9 @@
     "dashboard": "Dashboard",
     "rideList": "Ride List",
     "error": "Error",
-    "noRides": "No rides yet.",
+    "noRides": "No rides found",
     "crewList": "Crew Members List",
-    "noCrew": "No crew Members yet.",
+    "noCrew": "No crew Members found",
     "noRecords": "No data found",
     "typeInspection": "Inspection",
     "typeRepair": "Repair",
@@ -56,5 +56,6 @@
     "updateStatus": "Update Status",
     "statusUpdatedSuccessfully": "updated successfully",
     "updateRole": "Update Role",
-    "roleUpdatedSuccessfully": "Role updated successfully"
+    "roleUpdatedSuccessfully": "Role updated successfully",
+    "search": "Search"
 }
