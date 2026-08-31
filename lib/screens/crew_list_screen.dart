@@ -3,6 +3,8 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/add_crew_member_screen.dart';
 import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
+import 'package:maintenance_app/screens/login_screen.dart';
+import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
 
@@ -25,6 +27,18 @@ class _CrewListScreenState extends State<CrewListScreen> {
           IconButton(
             onPressed: () => LocaleController.toggle(),
             icon: const Icon(Icons.language),
+          ),
+          IconButton(
+            onPressed: () async {
+              await AuthService().signOut();
+              if (!context.mounted) return;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),

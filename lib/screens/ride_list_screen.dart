@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/add_ride_screen.dart';
+import 'package:maintenance_app/screens/login_screen.dart';
+import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
@@ -28,6 +30,18 @@ class _RideListScreenState extends State<RideListScreen> {
           IconButton(
             onPressed: () => LocaleController.toggle(),
             icon: const Icon(Icons.language),
+          ),
+          IconButton(
+            onPressed: () async {
+              await AuthService().signOut();
+              if (!context.mounted) return;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
