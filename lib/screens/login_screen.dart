@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/screens/account_activated_screen.dart';
 import 'package:maintenance_app/screens/dashboard_screen.dart';
 import 'package:maintenance_app/screens/ride_list_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
@@ -105,25 +106,26 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         return;
       }
+      final Widget destination = crewMember.role == CrewRole.administrator
+          ? const DashboardScreen()
+          : const RideListScreen();
 
       if (!crewMember.accountActivated) {
         firestoreService.markAccountActivated(crewMember.uid);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.welcomeActive)),
-        );
-      }
-
-      if (crewMember.role == CrewRole.administrator) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          MaterialPageRoute(
+            builder: (context) =>
+                AccountActivatedScreen(destination: destination),
+          ),
         );
       } else {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const RideListScreen()),
+          MaterialPageRoute(builder: (context) => destination),
         );
       }
+
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
