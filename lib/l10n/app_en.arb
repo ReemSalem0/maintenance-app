@@ -57,5 +57,8 @@
     "statusUpdatedSuccessfully": "updated successfully",
     "updateRole": "Update Role",
     "roleUpdatedSuccessfully": "Role updated successfully",
-    "search": "Search"
+    "search": "Search",
+    "startDate": "From",
+    "endDate": "Until",
+    "filterByDate": "Filter by date"
 }

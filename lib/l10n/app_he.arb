@@ -57,5 +57,8 @@
     "statusUpdatedSuccessfully": "מצב עודכן בהצלחה",
     "updateRole": "עדכון תפקיד",
     "roleUpdatedSuccessfully": "תפקיד עודכן בהצלחה",
-    "search": "חיפוש"
+    "search": "חיפוש",
+    "startDate": "מתאריך",
+    "endDate": "עד תאריך",
+    "filterByDate": "סנן לפי תאריך"
 }

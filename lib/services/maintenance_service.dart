@@ -19,16 +19,34 @@ class MaintenanceService {
     await docRef.set(recordWithId.toMap());
   }
 
-  Stream<List<MaintenanceRecord>> getMaintenanceRecordsForRide(String rideId) {
-    return _db
+  Stream<List<MaintenanceRecord>> getMaintenanceRecordsForRide(
+    String rideId, {
+    DateTime? startDate,
+    DateTime? endDate,
+  }) {
+    Query<Map<String, dynamic>> query = _db
         .collection('maintenanceRecords')
-        .where('rideId', isEqualTo: rideId)
-        .orderBy('dateTime', descending: true)
-        .snapshots()
-        .map((snapshot) {
-          return snapshot.docs
-              .map((doc) => MaintenanceRecord.fromMap(doc.data()))
-              .toList();
-        });
+        .where('rideId', isEqualTo: rideId);
+
+    if (startDate != null) {
+      query = query.where(
+        'dateTime',
+        isGreaterThanOrEqualTo: Timestamp.fromDate(startDate),
+      );
+    }
+    if (endDate != null) {
+      query = query.where(
+        'dateTime',
+        isLessThanOrEqualTo: Timestamp.fromDate(endDate),
+      );
+    }
+
+    return query.orderBy('dateTime', descending: true).snapshots().map((
+      snapshot,
+    ) {
+      return snapshot.docs
+          .map((doc) => MaintenanceRecord.fromMap(doc.data()))
+          .toList();
+    });
   }
 }

@@ -181,4 +181,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get startDate => 'From';
+
+  @override
+  String get endDate => 'Until';
+
+  @override
+  String get filterByDate => 'Filter by date';
 }

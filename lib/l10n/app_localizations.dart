@@ -445,6 +445,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Until'**
+  String get endDate;
+
+  /// No description provided for @filterByDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by date'**
+  String get filterByDate;
 }
 
 class _AppLocalizationsDelegate

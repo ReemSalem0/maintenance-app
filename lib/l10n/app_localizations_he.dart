@@ -181,4 +181,13 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get search => 'חיפוש';
+
+  @override
+  String get startDate => 'מתאריך';
+
+  @override
+  String get endDate => 'עד תאריך';
+
+  @override
+  String get filterByDate => 'סנן לפי תאריך';
 }
