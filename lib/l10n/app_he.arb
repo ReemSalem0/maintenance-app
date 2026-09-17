@@ -60,5 +60,7 @@
     "search": "חיפוש",
     "startDate": "מתאריך",
     "endDate": "עד תאריך",
-    "filterByDate": "סנן לפי תאריך"
+    "filterByDate": "סנן לפי תאריך",
+    "selectPark": "בחר אתר",
+    "parkValidationError": "אנא בחר אתר"
 }

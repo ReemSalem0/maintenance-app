@@ -463,6 +463,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filter by date'**
   String get filterByDate;
+
+  /// No description provided for @selectPark.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Park'**
+  String get selectPark;
+
+  /// No description provided for @parkValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a park'**
+  String get parkValidationError;
 }
 
 class _AppLocalizationsDelegate

@@ -190,4 +190,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterByDate => 'Filter by date';
+
+  @override
+  String get selectPark => 'Select Park';
+
+  @override
+  String get parkValidationError => 'Please select a park';
 }

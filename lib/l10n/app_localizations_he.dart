@@ -190,4 +190,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get filterByDate => 'סנן לפי תאריך';
+
+  @override
+  String get selectPark => 'בחר אתר';
+
+  @override
+  String get parkValidationError => 'אנא בחר אתר';
 }

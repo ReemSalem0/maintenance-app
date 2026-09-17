@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/park.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
+import 'package:maintenance_app/services/park_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 
 class AddRideScreen extends StatefulWidget {
@@ -17,6 +19,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  String? _selectedParkId;
 
   RideStatus? _selectedStatus;
 
@@ -49,6 +52,48 @@ class _AddRideScreenState extends State<AddRideScreen> {
                     return AppLocalizations.of(context)!.nameValidationError;
                   }
                   return null;
+                },
+              ),
+              StreamBuilder<List<Park>>(
+                stream: ParkService().getAllParksStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                    );
+                  }
+                  if (!snapshot.hasData) {
+                    return const SizedBox(
+                      height: 56,
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  final parks = snapshot.data!;
+                  return DropdownButtonFormField<String>(
+                    initialValue: _selectedParkId,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.selectPark,
+                    ),
+                    items: parks.map((park) {
+                      return DropdownMenuItem(
+                        value: park.id,
+                        child: Text(park.name),
+                      );
+                    }).toList(),
+                    onChanged: (newParkId) {
+                      setState(() {
+                        _selectedParkId = newParkId;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return AppLocalizations.of(
+                          context,
+                        )!.parkValidationError;
+                      }
+                      return null;
+                    },
+                  );
                 },
               ),
               TextFormField(
@@ -137,6 +182,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
       status: _selectedStatus!,
       notes: _notesController.text,
       createdAt: DateTime.now(),
+      parkId: _selectedParkId!,
     );
 
     try {
@@ -153,6 +199,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
       _notesController.text = '';
       setState(() {
         _selectedStatus = null;
+        _selectedParkId = null;
       });
     } catch (e) {
       if (!mounted) return;

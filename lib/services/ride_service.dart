@@ -16,6 +16,7 @@ class RideService {
       status: ride.status,
       notes: ride.notes,
       createdAt: ride.createdAt,
+      parkId: ride.parkId,
     );
     await docRef.set(rideWithId.toMap());
   }

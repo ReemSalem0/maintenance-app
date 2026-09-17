@@ -10,6 +10,7 @@ class Ride {
   final RideStatus status;
   final String? notes;
   final DateTime createdAt;
+  final String parkId;
 
   Ride({
     required this.id,
@@ -19,6 +20,7 @@ class Ride {
     required this.status,
     this.notes,
     required this.createdAt,
+    required this.parkId,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,6 +32,7 @@ class Ride {
       'status': status.name,
       'notes': notes,
       'createdAt': Timestamp.fromDate(createdAt),
+      'parkId': parkId,
     };
   }
 
@@ -42,6 +45,7 @@ class Ride {
       status: RideStatus.values.byName(map['status']),
       notes: map['notes'],
       createdAt: (map['createdAt'] as Timestamp).toDate(),
+      parkId: map['parkId'],
     );
   }
 }

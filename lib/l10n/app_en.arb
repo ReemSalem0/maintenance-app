@@ -60,5 +60,7 @@
     "search": "Search",
     "startDate": "From",
     "endDate": "Until",
-    "filterByDate": "Filter by date"
+    "filterByDate": "Filter by date",
+    "selectPark": "Select Park",
+    "parkValidationError": "Please select a park"
 }
