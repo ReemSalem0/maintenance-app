@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
-import 'package:maintenance_app/screens/add_ride_screen.dart';
+import 'package:maintenance_app/models/park.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
+import 'package:maintenance_app/services/park_service.dart';
 
 class AddCrewMemberScreen extends StatefulWidget {
   const AddCrewMemberScreen({super.key});
@@ -17,6 +18,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  String? _selectedParkId;
 
   CrewRole? _selectedRole;
 
@@ -51,6 +53,50 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                   return null;
                 },
               ),
+              if (_selectedRole == CrewRole.manager ||
+                  _selectedRole == CrewRole.technician)
+                StreamBuilder<List<Park>>(
+                  stream: ParkService().getAllParksStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                        '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                      );
+                    }
+                    if (!snapshot.hasData) {
+                      return const SizedBox(
+                        height: 56,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                    final parks = snapshot.data!;
+                    return DropdownButtonFormField<String>(
+                      initialValue: _selectedParkId,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.selectPark,
+                      ),
+                      items: parks.map((park) {
+                        return DropdownMenuItem(
+                          value: park.id,
+                          child: Text(park.name),
+                        );
+                      }).toList(),
+                      onChanged: (newParkId) {
+                        setState(() {
+                          _selectedParkId = newParkId;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return AppLocalizations.of(
+                            context,
+                          )!.parkValidationError;
+                        }
+                        return null;
+                      },
+                    );
+                  },
+                ),
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -92,17 +138,6 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                 onPressed: _submit,
                 child: Text(AppLocalizations.of(context)!.addCrewMember),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddRideScreen(),
-                    ),
-                  );
-                },
-                child: Text(AppLocalizations.of(context)!.manageRides),
-              ),
             ],
           ),
         ),
@@ -130,6 +165,11 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
 
     final authService = AuthService();
     final firestoreService = FirestoreService();
+    final String? parkIdToSave =
+        (_selectedRole == CrewRole.manager ||
+            _selectedRole == CrewRole.technician)
+        ? _selectedParkId
+        : null;
 
     try {
       await firestoreService.addCrewMember(
@@ -137,6 +177,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
         _nameController.text,
         _emailController.text,
         _selectedRole!,
+        parkIdToSave,
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

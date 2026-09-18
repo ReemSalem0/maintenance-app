@@ -6,6 +6,7 @@ class CrewMember {
   final String email; // crew member's email address
   final CrewRole role; // crewmember's assigned role within the company
   final bool accountActivated; //custom flag to indecate that the account has fully compeleted the setup
+  final String? parkId;
 
   CrewMember({
     required this.uid,
@@ -13,6 +14,7 @@ class CrewMember {
     required this.email,
     required this.role,
     required this.accountActivated,
+    this.parkId,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class CrewMember {
       'email': email,
       'role': role.name,
       'accountActivated': accountActivated,
+      'parkId': parkId,
     };
   }
 
@@ -32,6 +35,7 @@ class CrewMember {
       email: map['email'],
       role: CrewRole.values.byName(map['role']),
       accountActivated: map['accountActivated'],
+      parkId: map['parkId'],
     );
   }
 }

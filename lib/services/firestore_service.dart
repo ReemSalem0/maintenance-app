@@ -35,6 +35,7 @@ class FirestoreService {
     String name,
     String email,
     CrewRole role,
+    String? parkId,
   ) async {
     // step 1: create the Auth account, get back the uid
     final String uid = await auth.createCrewMemberAccount(
@@ -49,6 +50,7 @@ class FirestoreService {
       email: email,
       role: role,
       accountActivated: false,
+      parkId: parkId,
     );
 
     // step 3: save it using saveCrewMember
@@ -68,8 +70,10 @@ class FirestoreService {
   }
 
   Stream<List<CrewMember>> getAllCrewMembersStream() {
-    return _db.collection('crewMembers').snapshots().map((snapshot){
-      return snapshot.docs.map((doc) => CrewMember.fromMap(doc.data())).toList();
+    return _db.collection('crewMembers').snapshots().map((snapshot) {
+      return snapshot.docs
+          .map((doc) => CrewMember.fromMap(doc.data()))
+          .toList();
     });
   }
 
@@ -80,8 +84,6 @@ class FirestoreService {
   }
 
   Future<void> updateCrewMemberRole(String uid, CrewRole newRole) async {
-    await _db.collection('crewMembers').doc(uid).update({
-      'role': newRole.name,
-    });
+    await _db.collection('crewMembers').doc(uid).update({'role': newRole.name});
   }
 }
