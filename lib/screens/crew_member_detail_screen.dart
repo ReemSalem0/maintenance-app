@@ -7,8 +7,13 @@ import 'package:maintenance_app/services/locale_controller.dart';
 
 class CrewMemberDetailScreen extends StatelessWidget {
   final String uid;
+  final bool canEditRole;
 
-  const CrewMemberDetailScreen({super.key, required this.uid});
+  const CrewMemberDetailScreen({
+    super.key,
+    required this.uid,
+    required this.canEditRole,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +31,19 @@ class CrewMemberDetailScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(crewMember.name),
             actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          UpdateCrewMemberRoleScreen(crewMember: crewMember),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.edit),
-              ),
+              if (canEditRole)
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UpdateCrewMemberRoleScreen(crewMember: crewMember),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.edit),
+                ),
               IconButton(
                 onPressed: () => LocaleController.toggle(),
                 icon: const Icon(Icons.language),

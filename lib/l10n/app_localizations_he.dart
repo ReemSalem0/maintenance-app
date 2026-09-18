@@ -196,4 +196,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get parkValidationError => 'אנא בחר אתר';
+
+  @override
+  String get switchParks => 'שנוי אתר';
+
+  @override
+  String get myDetails => 'פרטים אישיים';
 }

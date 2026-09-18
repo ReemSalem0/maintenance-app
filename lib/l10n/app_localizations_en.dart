@@ -196,4 +196,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get parkValidationError => 'Please select a park';
+
+  @override
+  String get switchParks => 'Switch Parks';
+
+  @override
+  String get myDetails => 'Personal Details';
 }

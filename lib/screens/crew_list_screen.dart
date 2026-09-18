@@ -107,8 +107,10 @@ class _CrewListScreenState extends State<CrewListScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                CrewMemberDetailScreen(uid: crewMember.uid),
+                            builder: (context) => CrewMemberDetailScreen(
+                              uid: crewMember.uid,
+                              canEditRole: true,
+                            ),
                           ),
                         );
                       },

@@ -62,5 +62,7 @@
     "endDate": "עד תאריך",
     "filterByDate": "סנן לפי תאריך",
     "selectPark": "בחר אתר",
-    "parkValidationError": "אנא בחר אתר"
+    "parkValidationError": "אנא בחר אתר",
+    "switchParks": "שנוי אתר",
+    "myDetails": "פרטים אישיים"
 }

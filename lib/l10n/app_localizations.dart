@@ -475,6 +475,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select a park'**
   String get parkValidationError;
+
+  /// No description provided for @switchParks.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Parks'**
+  String get switchParks;
+
+  /// No description provided for @myDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Details'**
+  String get myDetails;
 }
 
 class _AppLocalizationsDelegate

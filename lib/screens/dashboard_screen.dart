@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/crew_list_screen.dart';
+import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
+import 'package:maintenance_app/screens/park_selection_screen.dart';
 import 'package:maintenance_app/screens/ride_list_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
+import 'package:maintenance_app/widgets/dashboard_card.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  final CrewMember crewMember;
+
+  const DashboardScreen({super.key, required this.crewMember});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class DashboardScreen extends StatelessWidget {
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
           children: [
-            _DashboardCard(
+            DashboardCard(
               icon: Icons.build_circle_outlined,
               label: AppLocalizations.of(context)!.rideList,
               accentColor: const Color(0xFF1E3A5F),
@@ -57,73 +63,53 @@ class DashboardScreen extends StatelessWidget {
                 );
               },
             ),
-            _DashboardCard(
-              icon: Icons.badge_outlined,
-              label: AppLocalizations.of(context)!.crewList,
-              accentColor: const Color(0xFFE8A33D),
+            if (crewMember.role == CrewRole.administrator)
+              DashboardCard(
+                icon: Icons.badge_outlined,
+                label: AppLocalizations.of(context)!.crewList,
+                accentColor: const Color(0xFFE8A33D),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CrewListScreen(),
+                    ),
+                  );
+                },
+              ),
+            if (crewMember.role == CrewRole.administrator ||
+                crewMember.role == CrewRole.inspector)
+              DashboardCard(
+                icon: Icons.swap_horiz,
+                label: AppLocalizations.of(context)!.switchParks,
+                accentColor: const Color(0xFF6BBE9E),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ParkSelectionScreen(crewMember: crewMember),
+                    ),
+                  );
+                },
+              ),
+            DashboardCard(
+              icon: Icons.info_outline,
+              label: AppLocalizations.of(context)!.myDetails,
+              accentColor: const Color(0xFF6BBE9E),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CrewListScreen(),
+                    builder: (context) => CrewMemberDetailScreen(
+                      uid: crewMember.uid,
+                      canEditRole: false,
+                    ),
                   ),
                 );
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DashboardCard extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color accentColor;
-  final VoidCallback onTap;
-
-  const _DashboardCard({
-    required this.icon,
-    required this.label,
-    required this.accentColor,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      elevation: 1,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.12),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(icon, color: accentColor, size: 26),
-              ),
-              const Spacer(),
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1A1F26),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

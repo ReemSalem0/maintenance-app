@@ -62,5 +62,7 @@
     "endDate": "Until",
     "filterByDate": "Filter by date",
     "selectPark": "Select Park",
-    "parkValidationError": "Please select a park"
+    "parkValidationError": "Please select a park",
+    "switchParks": "Switch Parks",
+    "myDetails": "Personal Details"
 }
