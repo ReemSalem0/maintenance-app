@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/add_ride_screen.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
@@ -7,11 +8,14 @@ import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/ride_detail_screen.dart';
+import 'package:maintenance_app/services/selected_park_controller.dart';
 
 enum RideSortOption { name, status }
 
 class RideListScreen extends StatefulWidget {
-  const RideListScreen({super.key});
+  final CrewMember crewMember;
+
+  const RideListScreen({super.key, required this.crewMember});
 
   @override
   State<RideListScreen> createState() => _RideListScreenState();
@@ -112,10 +116,23 @@ class _RideListScreenState extends State<RideListScreen> {
                   );
                 }
 
+                final String? effectiveParkId =
+                    (widget.crewMember.role == CrewRole.administrator ||
+                        widget.crewMember.role == CrewRole.inspector)
+                    ? SelectedParkController.parkId.value
+                    : widget.crewMember.parkId;
+
+                if (effectiveParkId == null) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noParkAssigned),
+                  );
+                }
+
                 final filteredRides = rides.where((ride) {
-                  return ride.name.toLowerCase().contains(
+                  final matchesSearch = ride.name.toLowerCase().contains(
                     _searchText.toLowerCase(),
                   );
+                  return matchesSearch && ride.parkId == effectiveParkId;
                 }).toList();
 
                 if (filteredRides.isEmpty) {

@@ -202,4 +202,8 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get myDetails => 'פרטים אישיים';
+
+  @override
+  String get noParkAssigned =>
+      'החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת';
 }

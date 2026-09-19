@@ -192,7 +192,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterByDate => 'Filter by date';
 
   @override
-  String get selectPark => 'Select Park';
+  String get selectPark => 'Select a Park';
 
   @override
   String get parkValidationError => 'Please select a park';
@@ -202,4 +202,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myDetails => 'Personal Details';
+
+  @override
+  String get noParkAssigned =>
+      'Your account has no park assigned, contact an administrator';
 }

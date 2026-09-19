@@ -3,7 +3,6 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/account_activated_screen.dart';
 import 'package:maintenance_app/screens/dashboard_screen.dart';
 import 'package:maintenance_app/screens/park_selection_screen.dart';
-import 'package:maintenance_app/screens/ride_list_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';

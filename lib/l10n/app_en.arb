@@ -61,8 +61,9 @@
     "startDate": "From",
     "endDate": "Until",
     "filterByDate": "Filter by date",
-    "selectPark": "Select Park",
+    "selectPark": "Select a Park",
     "parkValidationError": "Please select a park",
     "switchParks": "Switch Parks",
-    "myDetails": "Personal Details"
+    "myDetails": "Personal Details",
+    "noParkAssigned": "Your account has no park assigned, contact an administrator"
 }

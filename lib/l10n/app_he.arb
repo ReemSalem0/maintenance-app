@@ -64,5 +64,6 @@
     "selectPark": "בחר אתר",
     "parkValidationError": "אנא בחר אתר",
     "switchParks": "שנוי אתר",
-    "myDetails": "פרטים אישיים"
+    "myDetails": "פרטים אישיים",
+    "noParkAssigned": "החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת"
 }

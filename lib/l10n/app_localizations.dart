@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @selectPark.
   ///
   /// In en, this message translates to:
-  /// **'Select Park'**
+  /// **'Select a Park'**
   String get selectPark;
 
   /// No description provided for @parkValidationError.
@@ -487,6 +487,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Personal Details'**
   String get myDetails;
+
+  /// No description provided for @noParkAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has no park assigned, contact an administrator'**
+  String get noParkAssigned;
 }
 
 class _AppLocalizationsDelegate
