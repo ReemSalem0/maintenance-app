@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
+import 'package:maintenance_app/models/park.dart';
 import 'package:maintenance_app/screens/crew_list_screen.dart';
 import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
@@ -8,6 +9,8 @@ import 'package:maintenance_app/screens/park_selection_screen.dart';
 import 'package:maintenance_app/screens/ride_list_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
+import 'package:maintenance_app/services/park_service.dart';
+import 'package:maintenance_app/services/selected_park_controller.dart';
 import 'package:maintenance_app/widgets/dashboard_card.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -17,10 +20,29 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? effectiveParkId =
+        (crewMember.role == CrewRole.administrator ||
+            crewMember.role == CrewRole.inspector)
+        ? SelectedParkController.parkId.value
+        : crewMember.parkId;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6F8),
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.dashboard),
+        title: StreamBuilder<Park>(
+          stream: ParkService().getParkStream(effectiveParkId!),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text(
+                '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+              );
+            }
+            if (!snapshot.hasData) {
+              return const CircularProgressIndicator();
+            }
+            final park = snapshot.data!;
+            return Text(park.name);
+          },
+        ),
         backgroundColor: const Color(0xFF1E3A5F),
         foregroundColor: Colors.white,
         elevation: 0,
@@ -58,7 +80,8 @@ class DashboardScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RideListScreen(crewMember: crewMember,),
+                    builder: (context) =>
+                        RideListScreen(crewMember: crewMember),
                   ),
                 );
               },
@@ -72,7 +95,8 @@ class DashboardScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CrewListScreen(crewMember: crewMember,),
+                      builder: (context) =>
+                          CrewListScreen(crewMember: crewMember),
                     ),
                   );
                 },

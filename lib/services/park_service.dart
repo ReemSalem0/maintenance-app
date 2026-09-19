@@ -15,4 +15,10 @@ class ParkService {
       return snapshot.docs.map((doc) => Park.fromMap(doc.data())).toList();
     });
   }
+
+  Stream<Park> getParkStream(String parkId) {
+    return _db.collection('parks').doc(parkId).snapshots().map((doc) {
+      return Park.fromMap(doc.data()!);
+    });
+  }
 }
