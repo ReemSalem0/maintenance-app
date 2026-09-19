@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/ride.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/ride_service.dart';
-
 
 class UpdateRideStatusScreen extends StatefulWidget {
   final Ride ride;
@@ -27,15 +25,7 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.updateStatus),
-        actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.updateStatus)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -73,7 +63,7 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
                   return null;
                 },
               ),
-               ElevatedButton(
+              ElevatedButton(
                 onPressed: _submit,
                 child: Text(AppLocalizations.of(context)!.save),
               ),
@@ -85,7 +75,7 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
   }
 
   Future<void> _submit() async {
-    if(!_formkey.currentState!.validate()) {
+    if (!_formkey.currentState!.validate()) {
       return;
     }
 
@@ -96,7 +86,9 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.statusUpdatedSuccessfully),
+          content: Text(
+            AppLocalizations.of(context)!.statusUpdatedSuccessfully,
+          ),
         ),
       );
       Navigator.pop(context);
@@ -118,5 +110,4 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
         return AppLocalizations.of(context)!.statusOutOfService;
     }
   }
-  
 }

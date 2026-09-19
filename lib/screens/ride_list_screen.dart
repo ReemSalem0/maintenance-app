@@ -4,7 +4,6 @@ import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/add_ride_screen.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/ride_detail_screen.dart';
@@ -31,10 +30,6 @@ class _RideListScreenState extends State<RideListScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.rideList),
         actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
           IconButton(
             onPressed: () async {
               await AuthService().signOut();

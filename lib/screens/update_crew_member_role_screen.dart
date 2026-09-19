@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 
 class UpdateCrewMemberRoleScreen extends StatefulWidget {
   final CrewMember crewMember;
@@ -28,15 +27,7 @@ class _UpdateCrewMemberRoleScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.updateRole),
-        actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.updateRole)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

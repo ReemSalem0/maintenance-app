@@ -8,7 +8,6 @@ import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/screens/park_selection_screen.dart';
 import 'package:maintenance_app/screens/ride_list_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/park_service.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
 import 'package:maintenance_app/widgets/dashboard_card.dart';
@@ -47,10 +46,6 @@ class DashboardScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
           IconButton(
             onPressed: () async {
               await AuthService().signOut();

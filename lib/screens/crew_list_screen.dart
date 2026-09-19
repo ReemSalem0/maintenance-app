@@ -6,7 +6,6 @@ import 'package:maintenance_app/screens/crew_member_detail_screen.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
 
 class CrewListScreen extends StatefulWidget {
@@ -27,10 +26,6 @@ class _CrewListScreenState extends State<CrewListScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.crewList),
         actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
           IconButton(
             onPressed: () async {
               await AuthService().signOut();

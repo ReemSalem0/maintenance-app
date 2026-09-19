@@ -6,7 +6,6 @@ import 'package:maintenance_app/screens/park_selection_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,15 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.welcomeBack),
-        actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.welcomeBack)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

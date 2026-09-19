@@ -4,7 +4,6 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 
 class AddMaintenanceRecordScreen extends StatefulWidget {
@@ -30,12 +29,6 @@ class _AddMaintenanceRecordScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addMaintenanceRecord),
-        actions: [
-          IconButton(
-            onPressed: () => LocaleController.toggle(),
-            icon: const Icon(Icons.language),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

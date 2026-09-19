@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
@@ -17,22 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: LocaleController.locale,
-      builder: (context, locale, child) {
-        return MaterialApp(
-          title: 'Maintenance App',
-          locale: locale,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('he')],
-          home: const LoginScreen(),
-        );
-      },
+    return MaterialApp(
+      title: 'Maintenance App',
+      locale: const Locale('he'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('he')],
+      home: const LoginScreen(),
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
 import 'package:maintenance_app/screens/update_ride_status_screen.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 
@@ -62,10 +61,6 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   );
                 },
                 icon: const Icon(Icons.edit),
-              ),
-              IconButton(
-                onPressed: () => LocaleController.toggle(),
-                icon: const Icon(Icons.language),
               ),
             ],
           ),

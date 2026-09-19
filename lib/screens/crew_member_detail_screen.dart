@@ -3,7 +3,6 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/update_crew_member_role_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/services/locale_controller.dart';
 
 class CrewMemberDetailScreen extends StatelessWidget {
   final String uid;
@@ -44,10 +43,6 @@ class CrewMemberDetailScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.edit),
                 ),
-              IconButton(
-                onPressed: () => LocaleController.toggle(),
-                icon: const Icon(Icons.language),
-              ),
             ],
           ),
           body: Column(
