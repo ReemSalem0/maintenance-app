@@ -7,9 +7,12 @@ import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/locale_controller.dart';
+import 'package:maintenance_app/services/selected_park_controller.dart';
 
 class CrewListScreen extends StatefulWidget {
-  const CrewListScreen({super.key});
+  final CrewMember crewMember;
+
+  const CrewListScreen({super.key, required this.crewMember});
 
   @override
   State<CrewListScreen> createState() => _CrewListScreenState();
@@ -80,11 +83,21 @@ class _CrewListScreenState extends State<CrewListScreen> {
                   return const CircularProgressIndicator();
                 }
 
+                final String? effectiveParkId =
+                    SelectedParkController.parkId.value;
+
+                if (effectiveParkId == null) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noParkAssigned),
+                  );
+                }
+
                 final crewMembers = snapshot.data!;
                 final filteredCrew = crewMembers.where((crewMember) {
-                  return crewMember.name.toLowerCase().contains(
+                  final matchesSearch = crewMember.name.toLowerCase().contains(
                     _searchText.toLowerCase(),
                   );
+                  return matchesSearch && crewMember.parkId == effectiveParkId;
                 }).toList();
 
                 if (filteredCrew.isEmpty) {
