@@ -93,4 +93,8 @@ class FirestoreService {
       'role': newRole.name,
     });
   }
+
+  Future<void> deleteCrewMember(String uid) async {
+    await _db.collection('crewMembers').doc(uid).delete();
+  }
 }

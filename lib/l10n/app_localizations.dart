@@ -533,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteRideConfirmation.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to delete this ride? Once you delete it you won\'t be able to restore it.'**
+  /// **'Do you want to delete this ride? Once deleted, this action cannot be undone.'**
   String get deleteRideConfirmation;
 
   /// No description provided for @cancel.
@@ -547,6 +547,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @deleteCrewMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Crew Member'**
+  String get deleteCrewMember;
+
+  /// No description provided for @deleteCrewMemberConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this crew member? Once deleted, this action cannot be undone.'**
+  String get deleteCrewMemberConfirmation;
 }
 
 class _AppLocalizationsDelegate

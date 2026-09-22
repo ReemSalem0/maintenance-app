@@ -31,17 +31,37 @@ class CrewMemberDetailScreen extends StatelessWidget {
             title: Text(crewMember.name),
             actions: [
               if (canEditRole)
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            EditCrewMemberScreen(crewMember: crewMember),
-                      ),
-                    );
+                PopupMenuButton<String>(
+                  onSelected: (value) {
+                    if (value == 'updateCrew') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EditCrewMemberScreen(crewMember: crewMember),
+                        ),
+                      );
+                    } else if (value == 'deleteCrewMember') {
+                      _confirmDeleteCrewMember(context, crewMember);
+                    }
                   },
-                  icon: const Icon(Icons.edit),
+                  itemBuilder: (context) => [
+                    if (canEditRole)
+                      PopupMenuItem(
+                        value: 'updateCrew',
+                        child: Text(
+                          AppLocalizations.of(context)!.updateCrewMember,
+                        ),
+                      ),
+                    if (canEditRole)
+                      PopupMenuItem(
+                        value: 'deleteCrewMember',
+                        child: Text(
+                          AppLocalizations.of(context)!.deleteCrewMember,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                  ],
                 ),
             ],
           ),
@@ -62,6 +82,46 @@ class CrewMemberDetailScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _confirmDeleteCrewMember(
+    BuildContext context,
+    CrewMember crewMember,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.deleteCrewMember),
+          content: Text(
+            AppLocalizations.of(context)!.deleteCrewMemberConfirmation,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(AppLocalizations.of(context)!.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(AppLocalizations.of(context)!.delete),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true) {
+      try {
+        await FirestoreService().deleteCrewMember(uid);
+        if (!context.mounted) return;
+        Navigator.pop(context); //return to Crew Member List after deletion
+      } catch (e) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
   }
 
   String _roleLabel(BuildContext context, CrewRole role) {

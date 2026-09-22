@@ -228,11 +228,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteRideConfirmation =>
-      'Do you want to delete this ride? Once you delete it you won\'t be able to restore it.';
+      'Do you want to delete this ride? Once deleted, this action cannot be undone.';
 
   @override
   String get cancel => 'Cancel';
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get deleteCrewMember => 'Delete Crew Member';
+
+  @override
+  String get deleteCrewMemberConfirmation =>
+      'Do you want to delete this crew member? Once deleted, this action cannot be undone.';
 }

@@ -228,11 +228,18 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get deleteRideConfirmation =>
-      'אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.';
+      'האם אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.';
 
   @override
   String get cancel => 'ביטול';
 
   @override
   String get delete => 'מחק';
+
+  @override
+  String get deleteCrewMember => 'מחק איש צוות';
+
+  @override
+  String get deleteCrewMemberConfirmation =>
+      'האם אתם בטוחים שאתם רוצים למחוק את איש הצוות הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.';
 }
