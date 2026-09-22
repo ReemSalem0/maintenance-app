@@ -70,5 +70,9 @@
     "rideUpdatedSuccessfully": "Ride updated successfully",
     "editRide": "Edit Ride",
     "close": "Close",
-    "moreInfo": "More Information"
+    "moreInfo": "More Information",
+    "deleteRide": "Delete Ride",
+    "deleteRideConfirmation": "Do you want to delete this ride? Once you delete it you won't be able to restore it.",
+    "cancel": "Cancel",
+    "delete": "Delete"
 }

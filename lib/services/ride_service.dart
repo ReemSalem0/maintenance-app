@@ -42,4 +42,8 @@ class RideService {
   Future<void> updateRide(Ride ride) async {
     await _db.collection('rides').doc(ride.id).set(ride.toMap());
   }
+
+  Future<void> deleteRide(String rideId) async {
+    await _db.collection('rides').doc(rideId).delete();
+  }
 }

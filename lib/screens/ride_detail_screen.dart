@@ -77,6 +77,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         builder: (context) => EditRideScreen(ride: ride),
                       ),
                     );
+                  } else if (value == 'deleteRide') {
+                    _confirmDeleteRide(context, ride);
                   }
                 },
                 itemBuilder: (context) => [
@@ -92,6 +94,14 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                     PopupMenuItem(
                       value: 'editRide',
                       child: Text(AppLocalizations.of(context)!.editRide),
+                    ),
+                  if (widget.crewMember.role == CrewRole.administrator)
+                    PopupMenuItem(
+                      value: 'deleteRide',
+                      child: Text(
+                        AppLocalizations.of(context)!.deleteRide,
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     ),
                 ],
               ),
@@ -313,6 +323,41 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
         );
       },
     );
+  }
+
+  Future<void> _confirmDeleteRide(BuildContext context, Ride ride) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.deleteRide),
+          content: Text(AppLocalizations.of(context)!.deleteRideConfirmation),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(AppLocalizations.of(context)!.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(AppLocalizations.of(context)!.delete),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true) {
+      try {
+        await RideService().deleteRide(ride.id);
+        if (!context.mounted) return;
+        Navigator.pop(context); //return to Ride List after deletion
+      } catch (e) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
   }
 
   String _statusLabel(BuildContext context, RideStatus status) {

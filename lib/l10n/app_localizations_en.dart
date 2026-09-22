@@ -221,4 +221,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreInfo => 'More Information';
+
+  @override
+  String get deleteRide => 'Delete Ride';
+
+  @override
+  String get deleteRideConfirmation =>
+      'Do you want to delete this ride? Once you delete it you won\'t be able to restore it.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get delete => 'Delete';
 }

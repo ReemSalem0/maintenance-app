@@ -221,4 +221,17 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get moreInfo => 'מידע נוסף';
+
+  @override
+  String get deleteRide => 'מחק מתקן';
+
+  @override
+  String get deleteRideConfirmation =>
+      'אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get delete => 'מחק';
 }

@@ -523,6 +523,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More Information'**
   String get moreInfo;
+
+  /// No description provided for @deleteRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Ride'**
+  String get deleteRide;
+
+  /// No description provided for @deleteRideConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this ride? Once you delete it you won\'t be able to restore it.'**
+  String get deleteRideConfirmation;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate

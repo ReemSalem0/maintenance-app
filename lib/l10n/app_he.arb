@@ -70,5 +70,9 @@
     "rideUpdatedSuccessfully": "פרטי המתקן עודכנו בהצלחה",
     "editRide": "עריכת פרטי מתקן",
     "close": "סגור",
-    "moreInfo": "מידע נוסף"
+    "moreInfo": "מידע נוסף",
+    "deleteRide": "מחק מתקן",
+    "deleteRideConfirmation": "אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.",
+    "cancel": "ביטול",
+    "delete": "מחק"
 }
