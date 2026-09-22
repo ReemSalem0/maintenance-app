@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
-import 'package:maintenance_app/screens/update_crew_member_role_screen.dart';
+import 'package:maintenance_app/screens/edit_crew_member_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 
 class CrewMemberDetailScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class CrewMemberDetailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            UpdateCrewMemberRoleScreen(crewMember: crewMember),
+                            EditCrewMemberScreen(crewMember: crewMember),
                       ),
                     );
                   },

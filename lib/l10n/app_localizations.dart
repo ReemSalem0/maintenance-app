@@ -428,17 +428,17 @@ abstract class AppLocalizations {
   /// **'updated successfully'**
   String get statusUpdatedSuccessfully;
 
-  /// No description provided for @updateRole.
+  /// No description provided for @updateCrewMember.
   ///
   /// In en, this message translates to:
-  /// **'Update Role'**
-  String get updateRole;
+  /// **'Update crew member'**
+  String get updateCrewMember;
 
-  /// No description provided for @roleUpdatedSuccessfully.
+  /// No description provided for @crewMemberInfoUpdatedSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Role updated successfully'**
-  String get roleUpdatedSuccessfully;
+  /// **'Crew member\'s information updated successfully'**
+  String get crewMemberInfoUpdatedSuccessfully;
 
   /// No description provided for @search.
   ///

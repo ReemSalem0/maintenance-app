@@ -3,31 +3,33 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 
-class UpdateCrewMemberRoleScreen extends StatefulWidget {
+class EditCrewMemberScreen extends StatefulWidget {
   final CrewMember crewMember;
 
-  const UpdateCrewMemberRoleScreen({super.key, required this.crewMember});
+  const EditCrewMemberScreen({super.key, required this.crewMember});
 
   @override
-  State<UpdateCrewMemberRoleScreen> createState() =>
-      _UpdateCrewMemberRoleScreenState();
+  State<EditCrewMemberScreen> createState() => _EditCrewMemberScreenState();
 }
 
-class _UpdateCrewMemberRoleScreenState
-    extends State<UpdateCrewMemberRoleScreen> {
+class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
   late CrewRole _selectedRole;
+  late TextEditingController _nameController;
   final _formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     _selectedRole = widget.crewMember.role;
+    _nameController = TextEditingController(text: widget.crewMember.name);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.updateRole)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.updateCrewMember),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -36,11 +38,16 @@ class _UpdateCrewMemberRoleScreenState
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
-                initialValue: widget.crewMember.name,
-                enabled: false,
+                controller: _nameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.name,
                 ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return AppLocalizations.of(context)!.nameValidationError;
+                  }
+                  return null;
+                },
               ),
               DropdownButtonFormField(
                 initialValue: _selectedRole,
@@ -84,14 +91,17 @@ class _UpdateCrewMemberRoleScreenState
     final firestoreService = FirestoreService();
 
     try {
-      await firestoreService.updateCrewMemberRole(
+      await firestoreService.updateCrewMember(
         widget.crewMember.uid,
+        _nameController.text,
         _selectedRole,
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.roleUpdatedSuccessfully),
+          content: Text(
+            AppLocalizations.of(context)!.crewMemberInfoUpdatedSuccessfully,
+          ),
         ),
       );
       Navigator.pop(context);

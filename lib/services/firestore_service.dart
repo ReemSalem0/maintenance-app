@@ -83,7 +83,14 @@ class FirestoreService {
     });
   }
 
-  Future<void> updateCrewMemberRole(String uid, CrewRole newRole) async {
-    await _db.collection('crewMembers').doc(uid).update({'role': newRole.name});
+  Future<void> updateCrewMember(
+    String uid,
+    String name,
+    CrewRole newRole,
+  ) async {
+    await _db.collection('crewMembers').doc(uid).update({
+      'name': name,
+      'role': newRole.name,
+    });
   }
 }
