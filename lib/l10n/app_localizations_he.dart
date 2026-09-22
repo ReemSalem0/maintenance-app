@@ -206,4 +206,19 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get noParkAssigned =>
       'החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת';
+
+  @override
+  String get updateRide => 'עדכן פרטי מתקן';
+
+  @override
+  String get rideUpdatedSuccessfully => 'פרטי המתקן עודכנו בהצלחה';
+
+  @override
+  String get editRide => 'עריכת פרטי מתקן';
+
+  @override
+  String get close => 'סגור';
+
+  @override
+  String get moreInfo => 'מידע נוסף';
 }

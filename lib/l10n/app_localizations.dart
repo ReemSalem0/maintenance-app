@@ -493,6 +493,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your account has no park assigned, contact an administrator'**
   String get noParkAssigned;
+
+  /// No description provided for @updateRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Ride'**
+  String get updateRide;
+
+  /// No description provided for @rideUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Ride updated successfully'**
+  String get rideUpdatedSuccessfully;
+
+  /// No description provided for @editRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Ride'**
+  String get editRide;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @moreInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'More Information'**
+  String get moreInfo;
 }
 
 class _AppLocalizationsDelegate

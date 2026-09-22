@@ -65,5 +65,10 @@
     "parkValidationError": "Please select a park",
     "switchParks": "Switch Parks",
     "myDetails": "Personal Details",
-    "noParkAssigned": "Your account has no park assigned, contact an administrator"
+    "noParkAssigned": "Your account has no park assigned, contact an administrator",
+    "updateRide": "Update Ride",
+    "rideUpdatedSuccessfully": "Ride updated successfully",
+    "editRide": "Edit Ride",
+    "close": "Close",
+    "moreInfo": "More Information"
 }

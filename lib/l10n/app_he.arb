@@ -65,5 +65,10 @@
     "parkValidationError": "אנא בחר אתר",
     "switchParks": "שנוי אתר",
     "myDetails": "פרטים אישיים",
-    "noParkAssigned": "החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת"
+    "noParkAssigned": "החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת",
+    "updateRide": "עדכן פרטי מתקן",
+    "rideUpdatedSuccessfully": "פרטי המתקן עודכנו בהצלחה",
+    "editRide": "עריכת פרטי מתקן",
+    "close": "סגור",
+    "moreInfo": "מידע נוסף"
 }

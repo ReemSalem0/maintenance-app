@@ -206,4 +206,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noParkAssigned =>
       'Your account has no park assigned, contact an administrator';
+
+  @override
+  String get updateRide => 'Update Ride';
+
+  @override
+  String get rideUpdatedSuccessfully => 'Ride updated successfully';
+
+  @override
+  String get editRide => 'Edit Ride';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get moreInfo => 'More Information';
 }

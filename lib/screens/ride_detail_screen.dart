@@ -1,17 +1,24 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
+import 'package:maintenance_app/screens/edit_ride_screen.dart';
 import 'package:maintenance_app/screens/update_ride_status_screen.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String rideId;
+  final CrewMember crewMember;
 
-  const RideDetailScreen({super.key, required this.rideId});
+  const RideDetailScreen({
+    super.key,
+    required this.rideId,
+    required this.crewMember,
+  });
 
   @override
   State<RideDetailScreen> createState() => _RideDetailScreenState();
@@ -51,16 +58,42 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
               ],
             ),
             actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UpdateRideStatusScreen(ride: ride),
-                    ),
-                  );
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'moreInfo') {
+                    _showRideDetails(context, ride);
+                  } else if (value == 'updateStatus') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UpdateRideStatusScreen(ride: ride),
+                      ),
+                    );
+                  } else if (value == 'editRide') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditRideScreen(ride: ride),
+                      ),
+                    );
+                  }
                 },
-                icon: const Icon(Icons.edit),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: 'moreInfo',
+                    child: Text(AppLocalizations.of(context)!.moreInfo),
+                  ),
+                  PopupMenuItem(
+                    value: 'updateStatus',
+                    child: Text(AppLocalizations.of(context)!.updateStatus),
+                  ),
+                  if (widget.crewMember.role == CrewRole.administrator)
+                    PopupMenuItem(
+                      value: 'editRide',
+                      child: Text(AppLocalizations.of(context)!.editRide),
+                    ),
+                ],
               ),
             ],
           ),
@@ -246,6 +279,40 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
       _startDate = null;
       _endDate = null;
     });
+  }
+
+  void _showRideDetails(BuildContext context, Ride ride) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(ride.name),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${AppLocalizations.of(context)!.description}: ${ride.description}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${AppLocalizations.of(context)!.location}: ${ride.location ?? ''}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${AppLocalizations.of(context)!.notes}: ${ride.notes ?? ''}',
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(AppLocalizations.of(context)!.close),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   String _statusLabel(BuildContext context, RideStatus status) {

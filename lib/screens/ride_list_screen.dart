@@ -151,7 +151,7 @@ class _RideListScreenState extends State<RideListScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                RideDetailScreen(rideId: ride.id),
+                                RideDetailScreen(rideId: ride.id, crewMember: widget.crewMember,),
                           ),
                         );
                       },

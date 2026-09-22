@@ -38,4 +38,8 @@ class RideService {
       return Ride.fromMap(doc.data()!);
     });
   }
+
+  Future<void> updateRide(Ride ride) async {
+    await _db.collection('rides').doc(ride.id).set(ride.toMap());
+  }
 }
