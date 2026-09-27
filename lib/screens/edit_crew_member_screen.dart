@@ -30,7 +30,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.updateCrewMember),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formkey,

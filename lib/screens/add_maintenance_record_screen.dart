@@ -38,7 +38,7 @@ class _AddMaintenanceRecordScreenState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addMaintenanceRecord),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formkey,

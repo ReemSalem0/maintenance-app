@@ -25,7 +25,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.addCrewMember)),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formkey,
@@ -90,6 +90,8 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                 ),
               TextFormField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                textDirection: TextDirection.ltr,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.email,
                 ),

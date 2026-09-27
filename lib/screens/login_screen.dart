@@ -19,11 +19,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
 
+  bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.welcomeBack)),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formkey,
@@ -32,6 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                textDirection: TextDirection.ltr,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.email,
                 ),
@@ -46,10 +50,24 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
+                obscureText: _obscurePassword,
+                keyboardType: TextInputType.visiblePassword,
+                textDirection: TextDirection.ltr,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.password,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  ),
                 ),
-                obscureText: true,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return AppLocalizations.of(
