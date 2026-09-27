@@ -5,9 +5,11 @@ class MaintenanceService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<void> addMaintenanceRecord(MaintenanceRecord maintenanceRecord) async {
-    final docRef = _db.collection('maintenanceRecords').doc();
+    final String id = maintenanceRecord.id.isNotEmpty
+        ? maintenanceRecord.id
+        : _db.collection('maintenanceRecords').doc().id;
     final recordWithId = MaintenanceRecord(
-      id: docRef.id,
+      id: id,
       rideId: maintenanceRecord.rideId,
       crewMemberUid: maintenanceRecord.crewMemberUid,
       crewMemberName: maintenanceRecord.crewMemberName,
@@ -16,7 +18,10 @@ class MaintenanceService {
       notes: maintenanceRecord.notes,
       dateTime: maintenanceRecord.dateTime,
     );
-    await docRef.set(recordWithId.toMap());
+    await _db
+        .collection('maintenanceRecords')
+        .doc(id)
+        .set(recordWithId.toMap());
   }
 
   Stream<List<MaintenanceRecord>> getMaintenanceRecordsForRide(

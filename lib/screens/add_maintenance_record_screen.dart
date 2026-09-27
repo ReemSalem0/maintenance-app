@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/services/maintenance_service.dart';
+import 'package:maintenance_app/services/pending_records_service.dart';
 
 class AddMaintenanceRecordScreen extends StatefulWidget {
   final Ride ride;
@@ -21,8 +23,14 @@ class _AddMaintenanceRecordScreenState
   final _descriptionController = TextEditingController();
   final _notesController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  bool _isSubmitting = false;
 
   MaintenanceType? _selectedType;
+
+  String _generateLocalId() {
+    return DateTime.now().microsecondsSinceEpoch.toString() +
+        Random().nextInt(99999).toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +97,7 @@ class _AddMaintenanceRecordScreenState
               ),
 
               ElevatedButton(
-                onPressed: _submit,
+                onPressed: _isSubmitting ? null : _submit,
                 child: Text(AppLocalizations.of(context)!.save),
               ),
             ],
@@ -104,21 +112,31 @@ class _AddMaintenanceRecordScreenState
       return;
     }
 
+    setState(() {
+      _isSubmitting = true;
+    });
+
     final firestoreService = FirestoreService();
-    final maintenanceService = MaintenanceService();
 
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
+      setState(() {
+        _isSubmitting = false;
+      });
       return;
     }
 
     final crewMember = await firestoreService.getCrewMember(currentUser.uid);
     if (crewMember == null) {
+      if (!mounted) return;
+      setState(() {
+        _isSubmitting = false;
+      });
       return;
     }
 
     final newRecord = MaintenanceRecord(
-      id: '',
+      id: _generateLocalId(),
       rideId: widget.ride.id,
       crewMemberUid: crewMember.uid,
       crewMemberName: crewMember.name,
@@ -128,21 +146,20 @@ class _AddMaintenanceRecordScreenState
       dateTime: DateTime.now(),
     );
 
-    try {
-      await maintenanceService.addMaintenanceRecord(newRecord);
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.recordAddedSuccessfully),
-        ),
-      );
-      Navigator.pop(context); //return the detail screen after saving
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
+    final pendingService = PendingRecordsService();
+    await pendingService.addPendingRecord(newRecord);
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.recordAddedSuccessfully),
+      ),
+    );
+    Navigator.pop(context);
+
+    // Attempt an immediate sync in case we're actually online now. syncAllPending safely handles both success and failure
+
+    PendingRecordsService().syncAllPending();
   }
 
   String _typeLabel(BuildContext context, MaintenanceType type) {

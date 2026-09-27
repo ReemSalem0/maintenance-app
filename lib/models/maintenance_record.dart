@@ -54,4 +54,31 @@ class MaintenanceRecord {
       dateTime: (map['dateTime'] as Timestamp).toDate(),
     );
   }
+
+  //For local storage
+  Map<String, dynamic> toLocalMap() {
+    return {
+      'id': id,
+      'rideId': rideId,
+      'crewMemberUid': crewMemberUid,
+      'crewMemberName': crewMemberName,
+      'type': type.name,
+      'description': description,
+      'notes': notes,
+      'dateTime': dateTime.toIso8601String(), //JSON safe string
+    };
+  }
+
+  factory MaintenanceRecord.fromLocalMap(Map<String, dynamic> map) {
+    return MaintenanceRecord(
+      id: map['id'],
+      rideId: map['rideId'],
+      crewMemberUid: map['crewMemberUid'],
+      crewMemberName: map['crewMemberName'],
+      type: MaintenanceType.values.byName(map['type']),
+      description: map['description'],
+      notes: map['notes'],
+      dateTime: DateTime.parse(map['dateTime']),
+    );
+  }
 }
