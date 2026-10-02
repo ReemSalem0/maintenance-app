@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/account_activated_screen.dart';
-import 'package:maintenance_app/screens/dashboard_screen.dart';
-import 'package:maintenance_app/screens/park_selection_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
-import 'package:maintenance_app/models/crew_member.dart';
+import 'package:maintenance_app/utils/role_router.dart';
+import 'package:maintenance_app/utils/validators.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,63 +24,58 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.welcomeBack)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                textDirection: TextDirection.ltr,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.email,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textDirection: TextDirection.ltr,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.email,
+                  ),
+                  validator: (value) => validateEmail(context, value),
                 ),
-                validator: (value) {
-                  if (value == null ||
-                      !value.trim().contains('@') ||
-                      value.trim().isEmpty) {
-                    return AppLocalizations.of(context)!.emailValidationError;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: _obscurePassword,
-                keyboardType: TextInputType.visiblePassword,
-                textDirection: TextDirection.ltr,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.password,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  keyboardType: TextInputType.visiblePassword,
+                  textDirection: TextDirection.ltr,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.password,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return AppLocalizations.of(
+                        context,
+                      )!.passwordValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(
-                      context,
-                    )!.passwordValidationError;
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text(AppLocalizations.of(context)!.login),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: _login,
+                  child: Text(AppLocalizations.of(context)!.login),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -115,11 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         return;
       }
-      final Widget destination =
-          crewMember.role == CrewRole.administrator ||
-              crewMember.role == CrewRole.inspector
-          ? ParkSelectionScreen(crewMember: crewMember)
-          : DashboardScreen(crewMember: crewMember);
+      final Widget destination = homeScreenForRole(crewMember);
 
       if (!crewMember.accountActivated) {
         firestoreService.markAccountActivated(crewMember.uid);

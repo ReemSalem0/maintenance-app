@@ -26,48 +26,52 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.updateStatus)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                initialValue: widget.ride.name,
-                enabled: false,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.name,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  initialValue: widget.ride.name,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.name,
+                  ),
                 ),
-              ),
-              DropdownButtonFormField<RideStatus>(
-                initialValue: _selectedStatus,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.selectStatus,
+                DropdownButtonFormField<RideStatus>(
+                  initialValue: _selectedStatus,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.selectStatus,
+                  ),
+                  items: RideStatus.values.map((status) {
+                    return DropdownMenuItem(
+                      value: status,
+                      child: Text(_statusLabel(context, status)),
+                    );
+                  }).toList(),
+                  onChanged: (newStatus) {
+                    setState(() {
+                      _selectedStatus = newStatus!;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return AppLocalizations.of(
+                        context,
+                      )!.statusValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                items: RideStatus.values.map((status) {
-                  return DropdownMenuItem(
-                    value: status,
-                    child: Text(_statusLabel(context, status)),
-                  );
-                }).toList(),
-                onChanged: (newStatus) {
-                  setState(() {
-                    _selectedStatus = newStatus!;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return AppLocalizations.of(context)!.statusValidationError;
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: _submit,
-                child: Text(AppLocalizations.of(context)!.save),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: _submit,
+                  child: Text(AppLocalizations.of(context)!.save),
+                ),
+              ],
+            ),
           ),
         ),
       ),

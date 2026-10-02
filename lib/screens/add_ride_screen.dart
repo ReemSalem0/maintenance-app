@@ -26,122 +26,126 @@ class _AddRideScreenState extends State<AddRideScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.addRide)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.name,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.name,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return AppLocalizations.of(context)!.nameValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(context)!.nameValidationError;
-                  }
-                  return null;
-                },
-              ),
-              StreamBuilder<List<Park>>(
-                stream: ParkService().getAllParksStream(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(
-                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-                    );
-                  }
-                  if (!snapshot.hasData) {
-                    return const SizedBox(
-                      height: 56,
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                  final parks = snapshot.data!;
-                  return DropdownButtonFormField<String>(
-                    initialValue: _selectedParkId,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.selectPark,
-                    ),
-                    items: parks.map((park) {
-                      return DropdownMenuItem(
-                        value: park.id,
-                        child: Text(park.name),
+                StreamBuilder<List<Park>>(
+                  stream: ParkService().getAllParksStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                        '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
                       );
-                    }).toList(),
-                    onChanged: (newParkId) {
-                      setState(() {
-                        _selectedParkId = newParkId;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return AppLocalizations.of(
-                          context,
-                        )!.parkValidationError;
-                      }
-                      return null;
-                    },
-                  );
-                },
-              ),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.description,
+                    }
+                    if (!snapshot.hasData) {
+                      return const SizedBox(
+                        height: 56,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                    final parks = snapshot.data!;
+                    return DropdownButtonFormField<String>(
+                      initialValue: _selectedParkId,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.selectPark,
+                      ),
+                      items: parks.map((park) {
+                        return DropdownMenuItem(
+                          value: park.id,
+                          child: Text(park.name),
+                        );
+                      }).toList(),
+                      onChanged: (newParkId) {
+                        setState(() {
+                          _selectedParkId = newParkId;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return AppLocalizations.of(
+                            context,
+                          )!.parkValidationError;
+                        }
+                        return null;
+                      },
+                    );
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(
-                      context,
-                    )!.descriptionValidationError;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _locationController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.location,
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.description,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return AppLocalizations.of(
+                        context,
+                      )!.descriptionValidationError;
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              DropdownButtonFormField<RideStatus>(
-                initialValue: _selectedStatus,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.selectStatus,
+                TextFormField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.location,
+                  ),
                 ),
-                items: RideStatus.values.map((status) {
-                  return DropdownMenuItem(
-                    value: status,
-                    child: Text(_statusLabel(context, status)),
-                  );
-                }).toList(),
-                onChanged: (newStatus) {
-                  setState(() {
-                    _selectedStatus = newStatus;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return AppLocalizations.of(context)!.statusValidationError;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _notesController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.notes,
+                DropdownButtonFormField<RideStatus>(
+                  initialValue: _selectedStatus,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.selectStatus,
+                  ),
+                  items: RideStatus.values.map((status) {
+                    return DropdownMenuItem(
+                      value: status,
+                      child: Text(_statusLabel(context, status)),
+                    );
+                  }).toList(),
+                  onChanged: (newStatus) {
+                    setState(() {
+                      _selectedStatus = newStatus;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return AppLocalizations.of(
+                        context,
+                      )!.statusValidationError;
+                    }
+                    return null;
+                  },
                 ),
-              ),
+                TextFormField(
+                  controller: _notesController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.notes,
+                  ),
+                ),
 
-              ElevatedButton(
-                onPressed: _submit,
-                child: Text(AppLocalizations.of(context)!.addRide),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: _submit,
+                  child: Text(AppLocalizations.of(context)!.addRide),
+                ),
+              ],
+            ),
           ),
         ),
       ),

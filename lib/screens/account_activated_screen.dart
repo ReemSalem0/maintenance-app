@@ -16,21 +16,26 @@ class _AccountActivatedScreenState extends State<AccountActivatedScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget.destination),);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => widget.destination),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 64,),
-            const SizedBox(height: 16,),
-            Text(AppLocalizations.of(context)!.welcomeActive),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.check_circle, color: Colors.green, size: 64),
+              const SizedBox(height: 16),
+              Text(AppLocalizations.of(context)!.welcomeActive),
+            ],
+          ),
         ),
       ),
     );

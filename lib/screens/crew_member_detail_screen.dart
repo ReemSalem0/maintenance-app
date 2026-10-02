@@ -65,19 +65,21 @@ class CrewMemberDetailScreen extends StatelessWidget {
                 ),
             ],
           ),
-          body: Column(
-            children: [
-              ListTile(
-                title: Text(
-                  '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
+          body: SafeArea(
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
+                  ),
                 ),
-              ),
-              ListTile(
-                title: Text(
-                  '${AppLocalizations.of(context)!.email}: ${crewMember.email}',
+                ListTile(
+                  title: Text(
+                    '${AppLocalizations.of(context)!.email}: ${crewMember.email}',
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

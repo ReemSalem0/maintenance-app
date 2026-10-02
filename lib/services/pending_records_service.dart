@@ -40,13 +40,33 @@ class PendingRecordsService {
   Future<void> syncAllPending() async {
     final pending = await getPendingRecords();
     final maintenanceService = MaintenanceService();
-    for (final record in pending) {
-      try {
-        await maintenanceService.addMaintenanceRecord(record);
-        await removePendingRecord(record);
-      } catch (e) {
-        // still offline or failed - leave it and try again next time
-      }
+
+    final results = await Future.wait(
+      pending.map((record) async {
+        try {
+          await maintenanceService.addMaintenanceRecord(record);
+          return record;
+        } catch (e) {
+          // still offline or failed - leave it and try again next time
+          return null;
+        }
+      }),
+    );
+
+    final successfullySynced = results.whereType<MaintenanceRecord>().toSet();
+
+    if (successfullySynced.isEmpty) {
+      return;
     }
+
+    final stillPending = pending
+        .where((record) => !successfullySynced.contains(record))
+        .toList();
+
+    final prefs = await SharedPreferences.getInstance();
+    final encoded = jsonEncode(
+      stillPending.map((r) => r.toLocalMap()).toList(),
+    );
+    await prefs.setString(_key, encoded);
   }
 }

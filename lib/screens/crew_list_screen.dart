@@ -40,95 +40,98 @@ class _CrewListScreenState extends State<CrewListScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.search,
-                      prefixIcon: const Icon(Icons.search),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        _searchText = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: StreamBuilder<List<CrewMember>>(
-              stream: FirestoreService().getAllCrewMembersStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text(
-                    '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-                  );
-                }
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-
-                final String? effectiveParkId =
-                    SelectedParkController.parkId.value;
-
-                if (effectiveParkId == null) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context)!.noParkAssigned),
-                  );
-                }
-
-                final crewMembers = snapshot.data!;
-                final filteredCrew = crewMembers.where((crewMember) {
-                  final matchesSearch = crewMember.name.toLowerCase().contains(
-                    _searchText.toLowerCase(),
-                  );
-                  return matchesSearch && crewMember.parkId == effectiveParkId;
-                }).toList();
-
-                if (filteredCrew.isEmpty) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context)!.noCrew),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: filteredCrew.length,
-                  itemBuilder: (context, index) {
-                    final crewMember = filteredCrew[index];
-                    return ListTile(
-                      title: Text(
-                        '${AppLocalizations.of(context)!.name}: ${crewMember.name}',
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.search,
+                        prefixIcon: const Icon(Icons.search),
                       ),
-                      subtitle: Text(
-                        '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CrewMemberDetailScreen(
-                              uid: crewMember.uid,
-                              canEditRole: true,
-                            ),
-                          ),
-                        );
+                      onChanged: (value) {
+                        setState(() {
+                          _searchText = value;
+                        });
                       },
-                    );
-                  },
-                );
-              },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: StreamBuilder<List<CrewMember>>(
+                stream: FirestoreService().getAllCrewMembersStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                    );
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final String? effectiveParkId =
+                      SelectedParkController.parkId.value;
+
+                  if (effectiveParkId == null) {
+                    return Center(
+                      child: Text(AppLocalizations.of(context)!.noParkAssigned),
+                    );
+                  }
+
+                  final crewMembers = snapshot.data!;
+                  final filteredCrew = crewMembers.where((crewMember) {
+                    final matchesSearch = crewMember.name
+                        .toLowerCase()
+                        .contains(_searchText.toLowerCase());
+                    return matchesSearch &&
+                        crewMember.parkId == effectiveParkId;
+                  }).toList();
+
+                  if (filteredCrew.isEmpty) {
+                    return Center(
+                      child: Text(AppLocalizations.of(context)!.noCrew),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: filteredCrew.length,
+                    itemBuilder: (context, index) {
+                      final crewMember = filteredCrew[index];
+                      return ListTile(
+                        title: Text(
+                          '${AppLocalizations.of(context)!.name}: ${crewMember.name}',
+                        ),
+                        subtitle: Text(
+                          '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, crewMember.role)}',
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CrewMemberDetailScreen(
+                                uid: crewMember.uid,
+                                canEditRole: true,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

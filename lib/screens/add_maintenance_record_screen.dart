@@ -38,69 +38,71 @@ class _AddMaintenanceRecordScreenState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addMaintenanceRecord),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                initialValue: widget.ride.name,
-                enabled: false,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.name,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  initialValue: widget.ride.name,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.name,
+                  ),
                 ),
-              ),
-              DropdownButtonFormField<MaintenanceType>(
-                initialValue: _selectedType,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.selectType,
+                DropdownButtonFormField<MaintenanceType>(
+                  initialValue: _selectedType,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.selectType,
+                  ),
+                  items: MaintenanceType.values.map((type) {
+                    return DropdownMenuItem(
+                      value: type,
+                      child: Text(_typeLabel(context, type)),
+                    );
+                  }).toList(),
+                  onChanged: (newType) {
+                    setState(() {
+                      _selectedType = newType;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return AppLocalizations.of(context)!.typeValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                items: MaintenanceType.values.map((type) {
-                  return DropdownMenuItem(
-                    value: type,
-                    child: Text(_typeLabel(context, type)),
-                  );
-                }).toList(),
-                onChanged: (newType) {
-                  setState(() {
-                    _selectedType = newType;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return AppLocalizations.of(context)!.typeValidationError;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.description,
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.description,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return AppLocalizations.of(
+                        context,
+                      )!.descriptionValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(
-                      context,
-                    )!.descriptionValidationError;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _notesController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.notes,
+                TextFormField(
+                  controller: _notesController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.notes,
+                  ),
                 ),
-              ),
 
-              ElevatedButton(
-                onPressed: _isSubmitting ? null : _submit,
-                child: Text(AppLocalizations.of(context)!.save),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: _isSubmitting ? null : _submit,
+                  child: Text(AppLocalizations.of(context)!.save),
+                ),
+              ],
+            ),
           ),
         ),
       ),

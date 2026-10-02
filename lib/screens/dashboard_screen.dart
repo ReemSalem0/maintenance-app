@@ -36,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
               );
             }
             if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             final park = snapshot.data!;
             return Text(park.name);
@@ -60,75 +60,80 @@ class DashboardScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          children: [
-            DashboardCard(
-              icon: Icons.build_circle_outlined,
-              label: AppLocalizations.of(context)!.rideList,
-              accentColor: const Color(0xFF1E3A5F),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        RideListScreen(crewMember: crewMember),
-                  ),
-                );
-              },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 180,
+              childAspectRatio: 1.0,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
             ),
-            if (crewMember.role == CrewRole.administrator)
+            children: [
               DashboardCard(
-                icon: Icons.badge_outlined,
-                label: AppLocalizations.of(context)!.crewList,
-                accentColor: const Color(0xFFE8A33D),
+                icon: Icons.build_circle_outlined,
+                label: AppLocalizations.of(context)!.rideList,
+                accentColor: const Color(0xFF1E3A5F),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          CrewListScreen(crewMember: crewMember),
+                          RideListScreen(crewMember: crewMember),
                     ),
                   );
                 },
               ),
-            if (crewMember.role == CrewRole.administrator ||
-                crewMember.role == CrewRole.inspector)
+              if (crewMember.role == CrewRole.administrator)
+                DashboardCard(
+                  icon: Icons.badge_outlined,
+                  label: AppLocalizations.of(context)!.crewList,
+                  accentColor: const Color(0xFFE8A33D),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CrewListScreen(crewMember: crewMember),
+                      ),
+                    );
+                  },
+                ),
+              if (crewMember.role == CrewRole.administrator ||
+                  crewMember.role == CrewRole.inspector)
+                DashboardCard(
+                  icon: Icons.swap_horiz,
+                  label: AppLocalizations.of(context)!.switchParks,
+                  accentColor: const Color(0xFF6BBE9E),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ParkSelectionScreen(crewMember: crewMember),
+                      ),
+                    );
+                  },
+                ),
               DashboardCard(
-                icon: Icons.swap_horiz,
-                label: AppLocalizations.of(context)!.switchParks,
+                icon: Icons.info_outline,
+                label: AppLocalizations.of(context)!.myDetails,
                 accentColor: const Color(0xFF6BBE9E),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ParkSelectionScreen(crewMember: crewMember),
+                      builder: (context) => CrewMemberDetailScreen(
+                        uid: crewMember.uid,
+                        canEditRole: false,
+                      ),
                     ),
                   );
                 },
               ),
-            DashboardCard(
-              icon: Icons.info_outline,
-              label: AppLocalizations.of(context)!.myDetails,
-              accentColor: const Color(0xFF6BBE9E),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CrewMemberDetailScreen(
-                      uid: crewMember.uid,
-                      canEditRole: false,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

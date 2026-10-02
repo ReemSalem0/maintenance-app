@@ -44,134 +44,142 @@ class _RideListScreenState extends State<RideListScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.search,
-                      prefixIcon: const Icon(Icons.search),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.search,
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _searchText = value;
+                        });
+                      },
                     ),
-                    onChanged: (value) {
+                  ),
+                  DropdownButton<RideSortOption>(
+                    value: _sortOption,
+                    underline: const SizedBox(),
+                    items: [
+                      DropdownMenuItem(
+                        value: RideSortOption.name,
+                        child: Text(AppLocalizations.of(context)!.sortByName),
+                      ),
+                      DropdownMenuItem(
+                        value: RideSortOption.status,
+                        child: Text(AppLocalizations.of(context)!.sortByStatus),
+                      ),
+                    ],
+                    onChanged: (newOption) {
                       setState(() {
-                        _searchText = value;
+                        _sortOption = newOption!;
                       });
                     },
                   ),
-                ),
-                DropdownButton<RideSortOption>(
-                  value: _sortOption,
-                  underline: const SizedBox(),
-                  items: [
-                    DropdownMenuItem(
-                      value: RideSortOption.name,
-                      child: Text(AppLocalizations.of(context)!.sortByName),
-                    ),
-                    DropdownMenuItem(
-                      value: RideSortOption.status,
-                      child: Text(AppLocalizations.of(context)!.sortByStatus),
-                    ),
-                  ],
-                  onChanged: (newOption) {
-                    setState(() {
-                      _sortOption = newOption!;
-                    });
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: StreamBuilder<List<Ride>>(
-              stream: RideService().getAllRidesStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text(
-                    '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-                  );
-                }
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                final rides = snapshot.data!;
-                if (_sortOption == RideSortOption.name) {
-                  rides.sort((a, b) => a.name.compareTo(b.name));
-                } else {
-                  rides.sort(
-                    (a, b) => _statusPriority(
-                      a.status,
-                    ).compareTo(_statusPriority(b.status)),
-                  );
-                }
-
-                final String? effectiveParkId =
-                    (widget.crewMember.role == CrewRole.administrator ||
-                        widget.crewMember.role == CrewRole.inspector)
-                    ? SelectedParkController.parkId.value
-                    : widget.crewMember.parkId;
-
-                if (effectiveParkId == null) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context)!.noParkAssigned),
-                  );
-                }
-
-                final filteredRides = rides.where((ride) {
-                  final matchesSearch = ride.name.toLowerCase().contains(
-                    _searchText.toLowerCase(),
-                  );
-                  return matchesSearch && ride.parkId == effectiveParkId;
-                }).toList();
-
-                if (filteredRides.isEmpty) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context)!.noRides),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: filteredRides.length,
-                  itemBuilder: (context, index) {
-                    final ride = filteredRides[index];
-                    return ListTile(
-                      title: Text(
-                        '${AppLocalizations.of(context)!.name}: ${ride.name}',
-                      ),
-                      subtitle: Text(
-                        '${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}',
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                RideDetailScreen(rideId: ride.id, crewMember: widget.crewMember,),
-                          ),
-                        );
-                      },
+            Expanded(
+              child: StreamBuilder<List<Ride>>(
+                stream: RideService().getAllRidesStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
                     );
-                  },
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final rides = snapshot.data!;
+                  if (_sortOption == RideSortOption.name) {
+                    rides.sort((a, b) => a.name.compareTo(b.name));
+                  } else {
+                    rides.sort(
+                      (a, b) => _statusPriority(
+                        a.status,
+                      ).compareTo(_statusPriority(b.status)),
+                    );
+                  }
+
+                  final String? effectiveParkId =
+                      (widget.crewMember.role == CrewRole.administrator ||
+                          widget.crewMember.role == CrewRole.inspector)
+                      ? SelectedParkController.parkId.value
+                      : widget.crewMember.parkId;
+
+                  if (effectiveParkId == null) {
+                    return Center(
+                      child: Text(AppLocalizations.of(context)!.noParkAssigned),
+                    );
+                  }
+
+                  final filteredRides = rides.where((ride) {
+                    final matchesSearch = ride.name.toLowerCase().contains(
+                      _searchText.toLowerCase(),
+                    );
+                    return matchesSearch && ride.parkId == effectiveParkId;
+                  }).toList();
+
+                  if (filteredRides.isEmpty) {
+                    return Center(
+                      child: Text(AppLocalizations.of(context)!.noRides),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: filteredRides.length,
+                    itemBuilder: (context, index) {
+                      final ride = filteredRides[index];
+                      return ListTile(
+                        title: Text(
+                          '${AppLocalizations.of(context)!.name}: ${ride.name}',
+                        ),
+                        subtitle: Text(
+                          '${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}',
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RideDetailScreen(
+                                rideId: ride.id,
+                                crewMember: widget.crewMember,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: widget.crewMember.role == CrewRole.administrator
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddRideScreen(),
+                  ),
                 );
               },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddRideScreen()),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 

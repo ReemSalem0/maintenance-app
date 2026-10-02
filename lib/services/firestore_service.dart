@@ -87,10 +87,12 @@ class FirestoreService {
     String uid,
     String name,
     CrewRole newRole,
+    String? newParkId,
   ) async {
     await _db.collection('crewMembers').doc(uid).update({
       'name': name,
       'role': newRole.name,
+      'parkId': newParkId,
     });
   }
 

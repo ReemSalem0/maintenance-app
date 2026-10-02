@@ -38,47 +38,52 @@ class ParkSelectionScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder<List<Park>>(
-        stream: ParkService().getAllParksStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(
-              '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+      body: SafeArea(
+        child: StreamBuilder<List<Park>>(
+          stream: ParkService().getAllParksStream(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text(
+                '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+              );
+            }
+            if (!snapshot.hasData) {
+              return const SizedBox(
+                height: 56,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+            final parks = snapshot.data!;
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 180,
+                  childAspectRatio: 1.0,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                ),
+                children: parks.map((park) {
+                  return DashboardCard(
+                    icon: Icons.park_outlined,
+                    label: park.name,
+                    accentColor: const Color(0xFF1E3A5F),
+                    onTap: () {
+                      SelectedParkController.select(park.id);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DashboardScreen(crewMember: crewMember),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
             );
-          }
-          if (!snapshot.hasData) {
-            return const SizedBox(
-              height: 56,
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-          final parks = snapshot.data!;
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              children: parks.map((park) {
-                return DashboardCard(
-                  icon: Icons.park_outlined,
-                  label: park.name,
-                  accentColor: const Color(0xFF1E3A5F),
-                  onTap: () {
-                    SelectedParkController.select(park.id);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            DashboardScreen(crewMember: crewMember),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

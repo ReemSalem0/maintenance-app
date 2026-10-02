@@ -1,11 +1,13 @@
 enum CrewRole { administrator, manager, technician, inspector }
 
 class CrewMember {
-  final String uid; //unique ID assigned by Firebase Auth when the account is created
+  final String
+  uid; //unique ID assigned by Firebase Auth when the account is created
   final String name; // crew member's (account holder) full name
   final String email; // crew member's email address
   final CrewRole role; // crewmember's assigned role within the company
-  final bool accountActivated; //custom flag to indecate that the account has fully compeleted the setup
+  final bool
+  accountActivated; //custom flag to indecate that the account has fully compeleted the setup
   final String? parkId;
 
   CrewMember({

@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:maintenance_app/screens/login_screen.dart';
+import 'package:maintenance_app/screens/auth_gate.dart';
 import 'package:maintenance_app/services/pending_records_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('he')],
-      home: const LoginScreen(),
+      home: const AuthGate(),
     );
   }
 }

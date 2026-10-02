@@ -5,6 +5,7 @@ import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/park_service.dart';
+import 'package:maintenance_app/utils/validators.dart';
 
 class AddCrewMemberScreen extends StatefulWidget {
   const AddCrewMemberScreen({super.key});
@@ -25,113 +26,108 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.addCrewMember)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.name,
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(context)!.nameValidationError;
-                  }
-                  return null;
-                },
-              ),
-              if (_selectedRole == CrewRole.manager ||
-                  _selectedRole == CrewRole.technician)
-                StreamBuilder<List<Park>>(
-                  stream: ParkService().getAllParksStream(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(
-                        '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-                      );
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.name,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return AppLocalizations.of(context)!.nameValidationError;
                     }
-                    if (!snapshot.hasData) {
-                      return const SizedBox(
-                        height: 56,
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    final parks = snapshot.data!;
-                    return DropdownButtonFormField<String>(
-                      initialValue: _selectedParkId,
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.selectPark,
-                      ),
-                      items: parks.map((park) {
-                        return DropdownMenuItem(
-                          value: park.id,
-                          child: Text(park.name),
-                        );
-                      }).toList(),
-                      onChanged: (newParkId) {
-                        setState(() {
-                          _selectedParkId = newParkId;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null) {
-                          return AppLocalizations.of(
-                            context,
-                          )!.parkValidationError;
-                        }
-                        return null;
-                      },
-                    );
+                    return null;
                   },
                 ),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                textDirection: TextDirection.ltr,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.email,
+                if (_selectedRole == CrewRole.manager ||
+                    _selectedRole == CrewRole.technician)
+                  StreamBuilder<List<Park>>(
+                    stream: ParkService().getAllParksStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(
+                          '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                        );
+                      }
+                      if (!snapshot.hasData) {
+                        return const SizedBox(
+                          height: 56,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
+                      final parks = snapshot.data!;
+                      return DropdownButtonFormField<String>(
+                        initialValue: _selectedParkId,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.selectPark,
+                        ),
+                        items: parks.map((park) {
+                          return DropdownMenuItem(
+                            value: park.id,
+                            child: Text(park.name),
+                          );
+                        }).toList(),
+                        onChanged: (newParkId) {
+                          setState(() {
+                            _selectedParkId = newParkId;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.parkValidationError;
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textDirection: TextDirection.ltr,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.email,
+                  ),
+                  validator: (value) => validateEmail(context, value),
                 ),
-                validator: (value) {
-                  if (value == null ||
-                      !value.trim().contains('@') ||
-                      value.trim().isEmpty) {
-                    return AppLocalizations.of(context)!.emailValidationError;
-                  }
-                  return null;
-                },
-              ),
-              DropdownButtonFormField<CrewRole>(
-                initialValue: _selectedRole,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.selectRole,
+                DropdownButtonFormField<CrewRole>(
+                  initialValue: _selectedRole,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.selectRole,
+                  ),
+                  items: CrewRole.values.map((role) {
+                    return DropdownMenuItem(
+                      value: role,
+                      child: Text(_roleLabel(context, role)),
+                    );
+                  }).toList(),
+                  onChanged: (newRole) {
+                    setState(() {
+                      _selectedRole = newRole;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return AppLocalizations.of(context)!.roleValidationError;
+                    }
+                    return null;
+                  },
                 ),
-                items: CrewRole.values.map((role) {
-                  return DropdownMenuItem(
-                    value: role,
-                    child: Text(_roleLabel(context, role)),
-                  );
-                }).toList(),
-                onChanged: (newRole) {
-                  setState(() {
-                    _selectedRole = newRole;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return AppLocalizations.of(context)!.roleValidationError;
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: _submit,
-                child: Text(AppLocalizations.of(context)!.addCrewMember),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: _submit,
+                  child: Text(AppLocalizations.of(context)!.addCrewMember),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -184,6 +180,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
       _emailController.text = '';
       setState(() {
         _selectedRole = null;
+        _selectedParkId = null;
       });
     } catch (e) {
       if (!mounted) return;

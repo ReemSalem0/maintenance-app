@@ -107,138 +107,140 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: _showDateFilter
-                    ? Row(
-                        children: [
-                          Expanded(
-                            child: TextButton(
-                              onPressed: _pickStartDate,
-                              child: Text(
-                                _startDate == null
-                                    ? AppLocalizations.of(context)!.startDate
-                                    : DateFormat(
-                                        'dd/MM/yyyy',
-                                      ).format(_startDate!),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextButton(
-                              onPressed: _pickEndDate,
-                              child: Text(
-                                _endDate == null
-                                    ? AppLocalizations.of(context)!.endDate
-                                    : DateFormat(
-                                        'dd/MM/yyyy',
-                                      ).format(_endDate!),
-                              ),
-                            ),
-                          ),
-                          if (_startDate != null || _endDate != null)
-                            IconButton(
-                              onPressed: _clearDateFilter,
-                              icon: const Icon(Icons.delete_outline),
-                            ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _showDateFilter = false;
-                              });
-                            },
-                            icon: const Icon(Icons.close),
-                          ),
-                        ],
-                      )
-                    : Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: TextButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              _showDateFilter = true;
-                            });
-                          },
-                          icon: const Icon(Icons.filter_alt_outlined),
-                          label: Text(
-                            AppLocalizations.of(context)!.filterByDate,
-                          ),
-                        ),
-                      ),
-              ),
-              Expanded(
-                child: StreamBuilder<List<MaintenanceRecord>>(
-                  stream: MaintenanceService().getMaintenanceRecordsForRide(
-                    ride.id,
-                    startDate: _startDate,
-                    endDate: _endDate == null
-                        ? null
-                        : DateTime(
-                            _endDate!.year,
-                            _endDate!.month,
-                            _endDate!.day,
-                            23,
-                            59,
-                            59,
-                          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
                   ),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(
-                        '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
-                      );
-                    }
-                    if (!snapshot.hasData) {
-                      return const CircularProgressIndicator();
-                    }
-                    final records = snapshot.data!;
-                    if (records.isEmpty) {
-                      return Center(
-                        child: Text(AppLocalizations.of(context)!.noRecords),
-                      );
-                    }
-                    return ListView.builder(
-                      itemCount: records.length,
-                      itemBuilder: (context, index) {
-                        final record = records[index];
-                        return ExpansionTile(
-                          title: Text(_typeLabel(context, record.type)),
-                          subtitle: Text(
-                            DateFormat(
-                              'dd/MM/yyyy HH:mm',
-                            ).format(record.dateTime),
-                          ),
+                  child: _showDateFilter
+                      ? Row(
                           children: [
-                            ListTile(
-                              title: Text(
-                                '${AppLocalizations.of(context)!.crewMember}: ${record.crewMemberName}',
-                              ),
-                            ),
-                            ListTile(
-                              title: Text(
-                                '${AppLocalizations.of(context)!.description}: ${record.description}',
-                              ),
-                            ),
-                            if (record.notes != null &&
-                                record.notes!.isNotEmpty)
-                              ListTile(
-                                title: Text(
-                                  '${AppLocalizations.of(context)!.notes}: ${record.notes}',
+                            Expanded(
+                              child: TextButton(
+                                onPressed: _pickStartDate,
+                                child: Text(
+                                  _startDate == null
+                                      ? AppLocalizations.of(context)!.startDate
+                                      : DateFormat(
+                                          'dd/MM/yyyy',
+                                        ).format(_startDate!),
                                 ),
                               ),
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: _pickEndDate,
+                                child: Text(
+                                  _endDate == null
+                                      ? AppLocalizations.of(context)!.endDate
+                                      : DateFormat(
+                                          'dd/MM/yyyy',
+                                        ).format(_endDate!),
+                                ),
+                              ),
+                            ),
+                            if (_startDate != null || _endDate != null)
+                              IconButton(
+                                onPressed: _clearDateFilter,
+                                icon: const Icon(Icons.delete_outline),
+                              ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _showDateFilter = false;
+                                });
+                              },
+                              icon: const Icon(Icons.close),
+                            ),
                           ],
-                        );
-                      },
-                    );
-                  },
+                        )
+                      : Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: TextButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _showDateFilter = true;
+                              });
+                            },
+                            icon: const Icon(Icons.filter_alt_outlined),
+                            label: Text(
+                              AppLocalizations.of(context)!.filterByDate,
+                            ),
+                          ),
+                        ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: StreamBuilder<List<MaintenanceRecord>>(
+                    stream: MaintenanceService().getMaintenanceRecordsForRide(
+                      ride.id,
+                      startDate: _startDate,
+                      endDate: _endDate == null
+                          ? null
+                          : DateTime(
+                              _endDate!.year,
+                              _endDate!.month,
+                              _endDate!.day,
+                              23,
+                              59,
+                              59,
+                            ),
+                    ),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(
+                          '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                        );
+                      }
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      final records = snapshot.data!;
+                      if (records.isEmpty) {
+                        return Center(
+                          child: Text(AppLocalizations.of(context)!.noRecords),
+                        );
+                      }
+                      return ListView.builder(
+                        itemCount: records.length,
+                        itemBuilder: (context, index) {
+                          final record = records[index];
+                          return ExpansionTile(
+                            title: Text(_typeLabel(context, record.type)),
+                            subtitle: Text(
+                              DateFormat(
+                                'dd/MM/yyyy HH:mm',
+                              ).format(record.dateTime),
+                            ),
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  '${AppLocalizations.of(context)!.crewMember}: ${record.crewMemberName}',
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(
+                                  '${AppLocalizations.of(context)!.description}: ${record.description}',
+                                ),
+                              ),
+                              if (record.notes != null &&
+                                  record.notes!.isNotEmpty)
+                                ListTile(
+                                  title: Text(
+                                    '${AppLocalizations.of(context)!.notes}: ${record.notes}',
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
