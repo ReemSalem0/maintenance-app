@@ -96,6 +96,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statusOutOfService => 'Out of Service';
 
   @override
+  String get statusRetired => 'Retired';
+
+  @override
+  String get retiredRidesSection => 'Retired Rides';
+
+  @override
   String get rideAddedSuccessfully => 'Ride added successsfully';
 
   @override
@@ -227,6 +233,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteRide => 'Delete Ride';
 
   @override
+  String get cannotDelete =>
+      'This ride has history and can\'t be deleted, only retired';
+
+  @override
   String get deleteRideConfirmation =>
       'Do you want to delete this ride? Once deleted, this action cannot be undone.';
 
@@ -242,4 +252,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteCrewMemberConfirmation =>
       'Do you want to delete this crew member? Once deleted, this action cannot be undone.';
+
+  @override
+  String get ok => 'OK';
 }

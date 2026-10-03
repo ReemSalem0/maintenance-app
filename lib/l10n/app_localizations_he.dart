@@ -96,6 +96,12 @@ class AppLocalizationsHe extends AppLocalizations {
   String get statusOutOfService => 'מקולקל';
 
   @override
+  String get statusRetired => 'מושבת';
+
+  @override
+  String get retiredRidesSection => 'מתקנים מושבתים';
+
+  @override
   String get rideAddedSuccessfully => 'מתקן נוסף בהצלחה';
 
   @override
@@ -227,6 +233,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get deleteRide => 'מחק מתקן';
 
   @override
+  String get cannotDelete =>
+      'למתקן הזה יש לו היסטוריה ולא ניתן למחוק אותו, ניתן רק להשבית אותו';
+
+  @override
   String get deleteRideConfirmation =>
       'האם אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.';
 
@@ -242,4 +252,7 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get deleteCrewMemberConfirmation =>
       'האם אתם בטוחים שאתם רוצים למחוק את איש הצוות הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.';
+
+  @override
+  String get ok => 'אישור';
 }

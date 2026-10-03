@@ -113,12 +113,15 @@ class _AddRideScreenState extends State<AddRideScreen> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.selectStatus,
                   ),
-                  items: RideStatus.values.map((status) {
-                    return DropdownMenuItem(
-                      value: status,
-                      child: Text(_statusLabel(context, status)),
-                    );
-                  }).toList(),
+                  items: RideStatus.values
+                      .where((status) => status != RideStatus.retired)
+                      .map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(_statusLabel(context, status)),
+                        );
+                      })
+                      .toList(),
                   onChanged: (newStatus) {
                     setState(() {
                       _selectedStatus = newStatus;
@@ -160,6 +163,8 @@ class _AddRideScreenState extends State<AddRideScreen> {
         return AppLocalizations.of(context)!.statusUnderMaintenance;
       case RideStatus.outOfService:
         return AppLocalizations.of(context)!.statusOutOfService;
+      case RideStatus.retired:
+        return AppLocalizations.of(context)!.statusRetired;
     }
   }
 

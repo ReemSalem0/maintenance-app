@@ -66,8 +66,10 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            UpdateRideStatusScreen(ride: ride),
+                        builder: (context) => UpdateRideStatusScreen(
+                          ride: ride,
+                          crewMember: widget.crewMember,
+                        ),
                       ),
                     );
                   } else if (value == 'editRide') {
@@ -242,17 +244,20 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddMaintenanceRecordScreen(ride: ride),
-                ),
-              );
-            },
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: ride.status != RideStatus.retired
+              ? FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddMaintenanceRecordScreen(ride: ride),
+                      ),
+                    );
+                  },
+                  child: const Icon(Icons.add),
+                )
+              : null,
         );
       },
     );
@@ -328,6 +333,28 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
   }
 
   Future<void> _confirmDeleteRide(BuildContext context, Ride ride) async {
+    final hasRecords = await MaintenanceService().hasMaintenanceRecords(
+      ride.id,
+    );
+    if (!context.mounted) return;
+    if (hasRecords) {
+      await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.deleteRide),
+            content: Text(AppLocalizations.of(context)!.cannotDelete),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text(AppLocalizations.of(context)!.ok),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -370,6 +397,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
         return AppLocalizations.of(context)!.statusUnderMaintenance;
       case RideStatus.outOfService:
         return AppLocalizations.of(context)!.statusOutOfService;
+      case RideStatus.retired:
+        return AppLocalizations.of(context)!.statusRetired;
     }
   }
 

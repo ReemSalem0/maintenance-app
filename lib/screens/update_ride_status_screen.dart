@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 
 class UpdateRideStatusScreen extends StatefulWidget {
   final Ride ride;
+  final CrewMember crewMember;
 
-  const UpdateRideStatusScreen({super.key, required this.ride});
+  const UpdateRideStatusScreen({
+    super.key,
+    required this.ride,
+    required this.crewMember,
+  });
 
   @override
   State<UpdateRideStatusScreen> createState() => _UpdateRideStatusScreenState();
@@ -46,12 +52,19 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.selectStatus,
                   ),
-                  items: RideStatus.values.map((status) {
-                    return DropdownMenuItem(
-                      value: status,
-                      child: Text(_statusLabel(context, status)),
-                    );
-                  }).toList(),
+                  items: RideStatus.values
+                      .where(
+                        (status) =>
+                            status != RideStatus.retired ||
+                            widget.crewMember.role == CrewRole.administrator,
+                      )
+                      .map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(_statusLabel(context, status)),
+                        );
+                      })
+                      .toList(),
                   onChanged: (newStatus) {
                     setState(() {
                       _selectedStatus = newStatus!;
@@ -112,6 +125,8 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
         return AppLocalizations.of(context)!.statusUnderMaintenance;
       case RideStatus.outOfService:
         return AppLocalizations.of(context)!.statusOutOfService;
+      case RideStatus.retired:
+        return AppLocalizations.of(context)!.statusRetired;
     }
   }
 }

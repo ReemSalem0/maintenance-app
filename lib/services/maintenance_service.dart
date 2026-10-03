@@ -54,4 +54,13 @@ class MaintenanceService {
           .toList();
     });
   }
+
+  Future<bool> hasMaintenanceRecords(String rideId) async {
+    final snapshot = await _db
+        .collection('maintenanceRecords')
+        .where('rideId', isEqualTo: rideId)
+        .limit(1)
+        .get();
+    return snapshot.docs.isNotEmpty;
+  }
 }

@@ -102,15 +102,6 @@ class _RideListScreenState extends State<RideListScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   final rides = snapshot.data!;
-                  if (_sortOption == RideSortOption.name) {
-                    rides.sort((a, b) => a.name.compareTo(b.name));
-                  } else {
-                    rides.sort(
-                      (a, b) => _statusPriority(
-                        a.status,
-                      ).compareTo(_statusPriority(b.status)),
-                    );
-                  }
 
                   final String? effectiveParkId =
                       (widget.crewMember.role == CrewRole.administrator ||
@@ -128,38 +119,52 @@ class _RideListScreenState extends State<RideListScreen> {
                     final matchesSearch = ride.name.toLowerCase().contains(
                       _searchText.toLowerCase(),
                     );
-                    return matchesSearch && ride.parkId == effectiveParkId;
+                    return matchesSearch &&
+                        ride.parkId == effectiveParkId &&
+                        (widget.crewMember.role == CrewRole.administrator ||
+                            ride.status != RideStatus.retired);
                   }).toList();
+
+                  final activeRides = filteredRides
+                      .where((ride) => ride.status != RideStatus.retired)
+                      .toList();
+                  final retiredRides = filteredRides
+                      .where((ride) => ride.status == RideStatus.retired)
+                      .toList();
+
+                  if (_sortOption == RideSortOption.name) {
+                    activeRides.sort((a, b) => a.name.compareTo(b.name));
+                  } else {
+                    activeRides.sort(
+                      (a, b) => _statusPriority(
+                        a.status,
+                      ).compareTo(_statusPriority(b.status)),
+                    );
+                  }
+
+                  retiredRides.sort((a, b) => a.name.compareTo(b.name));
 
                   if (filteredRides.isEmpty) {
                     return Center(
                       child: Text(AppLocalizations.of(context)!.noRides),
                     );
                   }
-                  return ListView.builder(
-                    itemCount: filteredRides.length,
-                    itemBuilder: (context, index) {
-                      final ride = filteredRides[index];
-                      return ListTile(
-                        title: Text(
-                          '${AppLocalizations.of(context)!.name}: ${ride.name}',
+                  return ListView(
+                    children: [
+                      ...activeRides.map(
+                        (ride) => _buildRideTile(context, ride),
+                      ),
+
+                      if (retiredRides.isNotEmpty)
+                        Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.retiredRidesSection,
+                          ),
                         ),
-                        subtitle: Text(
-                          '${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}',
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RideDetailScreen(
-                                rideId: ride.id,
-                                crewMember: widget.crewMember,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
+                      ...retiredRides.map(
+                        (ride) => _buildRideTile(context, ride),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -191,6 +196,8 @@ class _RideListScreenState extends State<RideListScreen> {
         return AppLocalizations.of(context)!.statusUnderMaintenance;
       case RideStatus.outOfService:
         return AppLocalizations.of(context)!.statusOutOfService;
+      case RideStatus.retired:
+        return AppLocalizations.of(context)!.statusRetired;
     }
   }
 
@@ -202,6 +209,28 @@ class _RideListScreenState extends State<RideListScreen> {
         return 1;
       case RideStatus.operational:
         return 2;
+      case RideStatus.retired:
+        return 4;
     }
+  }
+
+  Widget _buildRideTile(BuildContext context, Ride ride) {
+    return ListTile(
+      title: Text('${AppLocalizations.of(context)!.name}: ${ride.name}'),
+      subtitle: Text(
+        '${AppLocalizations.of(context)!.status}: ${_statusLabel(context, ride.status)}',
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RideDetailScreen(
+              rideId: ride.id,
+              crewMember: widget.crewMember,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

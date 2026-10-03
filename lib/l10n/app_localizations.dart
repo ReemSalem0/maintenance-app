@@ -272,6 +272,18 @@ abstract class AppLocalizations {
   /// **'Out of Service'**
   String get statusOutOfService;
 
+  /// No description provided for @statusRetired.
+  ///
+  /// In en, this message translates to:
+  /// **'Retired'**
+  String get statusRetired;
+
+  /// No description provided for @retiredRidesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Retired Rides'**
+  String get retiredRidesSection;
+
   /// No description provided for @rideAddedSuccessfully.
   ///
   /// In en, this message translates to:
@@ -530,6 +542,12 @@ abstract class AppLocalizations {
   /// **'Delete Ride'**
   String get deleteRide;
 
+  /// No description provided for @cannotDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'This ride has history and can\'t be deleted, only retired'**
+  String get cannotDelete;
+
   /// No description provided for @deleteRideConfirmation.
   ///
   /// In en, this message translates to:
@@ -559,6 +577,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to delete this crew member? Once deleted, this action cannot be undone.'**
   String get deleteCrewMemberConfirmation;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum RideStatus { operational, underMaintenance, outOfService }
+enum RideStatus { operational, underMaintenance, outOfService, retired }
 
 class Ride {
   final String id;
