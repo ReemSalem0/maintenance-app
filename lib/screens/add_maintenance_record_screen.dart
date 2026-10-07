@@ -7,6 +7,7 @@ import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/pending_records_service.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 
 class AddMaintenanceRecordScreen extends StatefulWidget {
   final Ride ride;
@@ -49,6 +50,8 @@ class _AddMaintenanceRecordScreenState
                 TextFormField(
                   initialValue: widget.ride.name,
                   enabled: false,
+                  textDirection: textDirectionFor(widget.ride.name),
+                  textAlign: TextAlign.right,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.name,
                   ),
@@ -78,6 +81,9 @@ class _AddMaintenanceRecordScreenState
                 ),
                 TextFormField(
                   controller: _descriptionController,
+                  textDirection: textDirectionFor(_descriptionController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.description,
                   ),
@@ -92,6 +98,9 @@ class _AddMaintenanceRecordScreenState
                 ),
                 TextFormField(
                   controller: _notesController,
+                  textDirection: textDirectionFor(_notesController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.notes,
                   ),

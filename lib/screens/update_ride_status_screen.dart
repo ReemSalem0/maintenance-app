@@ -4,6 +4,7 @@ import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 
 class UpdateRideStatusScreen extends StatefulWidget {
   final Ride ride;
@@ -43,6 +44,8 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
               children: [
                 TextFormField(
                   initialValue: widget.ride.name,
+                  textDirection: textDirectionFor(widget.ride.name),
+                  textAlign: TextAlign.right,
                   enabled: false,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.name,

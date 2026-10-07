@@ -5,6 +5,7 @@ import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/park_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 
 class EditRideScreen extends StatefulWidget {
   final Ride ride;
@@ -49,6 +50,9 @@ class _EditRideScreen extends State<EditRideScreen> {
               children: [
                 TextFormField(
                   controller: _nameController,
+                  textDirection: textDirectionFor(_nameController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.name,
                   ),
@@ -103,6 +107,9 @@ class _EditRideScreen extends State<EditRideScreen> {
                 ),
                 TextFormField(
                   controller: _descriptionController,
+                  textDirection: textDirectionFor(_descriptionController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.description,
                   ),
@@ -117,12 +124,18 @@ class _EditRideScreen extends State<EditRideScreen> {
                 ),
                 TextFormField(
                   controller: _locationController,
+                  textDirection: textDirectionFor(_locationController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.location,
                   ),
                 ),
                 TextFormField(
                   controller: _notesController,
+                  textDirection: textDirectionFor(_notesController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.notes,
                   ),

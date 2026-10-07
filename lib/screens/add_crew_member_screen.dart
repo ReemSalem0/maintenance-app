@@ -6,6 +6,7 @@ import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/park_service.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 import 'package:maintenance_app/utils/validators.dart';
 
 class AddCrewMemberScreen extends StatefulWidget {
@@ -37,6 +38,9 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
               children: [
                 TextFormField(
                   controller: _nameController,
+                  textDirection: textDirectionFor(_nameController.text),
+                  textAlign: TextAlign.right,
+                  onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.name,
                   ),

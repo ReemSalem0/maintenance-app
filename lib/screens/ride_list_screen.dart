@@ -9,6 +9,7 @@ import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/ride_detail_screen.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 
 enum RideSortOption { name, status }
 
@@ -57,6 +58,8 @@ class _RideListScreenState extends State<RideListScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      textDirection: textDirectionFor(_searchText),
+                      textAlign: TextAlign.right,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!.search,
                         prefixIcon: const Icon(Icons.search),

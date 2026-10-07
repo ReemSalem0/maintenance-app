@@ -8,6 +8,7 @@ import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/utils/text_direction.dart';
 
 class CrewListScreen extends StatefulWidget {
   final CrewMember crewMember;
@@ -53,6 +54,8 @@ class _CrewListScreenState extends State<CrewListScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      textDirection: textDirectionFor(_searchText),
+                      textAlign: TextAlign.right,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!.search,
                         prefixIcon: const Icon(Icons.search),
