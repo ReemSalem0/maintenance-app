@@ -3,6 +3,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/edit_crew_member_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class CrewMemberDetailScreen extends StatelessWidget {
   final String uid;
@@ -121,7 +122,7 @@ class CrewMemberDetailScreen extends StatelessWidget {
         if (!context.mounted) return;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(e.toString())));
+        ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
       }
     }
   }

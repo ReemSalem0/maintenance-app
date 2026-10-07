@@ -4,6 +4,7 @@ import 'package:maintenance_app/models/park.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/park_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class AddRideScreen extends StatefulWidget {
   const AddRideScreen({super.key});
@@ -51,7 +52,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text(
-                        '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                        '${AppLocalizations.of(context)!.error}: ${friendlyError(context, snapshot.error!)}',
                       );
                     }
                     if (!snapshot.hasData) {
@@ -205,7 +206,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
     }
   }
 }

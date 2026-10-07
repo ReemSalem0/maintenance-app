@@ -9,6 +9,7 @@ import 'package:maintenance_app/screens/edit_ride_screen.dart';
 import 'package:maintenance_app/screens/update_ride_status_screen.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String rideId;
@@ -193,7 +194,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Text(
-                          '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                          '${AppLocalizations.of(context)!.error}: ${friendlyError(context, snapshot.error!)}',
                         );
                       }
                       if (!snapshot.hasData) {
@@ -384,7 +385,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
         if (!context.mounted) return;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(e.toString())));
+        ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
       }
     }
   }

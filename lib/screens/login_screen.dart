@@ -3,6 +3,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/account_activated_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 import 'package:maintenance_app/utils/role_router.dart';
 import 'package:maintenance_app/utils/validators.dart';
 
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
     }
   }
 }

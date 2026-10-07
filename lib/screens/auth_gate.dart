@@ -4,6 +4,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 import 'package:maintenance_app/utils/role_router.dart';
 
 class AuthGate extends StatelessWidget {
@@ -16,7 +17,7 @@ class AuthGate extends StatelessWidget {
       builder: (context, authSnapshot) {
         if (authSnapshot.hasError) {
           return Text(
-            '${AppLocalizations.of(context)!.error}: ${authSnapshot.error}',
+            '${AppLocalizations.of(context)!.error}: ${friendlyError(context, authSnapshot.error!)}',
           );
         }
         if (authSnapshot.connectionState == ConnectionState.waiting) {
@@ -31,7 +32,7 @@ class AuthGate extends StatelessWidget {
             builder: (context, crewSnapshot) {
               if (crewSnapshot.hasError) {
                 return Text(
-                  '${AppLocalizations.of(context)!.error}: ${crewSnapshot.error}',
+                  '${AppLocalizations.of(context)!.error}: ${friendlyError(context, crewSnapshot.error!)}',
                 );
               }
               if (crewSnapshot.connectionState == ConnectionState.waiting) {

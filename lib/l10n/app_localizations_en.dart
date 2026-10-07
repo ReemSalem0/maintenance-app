@@ -255,4 +255,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get errorInvalidCredentials => 'Incorrect email or password';
+
+  @override
+  String get errorInvalidEmail => 'The email address isn\'t valid';
+
+  @override
+  String get errorEmailInUse => 'This email is already in use';
+
+  @override
+  String get errorTooManyRequests => 'Too many attempts, try again later';
+
+  @override
+  String get errorNetwork => 'No connection, check your internet and try again';
+
+  @override
+  String get errorPermissionDenied => 'You don\'t have permission to do this';
+
+  @override
+  String get errorGeneric => 'Something went wrong, please try again';
 }

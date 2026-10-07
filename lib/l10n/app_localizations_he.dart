@@ -234,7 +234,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get cannotDelete =>
-      'למתקן הזה יש לו היסטוריה ולא ניתן למחוק אותו, ניתן רק להשבית אותו';
+      'למתקן הזה יש היסטוריה לא ניתן למחוק אותו, ניתן רק להשבית אותו';
 
   @override
   String get deleteRideConfirmation =>
@@ -255,4 +255,26 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get ok => 'אישור';
+
+  @override
+  String get errorInvalidCredentials => 'האימייל או הסיסמה שגויים';
+
+  @override
+  String get errorInvalidEmail => 'כתובת אימייל לא חוקית';
+
+  @override
+  String get errorEmailInUse => 'כתובת אימייל זו כבר בשימוש עבור משתמש אחר';
+
+  @override
+  String get errorTooManyRequests =>
+      'יותר מדי ניסיונות, נא לנסות שוב מאוחר יותר';
+
+  @override
+  String get errorNetwork => 'אין חיבור רשת, נא לבדוק את החיבור ולנסות שוב';
+
+  @override
+  String get errorPermissionDenied => 'אין לך הרשאה לבצע את הפעולה הזו';
+
+  @override
+  String get errorGeneric => 'משהו השתבש, נא לנסות שוב ';
 }

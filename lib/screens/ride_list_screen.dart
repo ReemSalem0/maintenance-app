@@ -8,6 +8,7 @@ import 'package:maintenance_app/services/ride_service.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/ride_detail_screen.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 enum RideSortOption { name, status }
 
@@ -95,7 +96,7 @@ class _RideListScreenState extends State<RideListScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text(
-                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                      '${AppLocalizations.of(context)!.error}: ${friendlyError(context, snapshot.error!)}',
                     );
                   }
                   if (!snapshot.hasData) {

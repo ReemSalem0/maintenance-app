@@ -3,6 +3,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/services/ride_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class UpdateRideStatusScreen extends StatefulWidget {
   final Ride ride;
@@ -113,7 +114,7 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
     }
   }
 

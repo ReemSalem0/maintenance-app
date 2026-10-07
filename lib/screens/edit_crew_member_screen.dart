@@ -4,6 +4,7 @@ import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/park.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/park_service.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class EditCrewMemberScreen extends StatefulWidget {
   final CrewMember crewMember;
@@ -61,7 +62,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Text(
-                          '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                          '${AppLocalizations.of(context)!.error}: ${friendlyError(context, snapshot.error!)}',
                         );
                       }
                       if (!snapshot.hasData) {
@@ -165,7 +166,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));
     }
   }
 

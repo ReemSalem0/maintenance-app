@@ -7,6 +7,7 @@ import 'package:maintenance_app/screens/login_screen.dart';
 import 'package:maintenance_app/services/auth_service.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/selected_park_controller.dart';
+import 'package:maintenance_app/utils/error_messages.dart';
 
 class CrewListScreen extends StatefulWidget {
   final CrewMember crewMember;
@@ -72,7 +73,7 @@ class _CrewListScreenState extends State<CrewListScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text(
-                      '${AppLocalizations.of(context)!.error}: ${snapshot.error}',
+                      '${AppLocalizations.of(context)!.error}: ${friendlyError(context, snapshot.error!)}',
                     );
                   }
                   if (!snapshot.hasData) {
