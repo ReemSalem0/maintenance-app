@@ -9,7 +9,7 @@ class AppLocalizationsHe extends AppLocalizations {
   AppLocalizationsHe([String locale = 'he']) : super(locale);
 
   @override
-  String get welcomeBack => 'ברוך שובך!';
+  String get welcomeBack => 'כניסה למערכת';
 
   @override
   String get email => 'אימייל';
@@ -21,7 +21,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get login => 'התחבר';
 
   @override
-  String get addCrewMember => 'הוסף איש צוות';
+  String get addCrewMember => 'הוספת איש צוות';
 
   @override
   String get name => 'שם';
@@ -66,7 +66,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get roleInspector => 'מפקח';
 
   @override
-  String get addRide => 'הוסף מתקן';
+  String get addRide => 'הוספת מתקן';
 
   @override
   String get description => 'תאור';
@@ -93,7 +93,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get statusUnderMaintenance => 'בטיפול ותחזוקה';
 
   @override
-  String get statusOutOfService => 'מקולקל';
+  String get statusOutOfService => 'מושבת זמנית';
 
   @override
   String get statusRetired => 'מושבת';
@@ -103,12 +103,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get rideAddedSuccessfully => 'מתקן נוסף בהצלחה';
-
-  @override
-  String get manageRides => 'ניהול מתקנים';
-
-  @override
-  String get dashboard => 'לוח בקרה ראשי';
 
   @override
   String get rideList => 'רשימת מתקנים';
@@ -135,7 +129,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get typeRepair => 'תיקון';
 
   @override
-  String get typeRoutineMaintenance => 'תחזוקה שיגרתית';
+  String get typeRoutineMaintenance => 'תחזוקה תקופתית';
 
   @override
   String get typePartReplacement => 'החלפת חלק';
@@ -144,10 +138,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String get typeOther => 'אחר';
 
   @override
-  String get addMaintenanceRecord => 'הוספת תעוד תחזוקה';
+  String get addMaintenanceRecord => 'הוספת תיעוד תחזוקה';
 
   @override
-  String get selectType => 'בחר סוג תחזוקה';
+  String get selectType => 'בחר סוג פעולת תחזוקה';
 
   @override
   String get typeValidationError => 'אנא בחר סוג תחזוקה';
@@ -205,14 +199,14 @@ class AppLocalizationsHe extends AppLocalizations {
   String get parkValidationError => 'אנא בחר אתר';
 
   @override
-  String get switchParks => 'שנוי אתר';
+  String get switchParks => 'מעבר בין אתרים';
 
   @override
   String get myDetails => 'פרטים אישיים';
 
   @override
   String get noParkAssigned =>
-      'החשבון שלך לא משוייך לאחד האתרים, נא לצור קשר עם מנהל המערכת';
+      'החשבון שלך לא משוייך לאחד האתרים, בבקשה לצור קשר עם מנהל המערכת';
 
   @override
   String get updateRide => 'עדכן פרטי מתקן';
@@ -230,7 +224,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get moreInfo => 'מידע נוסף';
 
   @override
-  String get deleteRide => 'מחק מתקן';
+  String get deleteRide => 'מחיקת מתקן';
 
   @override
   String get cannotDelete =>
@@ -238,7 +232,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get deleteRideConfirmation =>
-      'האם אתם בטוחים שאתם רוצים למחק את המתקן הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני המתקן הזה.';
+      'האם אתם בטוחים שאתם רוצים למחק מתקן זה?';
 
   @override
   String get cancel => 'ביטול';
@@ -247,11 +241,11 @@ class AppLocalizationsHe extends AppLocalizations {
   String get delete => 'מחק';
 
   @override
-  String get deleteCrewMember => 'מחק איש צוות';
+  String get deleteCrewMember => 'מחיקת איש צוות';
 
   @override
   String get deleteCrewMemberConfirmation =>
-      'האם אתם בטוחים שאתם רוצים למחוק את איש הצוות הזה? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.';
+      'האם אתם בטוחים שאתם רוצים למחוק איש הצוות? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.';
 
   @override
   String get ok => 'אישור';
@@ -267,14 +261,14 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get errorTooManyRequests =>
-      'יותר מדי ניסיונות, נא לנסות שוב מאוחר יותר';
+      'יותר מדי ניסיונות, בבקשה לנסות שוב מאוחר יותר';
 
   @override
-  String get errorNetwork => 'אין חיבור רשת, נא לבדוק את החיבור ולנסות שוב';
+  String get errorNetwork => 'אין חיבור רשת, בבקשה לבדוק את החיבור ולנסות שוב';
 
   @override
-  String get errorPermissionDenied => 'אין לך הרשאה לבצע את הפעולה הזו';
+  String get errorPermissionDenied => 'אין לך הרשאה לבצע פעולה זו';
 
   @override
-  String get errorGeneric => 'משהו השתבש, נא לנסות שוב ';
+  String get errorGeneric => 'משהו השתבש, בבקשה לנסות שוב ';
 }

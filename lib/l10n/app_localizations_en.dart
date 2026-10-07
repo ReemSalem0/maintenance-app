@@ -105,12 +105,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rideAddedSuccessfully => 'Ride added successsfully';
 
   @override
-  String get manageRides => 'Manage Rides';
-
-  @override
-  String get dashboard => 'Dashboard';
-
-  @override
   String get rideList => 'Ride List';
 
   @override

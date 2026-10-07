@@ -290,18 +290,6 @@ abstract class AppLocalizations {
   /// **'Ride added successsfully'**
   String get rideAddedSuccessfully;
 
-  /// No description provided for @manageRides.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage Rides'**
-  String get manageRides;
-
-  /// No description provided for @dashboard.
-  ///
-  /// In en, this message translates to:
-  /// **'Dashboard'**
-  String get dashboard;
-
   /// No description provided for @rideList.
   ///
   /// In en, this message translates to:

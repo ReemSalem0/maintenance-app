@@ -73,7 +73,7 @@ class DashboardScreen extends StatelessWidget {
             ),
             children: [
               DashboardCard(
-                icon: Icons.build_circle_outlined,
+                icon: Icons.attractions_outlined,
                 label: AppLocalizations.of(context)!.rideList,
                 accentColor: const Color(0xFF1E3A5F),
                 onTap: () {
@@ -106,7 +106,7 @@ class DashboardScreen extends StatelessWidget {
                 DashboardCard(
                   icon: Icons.swap_horiz,
                   label: AppLocalizations.of(context)!.switchParks,
-                  accentColor: const Color(0xFF6BBE9E),
+                  accentColor: const Color.fromARGB(255, 223, 89, 89),
                   onTap: () {
                     Navigator.push(
                       context,

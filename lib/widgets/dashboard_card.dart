@@ -35,7 +35,7 @@ class DashboardCard extends StatelessWidget {
                   color: accentColor.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: accentColor, size: 26),
+                child: Icon(icon, color: accentColor, size: 32),
               ),
               const Spacer(),
               Text(
