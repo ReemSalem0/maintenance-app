@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select Role';
 
   @override
+  String get emailValidationError => 'Please enter a valid email address';
+
+  @override
   String get requiredField => 'This is a required field';
 
   @override

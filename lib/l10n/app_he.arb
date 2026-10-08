@@ -7,6 +7,7 @@
     "addCrewMember": "הוספת איש צוות",
     "name": "שם",
     "selectRole": "בחר תפקיד",
+    "emailValidationError": "כתובת אימייל לא תקינה",
     "requiredField": "שדה זה הוא חובה",
     "crewMemberNotFound": "איש צוות לא נמצא",
     "welcomeActive": "ברוך הבא, החשבון שלך פעיל",

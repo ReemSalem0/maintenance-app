@@ -30,6 +30,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
+  String get emailValidationError => 'כתובת אימייל לא תקינה';
+
+  @override
   String get requiredField => 'שדה זה הוא חובה';
 
   @override

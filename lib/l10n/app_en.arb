@@ -7,6 +7,7 @@
     "addCrewMember": "Add Crew Member",
     "name": "Name",
     "selectRole": "Select Role",
+    "emailValidationError": "Please enter a valid email address",
     "requiredField": "This is a required field",
     "crewMemberNotFound": "Crew Member not found",
     "welcomeActive": "Welcome, you are now activated",

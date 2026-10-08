@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/screens/account_activated_screen.dart';
@@ -20,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
 
   bool _obscurePassword = true;
+  bool _credentialsInvalid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.email,
                   ),
-                  validator: (value) => validateEmail(context, value),
+                  validator: (value) {
+                    if (_credentialsInvalid) return '';
+                    return validateEmail(context, value);
+                  },
+                  onChanged: (_) => _clearCredentialError(),
                 ),
                 TextFormField(
                   controller: _passwordController,
@@ -63,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   validator: (value) {
+                    if (_credentialsInvalid) return '';
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.requiredField;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
+                  onChanged: (_) => _clearCredentialError(),
                 ),
                 ElevatedButton(
                   onPressed: _login,
@@ -83,7 +89,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _clearCredentialError() {
+    if (!_credentialsInvalid) return;
+    _credentialsInvalid = false;
+    _formkey.currentState!.validate();
+  }
+
   Future<void> _login() async {
+    _credentialsInvalid = false;
     if (!_formkey.currentState!.validate()) {
       return; // if invalid, stop!
     }
@@ -129,6 +142,13 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       if (!mounted) return;
+      if (e is FirebaseAuthException &&
+          (e.code == 'invalid-credential' ||
+              e.code == 'wrong-password' ||
+              e.code == 'user-not-found')) {
+        _credentialsInvalid = true;
+        _formkey.currentState!.validate();
+      }
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(friendlyError(context, e))));

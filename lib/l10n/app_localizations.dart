@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'Select Role'**
   String get selectRole;
 
+  /// No description provided for @emailValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get emailValidationError;
+
   /// No description provided for @requiredField.
   ///
   /// In en, this message translates to:
