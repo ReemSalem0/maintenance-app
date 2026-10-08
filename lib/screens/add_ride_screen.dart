@@ -46,7 +46,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(context)!.nameValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -86,7 +86,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
                         if (value == null) {
                           return AppLocalizations.of(
                             context,
-                          )!.parkValidationError;
+                          )!.requiredField;
                         }
                         return null;
                       },
@@ -105,7 +105,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
                     if (value == null || value.trim().isEmpty) {
                       return AppLocalizations.of(
                         context,
-                      )!.descriptionValidationError;
+                      )!.requiredField;
                     }
                     return null;
                   },
@@ -142,7 +142,7 @@ class _AddRideScreenState extends State<AddRideScreen> {
                     if (value == null) {
                       return AppLocalizations.of(
                         context,
-                      )!.statusValidationError;
+                      )!.requiredField;
                     }
                     return null;
                   },

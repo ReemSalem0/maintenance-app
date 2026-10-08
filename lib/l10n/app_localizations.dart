@@ -140,29 +140,11 @@ abstract class AppLocalizations {
   /// **'Select Role'**
   String get selectRole;
 
-  /// No description provided for @emailValidationError.
+  /// No description provided for @requiredField.
   ///
   /// In en, this message translates to:
-  /// **'Please enter a valid email address'**
-  String get emailValidationError;
-
-  /// No description provided for @passwordValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter your password'**
-  String get passwordValidationError;
-
-  /// No description provided for @nameValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a name'**
-  String get nameValidationError;
-
-  /// No description provided for @roleValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please select a role'**
-  String get roleValidationError;
+  /// **'This is a required field'**
+  String get requiredField;
 
   /// No description provided for @crewMemberNotFound.
   ///
@@ -224,12 +206,6 @@ abstract class AppLocalizations {
   /// **'Description'**
   String get description;
 
-  /// No description provided for @descriptionValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please write a description'**
-  String get descriptionValidationError;
-
   /// No description provided for @location.
   ///
   /// In en, this message translates to:
@@ -247,12 +223,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Status'**
   String get selectStatus;
-
-  /// No description provided for @statusValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please select status'**
-  String get statusValidationError;
 
   /// No description provided for @statusOperational.
   ///
@@ -368,12 +338,6 @@ abstract class AppLocalizations {
   /// **'Select Type of Maintenance'**
   String get selectType;
 
-  /// No description provided for @typeValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please select a type of Maintenance'**
-  String get typeValidationError;
-
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -469,12 +433,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a Park'**
   String get selectPark;
-
-  /// No description provided for @parkValidationError.
-  ///
-  /// In en, this message translates to:
-  /// **'Please select a park'**
-  String get parkValidationError;
 
   /// No description provided for @switchParks.
   ///

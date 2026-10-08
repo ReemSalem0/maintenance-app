@@ -46,7 +46,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(context)!.nameValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -88,7 +88,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                           if (value == null) {
                             return AppLocalizations.of(
                               context,
-                            )!.parkValidationError;
+                            )!.requiredField;
                           }
                           return null;
                         },
@@ -122,7 +122,7 @@ class _AddCrewMemberScreenState extends State<AddCrewMemberScreen> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return AppLocalizations.of(context)!.roleValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },

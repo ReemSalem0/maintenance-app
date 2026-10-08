@@ -30,16 +30,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectRole => 'בחר תפקיד';
 
   @override
-  String get emailValidationError => 'אנא הזן כתובת אימייל תקינה';
-
-  @override
-  String get passwordValidationError => 'אנא הזן סיסמה';
-
-  @override
-  String get nameValidationError => 'אנא הזן שם';
-
-  @override
-  String get roleValidationError => 'אנא בחר תפקיד';
+  String get requiredField => 'שדה זה הוא חובה';
 
   @override
   String get crewMemberNotFound => 'איש צוות לא נמצא';
@@ -72,19 +63,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get description => 'תאור';
 
   @override
-  String get descriptionValidationError => 'אנא הזן תאור';
-
-  @override
-  String get location => 'מיקום';
+  String get location => 'Location';
 
   @override
   String get notes => 'הערות';
 
   @override
   String get selectStatus => 'בחר מצב';
-
-  @override
-  String get statusValidationError => 'אנא בחר מצב';
 
   @override
   String get statusOperational => 'פעיל';
@@ -144,9 +129,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get selectType => 'בחר סוג פעולת תחזוקה';
 
   @override
-  String get typeValidationError => 'אנא בחר סוג תחזוקה';
-
-  @override
   String get save => 'שמור';
 
   @override
@@ -194,9 +176,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get selectPark => 'בחר אתר';
-
-  @override
-  String get parkValidationError => 'אנא בחר אתר';
 
   @override
   String get switchParks => 'מעבר בין אתרים';

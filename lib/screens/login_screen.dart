@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.trim().isEmpty) {
                       return AppLocalizations.of(
                         context,
-                      )!.passwordValidationError;
+                      )!.requiredField;
                     }
                     return null;
                   },

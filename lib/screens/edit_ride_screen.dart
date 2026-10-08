@@ -58,7 +58,7 @@ class _EditRideScreen extends State<EditRideScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(context)!.nameValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -98,7 +98,7 @@ class _EditRideScreen extends State<EditRideScreen> {
                         if (value == null) {
                           return AppLocalizations.of(
                             context,
-                          )!.parkValidationError;
+                          )!.requiredField;
                         }
                         return null;
                       },
@@ -117,7 +117,7 @@ class _EditRideScreen extends State<EditRideScreen> {
                     if (value == null || value.trim().isEmpty) {
                       return AppLocalizations.of(
                         context,
-                      )!.descriptionValidationError;
+                      )!.requiredField;
                     }
                     return null;
                   },

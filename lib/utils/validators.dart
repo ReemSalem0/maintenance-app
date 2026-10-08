@@ -4,7 +4,7 @@ import 'package:maintenance_app/l10n/app_localizations.dart';
 String? validateEmail(BuildContext context, String? value) {
   final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
   if (value == null || !emailRegex.hasMatch(value.trim())) {
-    return AppLocalizations.of(context)!.emailValidationError;
+    return AppLocalizations.of(context)!.requiredField;
   }
   return null;
 }

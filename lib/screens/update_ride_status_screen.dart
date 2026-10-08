@@ -78,7 +78,7 @@ class _UpdateRideStatusScreenState extends State<UpdateRideStatusScreen> {
                     if (value == null) {
                       return AppLocalizations.of(
                         context,
-                      )!.statusValidationError;
+                      )!.requiredField;
                     }
                     return null;
                   },

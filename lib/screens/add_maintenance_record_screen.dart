@@ -74,7 +74,7 @@ class _AddMaintenanceRecordScreenState
                   },
                   validator: (value) {
                     if (value == null) {
-                      return AppLocalizations.of(context)!.typeValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -89,9 +89,7 @@ class _AddMaintenanceRecordScreenState
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.descriptionValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -151,6 +149,7 @@ class _AddMaintenanceRecordScreenState
       rideId: widget.ride.id,
       crewMemberUid: crewMember.uid,
       crewMemberName: crewMember.name,
+      crewMemberRole: crewMember.role,
       type: _selectedType!,
       description: _descriptionController.text,
       notes: _notesController.text,

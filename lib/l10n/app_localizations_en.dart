@@ -30,16 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectRole => 'Select Role';
 
   @override
-  String get emailValidationError => 'Please enter a valid email address';
-
-  @override
-  String get passwordValidationError => 'Please enter your password';
-
-  @override
-  String get nameValidationError => 'Please enter a name';
-
-  @override
-  String get roleValidationError => 'Please select a role';
+  String get requiredField => 'This is a required field';
 
   @override
   String get crewMemberNotFound => 'Crew Member not found';
@@ -72,9 +63,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get description => 'Description';
 
   @override
-  String get descriptionValidationError => 'Please write a description';
-
-  @override
   String get location => 'Location';
 
   @override
@@ -82,9 +70,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectStatus => 'Select Status';
-
-  @override
-  String get statusValidationError => 'Please select status';
 
   @override
   String get statusOperational => 'Operational';
@@ -144,9 +129,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectType => 'Select Type of Maintenance';
 
   @override
-  String get typeValidationError => 'Please select a type of Maintenance';
-
-  @override
   String get save => 'Save';
 
   @override
@@ -194,9 +176,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectPark => 'Select a Park';
-
-  @override
-  String get parkValidationError => 'Please select a park';
 
   @override
   String get switchParks => 'Switch Parks';

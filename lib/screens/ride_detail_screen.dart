@@ -225,6 +225,11 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                               ),
                               ListTile(
                                 title: Text(
+                                  '${AppLocalizations.of(context)!.role}: ${_roleLabel(context, record.crewMemberRole)}',
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(
                                   '${AppLocalizations.of(context)!.description}: ${record.description}',
                                 ),
                               ),
@@ -415,6 +420,19 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
         return AppLocalizations.of(context)!.typePartReplacement;
       case MaintenanceType.other:
         return AppLocalizations.of(context)!.typeOther;
+    }
+  }
+
+  String _roleLabel(BuildContext context, CrewRole role) {
+    switch (role) {
+      case CrewRole.administrator:
+        return AppLocalizations.of(context)!.roleAdministrator;
+      case CrewRole.manager:
+        return AppLocalizations.of(context)!.roleManager;
+      case CrewRole.technician:
+        return AppLocalizations.of(context)!.roleTechnician;
+      case CrewRole.inspector:
+        return AppLocalizations.of(context)!.roleInspector;
     }
   }
 }

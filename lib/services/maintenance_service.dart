@@ -13,6 +13,7 @@ class MaintenanceService {
       rideId: maintenanceRecord.rideId,
       crewMemberUid: maintenanceRecord.crewMemberUid,
       crewMemberName: maintenanceRecord.crewMemberName,
+      crewMemberRole: maintenanceRecord.crewMemberRole,
       type: maintenanceRecord.type,
       description: maintenanceRecord.description,
       notes: maintenanceRecord.notes,

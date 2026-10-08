@@ -54,7 +54,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return AppLocalizations.of(context)!.nameValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
@@ -96,7 +96,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
                           if (value == null) {
                             return AppLocalizations.of(
                               context,
-                            )!.parkValidationError;
+                            )!.requiredField;
                           }
                           return null;
                         },
@@ -121,7 +121,7 @@ class _EditCrewMemberScreenState extends State<EditCrewMemberScreen> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return AppLocalizations.of(context)!.roleValidationError;
+                      return AppLocalizations.of(context)!.requiredField;
                     }
                     return null;
                   },
