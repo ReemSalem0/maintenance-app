@@ -20,6 +20,7 @@
     "addRide": "הוספת מתקן",
     "description": "תאור",
     "notes": "הערות",
+    "location": "מיקום",
     "selectStatus": "בחר מצב",
     "statusOperational": "פעיל",
     "statusUnderMaintenance": "בטיפול ותחזוקה",
