@@ -66,9 +66,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get description => 'Description';
 
   @override
-  String get location => 'Location';
-
-  @override
   String get notes => 'Notes';
 
   @override

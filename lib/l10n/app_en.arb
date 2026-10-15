@@ -19,7 +19,6 @@
     "roleInspector": "Inspector",
     "addRide": "Add Ride",
     "description": "Description",
-    "location": "Location",
     "notes": "Notes",
     "selectStatus": "Select Status",
     "statusOperational": "Operational",

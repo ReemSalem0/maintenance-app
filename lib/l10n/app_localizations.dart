@@ -212,12 +212,6 @@ abstract class AppLocalizations {
   /// **'Description'**
   String get description;
 
-  /// No description provided for @location.
-  ///
-  /// In en, this message translates to:
-  /// **'Location'**
-  String get location;
-
   /// No description provided for @notes.
   ///
   /// In en, this message translates to:

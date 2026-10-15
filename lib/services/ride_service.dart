@@ -12,7 +12,6 @@ class RideService {
       id: docRef.id,
       name: ride.name,
       description: ride.description,
-      location: ride.location,
       status: ride.status,
       notes: ride.notes,
       createdAt: ride.createdAt,

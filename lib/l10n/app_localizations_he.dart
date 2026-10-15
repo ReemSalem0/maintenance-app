@@ -66,9 +66,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get description => 'תאור';
 
   @override
-  String get location => 'מיקום';
-
-  @override
   String get notes => 'הערות';
 
   @override

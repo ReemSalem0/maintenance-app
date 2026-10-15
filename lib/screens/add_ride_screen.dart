@@ -17,7 +17,6 @@ class AddRideScreen extends StatefulWidget {
 class _AddRideScreenState extends State<AddRideScreen> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final _locationController = TextEditingController();
   final _notesController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   String? _selectedParkId;
@@ -110,15 +109,6 @@ class _AddRideScreenState extends State<AddRideScreen> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  controller: _locationController,
-                  textDirection: textDirectionFor(_locationController.text),
-                  textAlign: TextAlign.right,
-                  onChanged: (_) => setState(() {}),
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.location,
-                  ),
-                ),
                 DropdownButtonFormField<RideStatus>(
                   initialValue: _selectedStatus,
                   decoration: InputDecoration(
@@ -192,7 +182,6 @@ class _AddRideScreenState extends State<AddRideScreen> {
       id: '',
       name: _nameController.text,
       description: _descriptionController.text,
-      location: _locationController.text,
       status: _selectedStatus!,
       notes: _notesController.text,
       createdAt: DateTime.now(),
@@ -209,7 +198,6 @@ class _AddRideScreenState extends State<AddRideScreen> {
       );
       _nameController.text = '';
       _descriptionController.text = '';
-      _locationController.text = '';
       _notesController.text = '';
       setState(() {
         _selectedStatus = null;

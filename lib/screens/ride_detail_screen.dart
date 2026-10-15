@@ -319,10 +319,6 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                '${AppLocalizations.of(context)!.location}: ${ride.location ?? ''}',
-              ),
-              const SizedBox(height: 8),
-              Text(
                 '${AppLocalizations.of(context)!.notes}: ${ride.notes ?? ''}',
               ),
             ],

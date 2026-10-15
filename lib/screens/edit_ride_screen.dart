@@ -19,7 +19,6 @@ class EditRideScreen extends StatefulWidget {
 class _EditRideScreen extends State<EditRideScreen> {
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
-  late TextEditingController _locationController;
   late TextEditingController _notesController;
   final _formkey = GlobalKey<FormState>();
   String? _selectedParkId;
@@ -31,7 +30,6 @@ class _EditRideScreen extends State<EditRideScreen> {
     _descriptionController = TextEditingController(
       text: widget.ride.description,
     );
-    _locationController = TextEditingController(text: widget.ride.location);
     _notesController = TextEditingController(text: widget.ride.notes);
     _selectedParkId = widget.ride.parkId;
   }
@@ -123,15 +121,6 @@ class _EditRideScreen extends State<EditRideScreen> {
                   },
                 ),
                 TextFormField(
-                  controller: _locationController,
-                  textDirection: textDirectionFor(_locationController.text),
-                  textAlign: TextAlign.right,
-                  onChanged: (_) => setState(() {}),
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.location,
-                  ),
-                ),
-                TextFormField(
                   controller: _notesController,
                   textDirection: textDirectionFor(_notesController.text),
                   textAlign: TextAlign.right,
@@ -163,7 +152,6 @@ class _EditRideScreen extends State<EditRideScreen> {
       id: widget.ride.id,
       name: _nameController.text,
       description: _descriptionController.text,
-      location: _locationController.text,
       status: widget.ride.status,
       notes: _notesController.text,
       createdAt: widget.ride.createdAt,
