@@ -3,10 +3,14 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/attachment.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
+import 'package:maintenance_app/screens/attachments_screen.dart';
+import 'package:maintenance_app/services/attachment_storage.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
 import 'package:maintenance_app/services/pending_records_service.dart';
+import 'package:maintenance_app/utils/attachment_picker.dart';
 import 'package:maintenance_app/utils/text_direction.dart';
 
 class AddMaintenanceRecordScreen extends StatefulWidget {
@@ -25,12 +29,23 @@ class _AddMaintenanceRecordScreenState
   final _notesController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   bool _isSubmitting = false;
-
   MaintenanceType? _selectedType;
+  late final String _recordId = _generateLocalId();
+  int _attachmentCount = 0;
+  bool _saved = false;
 
   String _generateLocalId() {
     return DateTime.now().microsecondsSinceEpoch.toString() +
         Random().nextInt(99999).toString();
+  }
+
+  Future<void> _refreshAttachmentCount() async {
+    final items = await attachmentStorage.list(
+      AttachmentOwnerType.record,
+      _recordId,
+    );
+    if (!mounted) return;
+    setState(() => _attachmentCount = items.length);
   }
 
   @override
@@ -103,7 +118,37 @@ class _AddMaintenanceRecordScreenState
                     labelText: AppLocalizations.of(context)!.notes,
                   ),
                 ),
-
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.attach_file_outlined),
+                  title: Text(AppLocalizations.of(context)!.attachFiles),
+                  onTap: () async {
+                    await pickAndAttach(
+                      context,
+                      AttachmentOwnerType.record,
+                      _recordId,
+                    );
+                    _refreshAttachmentCount();
+                  },
+                ),
+                if (_attachmentCount > 0)
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.file_present_outlined),
+                    title: Text(AppLocalizations.of(context)!.attachments),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AttachmentsScreen(
+                            ownerType: AttachmentOwnerType.record,
+                            ownerId: _recordId,
+                          ),
+                        ),
+                      );
+                      _refreshAttachmentCount();
+                    },
+                  ),
                 ElevatedButton(
                   onPressed: _isSubmitting ? null : _submit,
                   child: Text(AppLocalizations.of(context)!.save),
@@ -145,7 +190,7 @@ class _AddMaintenanceRecordScreenState
     }
 
     final newRecord = MaintenanceRecord(
-      id: _generateLocalId(),
+      id: _recordId,
       rideId: widget.ride.id,
       crewMemberUid: crewMember.uid,
       crewMemberName: crewMember.name,
@@ -158,6 +203,7 @@ class _AddMaintenanceRecordScreenState
 
     final pendingService = PendingRecordsService();
     await pendingService.addPendingRecord(newRecord);
+    _saved = true;
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -170,6 +216,16 @@ class _AddMaintenanceRecordScreenState
     // Attempt an immediate sync in case we're actually online now. syncAllPending safely handles both success and failure
 
     PendingRecordsService().syncAllPending();
+  }
+
+  @override
+  void dispose() {
+    _descriptionController.dispose();
+    _notesController.dispose();
+    if (!_saved) {
+      attachmentStorage.deleteAllFor(AttachmentOwnerType.record, _recordId);
+    }
+    super.dispose();
   }
 
   String _typeLabel(BuildContext context, MaintenanceType type) {

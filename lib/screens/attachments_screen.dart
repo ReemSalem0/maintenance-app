@@ -1,15 +1,13 @@
 import 'dart:io';
-
-import 'package:file_selector/file_selector.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
 import 'package:maintenance_app/models/attachment.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/services/attachment_storage.dart';
 import 'package:maintenance_app/services/firestore_service.dart';
+import 'package:maintenance_app/utils/attachment_picker.dart';
 
 class AttachmentsScreen extends StatefulWidget {
   final AttachmentOwnerType ownerType;
@@ -36,7 +34,14 @@ class _AttachmentsScreenState extends State<AttachmentsScreen> {
         title: Text(AppLocalizations.of(context)!.attachments),
         actions: [
           IconButton(
-            onPressed: _showAddSheet,
+            onPressed: () async {
+              final added = await pickAndAttach(
+                context,
+                widget.ownerType,
+                widget.ownerId,
+              );
+              if (added) await _load();
+            },
             icon: const Icon(Icons.attach_file),
           ),
         ],
@@ -97,43 +102,6 @@ class _AttachmentsScreenState extends State<AttachmentsScreen> {
           );
         }
       },
-    );
-  }
-
-  void _showAddSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.camera_alt_outlined),
-              title: Text(AppLocalizations.of(context)!.takePhoto),
-              onTap: () {
-                Navigator.pop(context);
-                _pickCamera();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_library_outlined),
-              title: Text(AppLocalizations.of(context)!.chooseFromGallery),
-              onTap: () {
-                Navigator.pop(context);
-                _pickGallery();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.insert_drive_file_outlined),
-              title: Text(AppLocalizations.of(context)!.chooseFile),
-              onTap: () {
-                Navigator.pop(context);
-                _pickFile();
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -210,42 +178,5 @@ class _AttachmentsScreenState extends State<AttachmentsScreen> {
     super.initState();
     _load();
     _loadCrewMember();
-  }
-
-  Future<void> _handlePicked(XFile file, AttachmentKind kind) async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) return;
-    final crewMember = await FirestoreService().getCrewMember(currentUser.uid);
-    if (crewMember == null) return;
-
-    await attachmentStorage.add(
-      ownerType: widget.ownerType,
-      ownerId: widget.ownerId,
-      sourcePath: file.path,
-      name: file.name,
-      kind: kind,
-      addedByUid: crewMember.uid,
-      addedByName: crewMember.name,
-    );
-
-    await _load();
-  }
-
-  Future<void> _pickCamera() async {
-    final file = await ImagePicker().pickImage(source: ImageSource.camera);
-    if (file == null) return;
-    await _handlePicked(file, AttachmentKind.photo);
-  }
-
-  Future<void> _pickGallery() async {
-    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file == null) return;
-    await _handlePicked(file, AttachmentKind.photo);
-  }
-
-  Future<void> _pickFile() async {
-    final file = await openFile();
-    if (file == null) return;
-    await _handlePicked(file, AttachmentKind.document);
   }
 }

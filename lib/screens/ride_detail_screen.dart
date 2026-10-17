@@ -257,6 +257,25 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                                     '${AppLocalizations.of(context)!.notes}: ${record.notes}',
                                   ),
                                 ),
+                              ListTile(
+                                leading: const Icon(
+                                  Icons.file_present_outlined,
+                                ),
+                                title: Text(
+                                  AppLocalizations.of(context)!.attachments,
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AttachmentsScreen(
+                                        ownerType: AttachmentOwnerType.record,
+                                        ownerId: record.id,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           );
                         },

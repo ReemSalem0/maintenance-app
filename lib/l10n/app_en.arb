@@ -87,5 +87,6 @@
     "documentOpenUnavailable": "Documents can be opened once cloud storage is connected",
     "deleteAttachment": "Delete attachment",
     "deleteAttachmentConfirmation": "Delete this attachment? This cannot be undone",
-    "attachmentsDemoNote": "Demo: files are stored on this device only"
+    "attachmentsDemoNote": "Demo: files are stored on this device only",
+    "attachFiles": "Attach Files"
 }

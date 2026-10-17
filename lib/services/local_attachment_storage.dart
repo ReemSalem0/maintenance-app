@@ -27,6 +27,17 @@ class LocalAttachmentStorage implements AttachmentStorage {
   }
 
   @override
+  Future<void> deleteAllFor(
+    AttachmentOwnerType ownerType,
+    String ownerId,
+  ) async {
+    final items = await list(ownerType, ownerId);
+    for (final a in items) {
+      await delete(a);
+    }
+  }
+
+  @override
   Future<List<Attachment>> list(
     AttachmentOwnerType ownerType,
     String ownerId,

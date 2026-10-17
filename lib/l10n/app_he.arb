@@ -87,5 +87,6 @@
     "documentOpenUnavailable": "ניתן יהיה לפתוח מסמכים לאחר חיבור אחסון בענן",
     "deleteAttachment": "מחיקת קובץ מצורף",
     "deleteAttachmentConfirmation": "למחוק את הקובץ המצורף? לא ניתן לשחזר",
-    "attachmentsDemoNote": "הדגמה: הקבצים שמורים במכשיר זה בלבד"
+    "attachmentsDemoNote": "הדגמה: הקבצים שמורים במכשיר זה בלבד",
+    "attachFiles": "צירוף קבצים"
 }

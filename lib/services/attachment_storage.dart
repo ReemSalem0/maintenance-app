@@ -15,7 +15,9 @@ abstract class AttachmentStorage {
   Future<List<Attachment>> list(AttachmentOwnerType ownerType, String ownerId);
 
   Future<void> delete(Attachment attachment);
+
+  Future<void> deleteAllFor(AttachmentOwnerType ownerType, String ownerId);
 }
 
-//The following line will be changed when the google drive or firebase storage debate is settled 
+//The following line will be changed when the google drive or firebase storage debate is settled
 final AttachmentStorage attachmentStorage = LocalAttachmentStorage();

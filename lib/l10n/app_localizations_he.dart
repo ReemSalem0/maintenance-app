@@ -279,4 +279,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get attachmentsDemoNote => 'הדגמה: הקבצים שמורים במכשיר זה בלבד';
+
+  @override
+  String get attachFiles => 'צירוף קבצים';
 }

@@ -625,6 +625,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Demo: files are stored on this device only'**
   String get attachmentsDemoNote;
+
+  /// No description provided for @attachFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach Files'**
+  String get attachFiles;
 }
 
 class _AppLocalizationsDelegate

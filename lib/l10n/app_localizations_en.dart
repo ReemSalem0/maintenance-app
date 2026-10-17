@@ -279,4 +279,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get attachmentsDemoNote =>
       'Demo: files are stored on this device only';
+
+  @override
+  String get attachFiles => 'Attach Files';
 }
