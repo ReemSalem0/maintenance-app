@@ -32,9 +32,11 @@ class LocalAttachmentStorage implements AttachmentStorage {
     String ownerId,
   ) async {
     final all = await _readAll();
-    return all
+    final result = all
         .where((a) => a.ownerType == ownerType && a.ownerId == ownerId)
         .toList();
+    result.sort((a, b) => b.addedAt.compareTo(a.addedAt));
+    return result;
   }
 
   @override

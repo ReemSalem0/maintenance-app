@@ -571,6 +571,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong, please try again'**
   String get errorGeneric;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get chooseFromGallery;
+
+  /// No description provided for @chooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get chooseFile;
+
+  /// No description provided for @attachments.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachments'**
+  String get attachments;
+
+  /// No description provided for @noAttachments.
+  ///
+  /// In en, this message translates to:
+  /// **'No attachments found'**
+  String get noAttachments;
+
+  /// No description provided for @documentOpenUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents can be opened once cloud storage is connected'**
+  String get documentOpenUnavailable;
+
+  /// No description provided for @deleteAttachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete attachment'**
+  String get deleteAttachment;
+
+  /// No description provided for @deleteAttachmentConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this attachment? This cannot be undone'**
+  String get deleteAttachmentConfirmation;
+
+  /// No description provided for @attachmentsDemoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Demo: files are stored on this device only'**
+  String get attachmentsDemoNote;
 }
 
 class _AppLocalizationsDelegate

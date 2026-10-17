@@ -78,5 +78,14 @@
     "errorTooManyRequests": "יותר מדי ניסיונות, בבקשה לנסות שוב מאוחר יותר",
     "errorNetwork": "אין חיבור רשת, בבקשה לבדוק את החיבור ולנסות שוב",
     "errorPermissionDenied": "אין לך הרשאה לבצע פעולה זו",
-    "errorGeneric": "משהו השתבש, בבקשה לנסות שוב "
+    "errorGeneric": "משהו השתבש, בבקשה לנסות שוב",
+    "takePhoto": "מצלמה",
+    "chooseFromGallery": "תמונות",
+    "chooseFile": "מסמך",
+    "attachments": "קבצים מצורפים",
+    "noAttachments": "אין קבצים מצורפים",
+    "documentOpenUnavailable": "ניתן יהיה לפתוח מסמכים לאחר חיבור אחסון בענן",
+    "deleteAttachment": "מחיקת קובץ מצורף",
+    "deleteAttachmentConfirmation": "למחוק את הקובץ המצורף? לא ניתן לשחזר",
+    "attachmentsDemoNote": "הדגמה: הקבצים שמורים במכשיר זה בלבד"
 }

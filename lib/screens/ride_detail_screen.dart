@@ -1,10 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_app/l10n/app_localizations.dart';
+import 'package:maintenance_app/models/attachment.dart';
 import 'package:maintenance_app/models/crew_member.dart';
 import 'package:maintenance_app/models/maintenance_record.dart';
 import 'package:maintenance_app/models/ride.dart';
 import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
+import 'package:maintenance_app/screens/attachments_screen.dart';
 import 'package:maintenance_app/screens/edit_ride_screen.dart';
 import 'package:maintenance_app/screens/update_ride_status_screen.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
@@ -113,6 +115,21 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
           body: SafeArea(
             child: Column(
               children: [
+                ListTile(
+                  leading: const Icon(Icons.file_present_outlined),
+                  title: Text(AppLocalizations.of(context)!.attachments),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AttachmentsScreen(
+                          ownerType: AttachmentOwnerType.ride,
+                          ownerId: ride.id,
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,

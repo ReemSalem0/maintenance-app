@@ -249,5 +249,34 @@ class AppLocalizationsHe extends AppLocalizations {
   String get errorPermissionDenied => 'אין לך הרשאה לבצע פעולה זו';
 
   @override
-  String get errorGeneric => 'משהו השתבש, בבקשה לנסות שוב ';
+  String get errorGeneric => 'משהו השתבש, בבקשה לנסות שוב';
+
+  @override
+  String get takePhoto => 'מצלמה';
+
+  @override
+  String get chooseFromGallery => 'תמונות';
+
+  @override
+  String get chooseFile => 'מסמך';
+
+  @override
+  String get attachments => 'קבצים מצורפים';
+
+  @override
+  String get noAttachments => 'אין קבצים מצורפים';
+
+  @override
+  String get documentOpenUnavailable =>
+      'ניתן יהיה לפתוח מסמכים לאחר חיבור אחסון בענן';
+
+  @override
+  String get deleteAttachment => 'מחיקת קובץ מצורף';
+
+  @override
+  String get deleteAttachmentConfirmation =>
+      'למחוק את הקובץ המצורף? לא ניתן לשחזר';
+
+  @override
+  String get attachmentsDemoNote => 'הדגמה: הקבצים שמורים במכשיר זה בלבד';
 }

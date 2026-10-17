@@ -78,5 +78,14 @@
     "errorTooManyRequests": "Too many attempts, try again later",
     "errorNetwork": "No connection, check your internet and try again",
     "errorPermissionDenied": "You don't have permission to do this",
-    "errorGeneric": "Something went wrong, please try again"
+    "errorGeneric": "Something went wrong, please try again",
+    "takePhoto": "Camera",
+    "chooseFromGallery": "Photos",
+    "chooseFile": "Files",
+    "attachments": "Attachments",
+    "noAttachments": "No attachments found",
+    "documentOpenUnavailable": "Documents can be opened once cloud storage is connected",
+    "deleteAttachment": "Delete attachment",
+    "deleteAttachmentConfirmation": "Delete this attachment? This cannot be undone",
+    "attachmentsDemoNote": "Demo: files are stored on this device only"
 }

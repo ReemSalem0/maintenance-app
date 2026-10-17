@@ -249,4 +249,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorGeneric => 'Something went wrong, please try again';
+
+  @override
+  String get takePhoto => 'Camera';
+
+  @override
+  String get chooseFromGallery => 'Photos';
+
+  @override
+  String get chooseFile => 'Files';
+
+  @override
+  String get attachments => 'Attachments';
+
+  @override
+  String get noAttachments => 'No attachments found';
+
+  @override
+  String get documentOpenUnavailable =>
+      'Documents can be opened once cloud storage is connected';
+
+  @override
+  String get deleteAttachment => 'Delete attachment';
+
+  @override
+  String get deleteAttachmentConfirmation =>
+      'Delete this attachment? This cannot be undone';
+
+  @override
+  String get attachmentsDemoNote =>
+      'Demo: files are stored on this device only';
 }
