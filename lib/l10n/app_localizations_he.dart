@@ -224,7 +224,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get deleteCrewMemberConfirmation =>
-      'האם אתם בטוחים שאתם רוצים למחוק איש הצוות? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.';
+      'האם אתם בטוחים שאתם רוצים למחוק איש הצוות? ברגע שמאשרים את הפעולה לא ניתן לשחזר נתוני איש הצוות הזה.';
 
   @override
   String get ok => 'אישור';

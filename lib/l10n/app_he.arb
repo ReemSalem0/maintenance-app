@@ -70,7 +70,7 @@
     "cancel": "ביטול",
     "delete": "מחק",
     "deleteCrewMember": "מחיקת איש צוות",
-    "deleteCrewMemberConfirmation": "האם אתם בטוחים שאתם רוצים למחוק איש הצוות? ברגע שמאשרים את הפעולה לא נתן לשחזר נתוני איש הצוות הזה.",
+    "deleteCrewMemberConfirmation": "האם אתם בטוחים שאתם רוצים למחוק איש הצוות? ברגע שמאשרים את הפעולה לא ניתן לשחזר נתוני איש הצוות הזה.",
     "ok": "אישור",
     "errorInvalidCredentials": "האימייל או הסיסמה שגויים",
     "errorInvalidEmail": "כתובת אימייל לא חוקית",
