@@ -9,9 +9,12 @@ import 'package:maintenance_app/screens/add_maintenance_record_screen.dart';
 import 'package:maintenance_app/screens/attachments_screen.dart';
 import 'package:maintenance_app/screens/edit_ride_screen.dart';
 import 'package:maintenance_app/screens/update_ride_status_screen.dart';
+import 'package:maintenance_app/services/attachment_storage.dart';
 import 'package:maintenance_app/services/maintenance_service.dart';
 import 'package:maintenance_app/services/ride_service.dart';
+import 'package:maintenance_app/utils/attachment_picker.dart';
 import 'package:maintenance_app/utils/error_messages.dart';
+import 'package:maintenance_app/widgets/record_attachment_rows.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String rideId;
@@ -31,6 +34,22 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
   DateTime? _startDate;
   DateTime? _endDate;
   bool _showDateFilter = false;
+  int _attachmentCount = 0;
+
+  Future<void> _refreshAttachmentCount() async {
+    final items = await attachmentStorage.list(
+      AttachmentOwnerType.ride,
+      widget.rideId,
+    );
+    if (!mounted) return;
+    setState(() => _attachmentCount = items.length);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshAttachmentCount();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,20 +135,34 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
             child: Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.file_present_outlined),
-                  title: Text(AppLocalizations.of(context)!.attachments),
-                  onTap: () {
-                    Navigator.push(
+                  leading: const Icon(Icons.attach_file_outlined),
+                  title: Text(AppLocalizations.of(context)!.attachFiles),
+                  onTap: () async {
+                    await pickAndAttach(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => AttachmentsScreen(
-                          ownerType: AttachmentOwnerType.ride,
-                          ownerId: ride.id,
-                        ),
-                      ),
+                      AttachmentOwnerType.ride,
+                      ride.id,
                     );
+                    _refreshAttachmentCount();
                   },
                 ),
+                if (_attachmentCount > 0)
+                  ListTile(
+                    leading: const Icon(Icons.file_present_outlined),
+                    title: Text(AppLocalizations.of(context)!.attachments),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AttachmentsScreen(
+                            ownerType: AttachmentOwnerType.ride,
+                            ownerId: ride.id,
+                          ),
+                        ),
+                      );
+                      _refreshAttachmentCount();
+                    },
+                  ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
@@ -257,25 +290,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                                     '${AppLocalizations.of(context)!.notes}: ${record.notes}',
                                   ),
                                 ),
-                              ListTile(
-                                leading: const Icon(
-                                  Icons.file_present_outlined,
-                                ),
-                                title: Text(
-                                  AppLocalizations.of(context)!.attachments,
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AttachmentsScreen(
-                                        ownerType: AttachmentOwnerType.record,
-                                        ownerId: record.id,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                              RecordAttachmentRows(recordId: record.id),
                             ],
                           );
                         },
